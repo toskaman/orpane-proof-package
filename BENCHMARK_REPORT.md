@@ -1,48 +1,48 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 01:32:00 UTC+2` (September 8, 2026)  
+> 🕒 **Data Updated**: `2026-09-08 01:36:00 UTC+2` (September 8, 2026)  
 > **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 64 GB DDR4-3200 RAM, Windows 11 Pro  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
 > **Verification Rigor**: 100% Bit-Exact SHA-256 and BLAKE3 Match (\Delta = 0 bytes) across all 53 streams  
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.2.2` ➔ `v1.2.3`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.2.3` ➔ `v1.2.4`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:  2,134,074 B -> 2,155,632 B (+21,558 B more space saved / +1.01% net boost)
-+ 🟢 Silesia `xml`:            431,697 B -> 410,139 B (-21,558 B / -4.99% reduction vs v1.2.2; -5.76% vs 7z)
-+ 🟢 Silesia Corpus Total:     46,626,496 B -> 46,604,938 B (-21,558 B / -0.046% reduction vs v1.2.2)
-+ 🟢 Global Archive Total:     49,900,861 B -> 49,879,303 B (-21,558 B reduction vs v1.2.2)
++ 🟢 TOTAL SAVINGS MILESTONE:  2,155,632 B -> 2,162,326 B (+6,694 B more space saved / +0.31% net boost)
++ 🟢 Calgary `news`:           118,386 B -> 111,692 B (-6,694 B / -5.65% reduction vs v1.2.3; -6.10% vs 7z)
++ 🟢 Calgary Corpus Total:     811,900 B -> 805,206 B (-6,694 B / -0.82% reduction vs v1.2.3)
++ 🟢 Global Archive Total:     49,879,303 B -> 49,872,609 B (-6,694 B reduction vs v1.2.3)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.2.2`) | Current (`v1.2.3`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.2.3`) | Current (`v1.2.4`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Silesia `xml`** | Compressed Size | 431,697 B | 🟢 **410,139 B** | 🟩 **-21,558 B** | 🟩 **-4.99%** | 🏆 **NEW RECORD** |
-| **Silesia Corpus (12 files)** | Total Archive Size | 46,626,496 B | 🟢 **46,604,938 B** | 🟩 **-21,558 B** | 🟩 **-0.046%** | 🏆 **NEW RECORD** |
-| **Global Cumulative Total (53 streams)** | Total Archive Size | 49,900,861 B | 🟢 **49,879,303 B** | 🟩 **-21,558 B** | 🟩 **-0.043%** | 🏆 **NEW RECORD** |
-| **Net Savings vs 7-Zip mx9** | Net Space Saved | 2,134,074 B | 🟢 **2,155,632 B** | 🟩 **+21,558 B** | 🟩 **+1.01% boost** | 🏆 **NEW RECORD** |
+| **Calgary `news`** | Compressed Size | 118,386 B | 🟢 **111,692 B** | 🟩 **-6,694 B** | 🟩 **-5.65%** | 🏆 **NEW RECORD** |
+| **Calgary Corpus (18 files)** | Total Archive Size | 811,900 B | 🟢 **805,206 B** | 🟩 **-6,694 B** | 🟩 **-0.82%** | 🏆 **NEW RECORD** |
+| **Global Cumulative Total (53 streams)** | Total Archive Size | 49,879,303 B | 🟢 **49,872,609 B** | 🟩 **-6,694 B** | 🟩 **-0.013%** | 🏆 **NEW RECORD** |
+| **Net Savings vs 7-Zip mx9** | Net Space Saved | 2,155,632 B | 🟢 **2,162,326 B** | 🟩 **+6,694 B** | 🟩 **+0.31% boost** | 🏆 **NEW RECORD** |
 
 ---
 
 ## 🏆 Global Benchmark Summary Table (53 Streams — 225.16 MB Total)
 
 ```diff
-+ 🟢 Orpane-MAX (.orpane):  49,879,303 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
-- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,155,632 B larger)
-- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,609,129 B larger)
-- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,241,137 B larger)
-- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,308,211 B larger)
++ 🟢 Orpane-MAX (.orpane):  49,872,609 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
+- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,162,326 B larger)
+- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,615,823 B larger)
+- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,247,831 B larger)
+- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,314,905 B larger)
 ```
 
 | Corpus / Suite | Streams | Uncompressed Size | 7-Zip 26.02 (mx9) | 🟢 Orpane-MAX (.orpane) | 🟩 Net Bytes Saved | 🟩 Size Reduction (%) | Avg Enc Speed | Avg Dec Speed | Peak RAM | Win Rate vs 7z |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | 🟢 **46,604,938 B** | 🟩 **-1,755,462 B** | 🟩 **-3.63%** | ~1.8 MB/s | **49.6 MB/s** | 699.1 MB | 🏆 **12 / 12 (100%)** |
-| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **811,900 B** | 🟩 **-72,574 B** | 🟩 **-8.21%** | ~2.4 MB/s | **24.3 MB/s** | 17.4 MB | 🏆 **18 / 18 (100%)** |
+| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **805,206 B** | 🟩 **-79,268 B** | 🟩 **-8.96%** | ~2.4 MB/s | **24.3 MB/s** | 17.4 MB | 🏆 **18 / 18 (100%)** |
 | **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,146 B** | 🟩 **-75,023 B** | 🟩 **-15.21%** | ~3.3 MB/s | **37.9 MB/s** | 8.2 MB | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,515,840 B** | 🟩 **-243,940 B** | 🟩 **-13.86%** | ~2.5 MB/s | **25.1 MB/s** | 15.5 MB | 🏆 **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | 🟢 **528,479 B** | 🟩 **-8,633 B** | 🟩 **-1.61%** | ~3.1 MB/s | **32.0 MB/s** | 6.4 MB | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,879,303 B** | 🟩 **-2,155,632 B** | 🟩 **-4.14%** | **~2.1 MB/s** | **42.4 MB/s** | **699.1 MB** | 🏆 **53 / 53 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,872,609 B** | 🟩 **-2,162,326 B** | 🟩 **-4.16%** | **~2.1 MB/s** | **42.4 MB/s** | **699.1 MB** | 🏆 **53 / 53 (100%)** |
 
 ---
 
@@ -86,7 +86,7 @@
 | `book1` | 768,771 B | 261,214 B | 🟢 **230,584 B** | 🟩 **-30,630 B** | 3.33:1 | 2.1 MB/s | 100.9 ms (7.3 MB/s) | 8.4 MB | 🟢 PASS |
 | `book2` | 610,856 B | 169,814 B | 🟢 **156,709 B** | 🟩 **-13,105 B** | 3.90:1 | 2.1 MB/s | 59.9 ms (9.7 MB/s) | 8.2 MB | 🟢 PASS |
 | `geo` | 102,400 B | 53,458 B | 🟢 **48,537 B** | 🟩 **-4,921 B** | 2.11:1 | 0.1 MB/s | 11.5 ms (8.5 MB/s) | 17.4 MB | 🟢 PASS |
-| `news` | 377,109 B | 118,949 B | 🟢 **118,386 B** | 🟩 **-563 B** | 3.19:1 | 1.4 MB/s | 19.3 ms (18.7 MB/s) | 8.1 MB | 🟢 PASS |
+| `news` | 377,109 B | 118,949 B | 🟢 **111,692 B** | 🟩 **-7,257 B** | 3.38:1 | 1.4 MB/s | 33.2 ms (10.8 MB/s) | 0.7 MB | 🟢 PASS |
 | `obj1` | 21,504 B | 9,463 B | 🟢 **9,323 B** | 🟩 **-140 B** | 2.31:1 | 0.1 MB/s | 0.2 ms (86.3 MB/s) | 1.4 MB | 🟢 PASS |
 | `obj2` | 246,814 B | 61,447 B | 🟢 **61,148 B** | 🟩 **-299 B** | 4.04:1 | 1.3 MB/s | 4.6 ms (50.9 MB/s) | 4.1 MB | 🟢 PASS |
 | `paper1` | 53,161 B | 17,331 B | 🟢 **15,496 B** | 🟩 **-1,835 B** | 3.43:1 | 0.3 MB/s | 0.5 ms (112.4 MB/s) | 1.3 MB | 🟢 PASS |
