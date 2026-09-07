@@ -12,7 +12,7 @@
 
 * 📊 **Full Scientific Benchmark Report**: See **[BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)** for detailed file-by-file tables across all 53 streams (Silesia, Calgary, Canterbury, Modern Real-World, Holdout).
 * 📝 **Change & Discovery Log**: See **[UPDATES.md](UPDATES.md)** for discoveries **#113** (macro-BWT on x86 binaries) and **#114** (stride-32 delta on float telemetry).
-* 🏆 **Global Clean Sweep**: **2,118,774 net bytes saved (> 2.11 MB)** over 7-Zip 26.02 mx9 across 225.16 MB of data (53 / 53 files won — 100.0% win rate).
+* 🏆 **Global Clean Sweep**: **2,125,064 net bytes saved (> 2.12 MB)** over 7-Zip 26.02 mx9 across 225.16 MB of data (53 / 53 files won — 100.0% win rate).
 
 ### Global Benchmark Summary Table (53 Streams — 225.16 MB Total)
 
@@ -21,9 +21,9 @@
 | **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | **46,626,496 B** | **-1,733,904 B** | **-3.59%** | **12 / 12 (100%)** |
 | **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | **815,053 B** | **-69,421 B** | **-7.85%** | **18 / 18 (100%)** |
 | **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | **418,196 B** | **-74,973 B** | **-15.20%** | **11 / 11 (100%)** |
-| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | **1,527,937 B** | **-231,843 B** | **-13.17%** | **6 / 6 (100%)** |
+| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | **1,521,647 B** | **-238,133 B** | **-13.53%** | **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | **528,479 B** | **-8,633 B** | **-1.61%** | **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | **49,916,161 B** | **-2,118,774 B** | **-4.07%** | **53 / 53 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | **49,909,871 B** | **-2,125,064 B** | **-4.08%** | **53 / 53 (100%)** |
 
 ---
 

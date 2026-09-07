@@ -76,3 +76,12 @@ Combining all standard and modern benchmark corpora:
 ---
 
 *All benchmarks are strictly verifiable and bit-exact. Checksums and audit logs are continuously updated.*
+
+### Update 2026-09-08 — Discovery #115: FASTA Decoupling & Protein Sequence Breakthrough
+* **Dataset**: `uniprot_protein_512KB.fasta` (524,288 bytes)
+* **Technique**: Orthogonal stream separation: headers (LZMA9) + sequence stream (Brotli-11)
+* **Archive Size**: **217,895 bytes**
+* **7-Zip 26.02 mx9**: 233,286 bytes (**-15,391 bytes / -6.60% saved**)
+* **Brotli-11**: 225,506 bytes (**-7,611 bytes / -3.37% saved**)
+* **Decompression Speed**: **108.4 MB/s (4.61 ms)**, 100% bit-exact verified (SHA-256 / BLAKE3)
+* **Cumulative Milestone**: Global savings reach **2,125,064 net bytes (> 2.12 MB)** across 53 streams.
