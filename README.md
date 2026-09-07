@@ -8,13 +8,26 @@
 
 ---
 
-## 🚀 Latest Project Update: Modern Suite Breakthroughs (>2.11 MB Saved)
+## 🚀 Latest Project Updates & Comprehensive Benchmarks
 
-See **[UPDATES.md](UPDATES.md)** for the latest benchmark records across the **Modern Real-World Suite (6 datasets)**, new algorithmic discoveries (**#113** on x86 code and **#114** on telemetry), and the cumulative grand total crossing **2,118,774 net bytes saved (> 2.11 MB)** over 7-Zip 26.02 mx9 across 53 public and real-world test streams (100% win rate).
+* 📊 **Full Scientific Benchmark Report**: See **[BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)** for detailed file-by-file tables across all 53 streams (Silesia, Calgary, Canterbury, Modern Real-World, Holdout).
+* 📝 **Change & Discovery Log**: See **[UPDATES.md](UPDATES.md)** for discoveries **#113** (macro-BWT on x86 binaries) and **#114** (stride-32 delta on float telemetry).
+* 🏆 **Global Clean Sweep**: **2,118,774 net bytes saved (> 2.11 MB)** over 7-Zip 26.02 mx9 across 225.16 MB of data (53 / 53 files won — 100.0% win rate).
+
+### Global Benchmark Summary Table (53 Streams — 225.16 MB Total)
+
+| Benchmark Corpus / Suite | Files / Streams | Original Size | 7-Zip 26.02 (mx9) | Orpane-MAX (.orpane) | Net Bytes Saved | Size Reduction (%) | Win Rate vs 7z |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | **46,626,496 B** | **-1,733,904 B** | **-3.59%** | **12 / 12 (100%)** |
+| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | **815,053 B** | **-69,421 B** | **-7.85%** | **18 / 18 (100%)** |
+| **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | **418,196 B** | **-74,973 B** | **-15.20%** | **11 / 11 (100%)** |
+| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | **1,527,937 B** | **-231,843 B** | **-13.17%** | **6 / 6 (100%)** |
+| **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | **528,479 B** | **-8,633 B** | **-1.61%** | **6 / 6 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | **49,916,161 B** | **-2,118,774 B** | **-4.07%** | **53 / 53 (100%)** |
 
 ---
 
-## 1. Benchmark Comparison Table
+## 1. Standalone Verification Pair (Included in Repository)
 
 | Target File | Benchmark Corpus | Data Type | Original Size | 7-Zip 26.02 (-mx9) | Orpane (MAX_RATIO) | Net Space Saved | Size Reduction | Decompression Throughput |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -24,6 +37,7 @@ See **[UPDATES.md](UPDATES.md)** for the latest benchmark records across the **M
 
 * **Asymmetric Decompression Speed**: On `pic`, Orpane decompresses in **1.14 ms (448.4 MB/s)**, which is **21.7x faster than 7-Zip** (24.8 ms / 20.7 MB/s).
 * **Multi-Codec Comparison**: Orpane also beats **Brotli-11** (87,426 B, -8.54%), **LZMA-9** (90,484 B, -11.64%), and **Zstandard-19** (92,851 B, -13.89%) across this suite.
+
 
 ---
 
