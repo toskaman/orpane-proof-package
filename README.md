@@ -3,11 +3,13 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2001%3A36%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2001%3A45%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, full operational metrics (compression time, decompression speed, RAM footprint), and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 01:36:00 UTC+2` (September 8, 2026)  
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 01:45:00 UTC+2` (September 8, 2026)  
+> 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
+> ⏱️ **Latency Methodology**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and container framing; **In-Memory Warmed Cache Throughput** isolates pure kernel transformation and entropy encode/decode speed in RAM.  
 > 🎯 **Cumulative Milestone**: **2,162,326 net bytes saved (> 2.162 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---

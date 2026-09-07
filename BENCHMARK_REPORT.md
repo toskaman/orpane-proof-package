@@ -1,7 +1,8 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 01:36:00 UTC+2` (September 8, 2026)  
-> **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 64 GB DDR4-3200 RAM, Windows 11 Pro  
+> 🕒 **Data Updated**: `2026-09-08 01:45:00 UTC+2` (September 8, 2026)  
+> **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
+> **Measurement Protocol**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and cold disk cache; **In-Memory Warmed Cache Throughput** measures pure computational kernel transformation and entropy encode/decode execution in RAM.  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
 > **Verification Rigor**: 100% Bit-Exact SHA-256 and BLAKE3 Match (\Delta = 0 bytes) across all 53 streams  
 
