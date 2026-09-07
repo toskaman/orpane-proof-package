@@ -1,6 +1,6 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 01:12:00 UTC+2` (September 8, 2026)  
+> 🕒 **Data Updated**: `2026-09-08 01:22:00 UTC+2` (September 8, 2026)  
 > **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 64 GB DDR4-3200 RAM, Windows 11 Pro  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
 > **Verification Integrity**: 100% Bit-Exact SHA-256 and BLAKE3 Match (\Delta = 0 bytes) across all 53 streams  
@@ -10,18 +10,18 @@
 ## Executive Summary: 53/53 Clean Sweep Across 225.16 MB
 
 Across all 5 public and modern real-world benchmark suites (53 files / streams totaling **225,159,007 bytes**):
-* 🟢 **Orpane-MAX Cumulative Archive Size**: **49,903,970 bytes**
+* 🟢 **Orpane-MAX Cumulative Archive Size**: **49,900,861 bytes**
 * ❌ **7-Zip 26.02 (-mx9) Cumulative Size**: **52,034,935 bytes**
-* 🟩 **Net Space Saved over 7-Zip mx9**: **-2,130,965 bytes (> 2.13 MB)**
+* 🟩 **Net Space Saved over 7-Zip mx9**: **-2,134,074 bytes (> 2.134 MB)**
 * 🏆 **Win Rate vs 7-Zip / Reference Standard**: **53 / 53 (100.0% clean sweep)**
 * ⚡ **Decompression Speed**: Up to **1,058.9 MB/s (> 1.05 GB/s)** in streaming profile.
 
 ```diff
-+ 🟢 Orpane-MAX (.orpane):  49,903,970 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
-- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,965 B larger)
-- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,584,462 B larger)
-- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,216,470 B larger)
-- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,283,544 B larger)
++ 🟢 Orpane-MAX (.orpane):  49,900,861 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
+- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,134,074 B larger)
+- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,587,571 B larger)
+- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,219,579 B larger)
+- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,286,653 B larger)
 ```
 
 ---
@@ -31,11 +31,11 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 | Corpus / Suite | Streams | Uncompressed Size | 7-Zip 26.02 (mx9) | 🟢 Orpane-MAX (.orpane) | 🟩 Net Bytes Saved | 🟩 Size Reduction (%) | Win Rate vs 7z |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | 🟢 **46,626,496 B** | 🟩 **-1,733,904 B** | 🟩 **-3.59%** | 🏆 **12 / 12 (100%)** |
-| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **814,959 B** | 🟩 **-69,515 B** | 🟩 **-7.86%** | 🏆 **18 / 18 (100%)** |
-| **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,196 B** | 🟩 **-74,973 B** | 🟩 **-15.20%** | 🏆 **11 / 11 (100%)** |
+| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **811,900 B** | 🟩 **-72,574 B** | 🟩 **-8.21%** | 🏆 **18 / 18 (100%)** |
+| **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,146 B** | 🟩 **-75,023 B** | 🟩 **-15.21%** | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,515,840 B** | 🟩 **-243,940 B** | 🟩 **-13.86%** | 🏆 **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | 🟢 **528,479 B** | 🟩 **-8,633 B** | 🟩 **-1.61%** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,903,970 B** | 🟩 **-2,130,965 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,900,861 B** | 🟩 **-2,134,074 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100%)** |
 
 ---
 
@@ -77,6 +77,9 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 
 * **Canterbury `kennedy.xls` (1.03 MB Excel)**: Compressed to 🟢 **24,933 B** vs 7-Zip 51,128 B (🟩 **-26,195 B / -51.2% reduction**).
 * **Canterbury `plrabn12.txt` (481 KB poetry)**: Compressed to 🟢 **144,820 B** vs 7-Zip 165,658 B (🟩 **-20,838 B**).
+* **Canterbury `sum` (38 KB SPARC binary)**: Compressed to 🟢 **9,439 B** vs 7-Zip 9,513 B (🟩 **-74 B**).
+* **Calgary `geo` (102 KB coordinates)**: Compressed to 🟢 **48,537 B** vs 7-Zip 53,458 B (🟩 **-4,921 B / -9.21% reduction**).
+* **Calgary `obj1` (21 KB VAX binary)**: Compressed to 🟢 **9,323 B** vs 7-Zip 9,463 B (🟩 **-140 B**).
 * **Calgary `obj2` (246 KB Motorola 68k binary)**: Compressed to 🟢 **61,148 B** vs 7-Zip 61,447 B (🟩 **-299 B**). Decompresses in **3.72 ms (63.2 MB/s)**.
 * **Calgary `pic` (513 KB bitmap)**: Compressed to 🟢 **37,033 B** vs 7-Zip 40,060 B (🟩 **-3,027 B**). Decompresses in **1.14 ms (448.4 MB/s)**.
 * **Calgary `book1` & `book2` (1.38 MB text)**: Compressed to 🟢 **387,293 B** vs 7-Zip 431,028 B (🟩 **-43,735 B**).
