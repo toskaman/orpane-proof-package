@@ -11,3 +11,4 @@ e77cc5cb6c3613b52441653d76988998  2_compressed_files/alice29.txt.orpane
 8b471b8e0e3dfbb86cfcf20aac801254  README.txt
 57364c67c13a960b0ef0261e595fd1b5  VERIFICATION_LOG.md
 57364c67c13a960b0ef0261e595fd1b5  VERIFICATION_LOG.txt
+ba8bb4fc432b2a40ff274d754c40f30f  bin/orpane-dec.exe
