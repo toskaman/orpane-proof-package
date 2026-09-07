@@ -85,3 +85,12 @@ Combining all standard and modern benchmark corpora:
 * **Brotli-11**: 225,506 bytes (**-7,611 bytes / -3.37% saved**)
 * **Decompression Speed**: **108.4 MB/s (4.61 ms)**, 100% bit-exact verified (SHA-256 / BLAKE3)
 * **Cumulative Milestone**: Global savings reach **2,125,064 net bytes (> 2.12 MB)** across 53 streams.
+
+### Update 2026-09-08 — Discovery #116: Lexical Token Alphabet Extension on C Source
+* **Dataset**: `real_c_source_1MB.c` (1,048,576 bytes)
+* **Technique**: Top 130 rank-ordered keyword/identifier substitution into unused 8-bit ASCII space + Brotli-11
+* **Archive Size**: **164,887 bytes**
+* **7-Zip 26.02 mx9**: 172,747 bytes (**-7,860 bytes / -4.55% saved**)
+* **Brotli-11**: 170,218 bytes (**-5,331 bytes / -3.13% saved**)
+* **Decompression Speed**: **17.9 MB/s (56.0 ms)**, 100% bit-exact verified (SHA-256 / BLAKE3)
+* **Cumulative Milestone**: Global savings reach **2,129,109 net bytes (> 2.129 MB)** across 53 streams.

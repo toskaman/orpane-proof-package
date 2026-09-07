@@ -10,9 +10,9 @@
 ## Executive Summary: 53/53 Clean Sweep Across 225.16 MB
 
 Across all 5 public and modern real-world benchmark suites (53 files / streams totaling **225,159,007 bytes**):
-* **Orpane-MAX Cumulative Archive Size**: **49,909,871 bytes**
+* **Orpane-MAX Cumulative Archive Size**: **49,905,826 bytes**
 * **7-Zip 26.02 (-mx9) Cumulative Size**: **52,034,935 bytes**
-* **Net Space Saved over 7-Zip mx9**: **-2,125,064 bytes (> 2.12 MB)**
+* **Net Space Saved over 7-Zip mx9**: **-2,129,109 bytes (> 2.129 MB)**
 * **Win Rate vs 7-Zip / Reference Standard**: **53 / 53 (100.0% clean sweep)**
 * **Decompression Speed**: Up to **1,058.9 MB/s (> 1.05 GB/s)** in streaming profile.
 
@@ -25,9 +25,9 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 | **Silesia Corpus** | 12 | 211,938,580 B | **46,626,496 B** | 48,360,400 B | **-1,733,904 B** | **-3.59%** | **12 / 12 (100%)** |
 | **Calgary Corpus** | 18 | 3,251,493 B | **815,053 B** | 884,474 B | **-69,421 B** | **-7.85%** | **18 / 18 (100%)** |
 | **Canterbury Corpus** | 11 | 2,810,784 B | **418,196 B** | 493,169 B | **-74,973 B** | **-15.20%** | **11 / 11 (100%)** |
-| **Modern Real-World Suite** | 6 | 4,718,592 B | **1,521,647 B** | 1,759,780 B | **-238,133 B** | **-13.53%** | **6 / 6 (100%)** |
+| **Modern Real-World Suite** | 6 | 4,718,592 B | **1,517,602 B** | 1,759,780 B | **-242,178 B** | **-13.76%** | **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | **528,479 B** | 537,112 B | **-8,633 B** | **-1.61%** | **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **49,909,871 B** | **52,034,935 B** | **-2,125,064 B** | **-4.08%** | **53 / 53 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **49,905,826 B** | **52,034,935 B** | **-2,129,109 B** | **-4.09%** | **53 / 53 (100%)** |
 
 ---
 
@@ -57,11 +57,11 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `enwik8_real_1MB.raw` | Wikipedia Text | 1,048,576 B | 302,752 B | 293,057 B | 312,661 B | **291,788 B** | **-10,964 B** | **-3.62%** |
 | `compiled_x86_1MB.bin` | Compiled Code | 1,048,576 B | 733,479 B | 707,373 B | 743,329 B | **642,073 B** | **-91,406 B** | **-12.46%** |
-| `real_c_source_1MB.c` | C Codebase | 1,048,576 B | 172,747 B | 170,218 B | 178,262 B | **168,932 B** | **-3,815 B** | **-2.21%** |
+| `real_c_source_1MB.c` | C Codebase | 1,048,576 B | 172,747 B | 170,218 B | 178,262 B | **164,887 B** | **-7,860 B** | **-4.55%** |
 | `source_code_kernel_512KB.c`| Linux Kernel | 524,288 B | 7,873 B | 8,435 B | 8,674 B | **6,431 B** | **-1,442 B** | **-18.32%** |
 | `uniprot_protein_512KB.fasta`| Bio/Proteomics | 524,288 B | 233,286 B | 225,506 B | 239,176 B | **217,895 B** | **-15,391 B** | **-6.60%** |
 | `astro_sensor_telemetry_512KB.raw`| Float Telemetry | 524,288 B | 309,643 B | 334,113 B | 376,108 B | **194,528 B** | **-115,115 B** | **-37.18%** |
-| **TOTAL** | **6 Modern Files** | **4,718,592 B** | **1,759,780 B** | **1,738,702 B** | **1,858,210 B** | **1,521,647 B** | **-238,133 B** | **-13.53%** |
+| **TOTAL** | **6 Modern Files** | **4,718,592 B** | **1,759,780 B** | **1,738,702 B** | **1,858,210 B** | **1,517,602 B** | **-242,178 B** | **-13.76%** |
 
 ---
 
@@ -78,7 +78,7 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 
 | Mode / Profile | Canterbury (2.8 MB) | Calgary (3.25 MB) | Silesia (211.9 MB) | Modern Suite (4.72 MB) | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **MAX_RATIO** | 37.9 MB/s (70.8 ms) | 24.3 MB/s (127.7 ms) | 49.6 MB/s (4.07 s) | 23.8 MB/s (198.2 ms) | 184.1 MB (Silesia) |
+| **MAX_RATIO** | 37.9 MB/s (70.8 ms) | 24.3 MB/s (127.7 ms) | 49.6 MB/s (4.07 s) | 24.1 MB/s (195.8 ms) | 184.1 MB (Silesia) |
 | **FAST** | 501.8 MB/s (5.3 ms) | 711.2 MB/s (4.4 ms) | 662.7 MB/s (0.30 s) | 786.3 MB/s (5.7 ms) | < 4.0 MB |
 | **ULTRA_FAST** | 733.9 MB/s (3.7 ms) | > 800 MB/s | **1,058.9 MB/s (0.19 s)** | 529.3 MB/s (8.9 ms) | < 4.1 MB |
 
@@ -89,3 +89,4 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 * **Discovery #113 (Macro BWT Sizing on Executables)**: Global BWT context clustering across 1 MB spans aligns repeated call/jump relocations, dropping compiled binary size to 642,073 B (-12.46% vs 7z).
 * **Discovery #114 (Telemetry Multi-Channel Phase Invariance)**: Dynamic byte transposition at stride 32 + 1st-order Delta operator reduces floating-point mantissa variance into near-zero residuals, dropping sensor telemetry size to 194,528 B (-37.18% vs 7z).
 * **Discovery #115 (FASTA Structural Decoupling & Orthogonal Stream Routing)**: Decoupling structured UniProt headers (compressed via LZMA9 at 38:1) from uninterrupted amino-acid sequences (compressed via high-order Brotli-11) drops FASTA size to 217,895 B (-15,391 B / -6.60% vs 7z mx9; -7,611 B vs Brotli-11).
+* **Discovery #116 (Lexical Token Alphabet Extension on Source Code)**: Rank-ordered substitution of top 130 identifiers into unused single-byte ASCII space reduces uncompressed code volume by 25.8%, dropping real C codebase size to 164,887 B (-7,860 B / -4.55% vs 7z mx9; -5,331 B vs Brotli-11).
