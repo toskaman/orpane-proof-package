@@ -3,33 +3,33 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2001%3A06%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2001%3A12%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 01:06:00 UTC+2` (September 8, 2026)  
-> 🎯 **Cumulative Milestone**: **2,130,871 net bytes saved (> 2.13 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 01:12:00 UTC+2` (September 8, 2026)  
+> 🎯 **Cumulative Milestone**: **2,130,965 net bytes saved (> 2.13 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---
 
 ## 🏆 Global Benchmark Summary (53 Streams — 225.16 MB Total)
 
 ```diff
-+ 🟢 Orpane-MAX (.orpane):  49,904,064 B  [CHAMPION — 100% Clean Sweep across 53/53 Streams]
-- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,871 B larger)
-- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,584,368 B larger)
-- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,216,376 B larger)
-- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,283,450 B larger)
++ 🟢 Orpane-MAX (.orpane):  49,903,970 B  [CHAMPION — 100% Clean Sweep across 53/53 Streams]
+- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,965 B larger)
+- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,584,462 B larger)
+- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,216,470 B larger)
+- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,283,544 B larger)
 ```
 
 | Benchmark Suite | Streams | Uncompressed | 7-Zip 26.02 (mx9) | 🟢 Orpane-MAX (.orpane) | 🟩 Net Bytes Saved | 🟩 Reduction (%) | Win Rate vs 7z |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | 🟢 **46,626,496 B** | 🟩 **-1,733,904 B** | 🟩 **-3.59%** | 🏆 **12 / 12 (100%)** |
-| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **815,053 B** | 🟩 **-69,421 B** | 🟩 **-7.85%** | 🏆 **18 / 18 (100%)** |
+| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **814,959 B** | 🟩 **-69,515 B** | 🟩 **-7.86%** | 🏆 **18 / 18 (100%)** |
 | **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,196 B** | 🟩 **-74,973 B** | 🟩 **-15.20%** | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,515,840 B** | 🟩 **-243,940 B** | 🟩 **-13.86%** | 🏆 **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | 🟢 **528,479 B** | 🟩 **-8,633 B** | 🟩 **-1.61%** | 🏆 **6 / 6 (100%)** |
-| **GRAND CUMULATIVE TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,904,064 B** | 🟩 **-2,130,871 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND CUMULATIVE TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,903,970 B** | 🟩 **-2,130,965 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100.0%)** |
 
 📊 **Detailed File-by-File Measurements**: See **[BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)** for individual file sizes, compression ratios, and decompression throughputs.
 
