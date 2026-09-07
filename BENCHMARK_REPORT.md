@@ -1,6 +1,6 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 01:05:00 UTC+2` (September 8, 2026)  
+> 🕒 **Data Updated**: `2026-09-08 01:06:00 UTC+2` (September 8, 2026)  
 > **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 64 GB DDR4-3200 RAM, Windows 11 Pro  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
 > **Verification Integrity**: 100% Bit-Exact SHA-256 and BLAKE3 Match (\Delta = 0 bytes) across all 53 streams  
@@ -10,18 +10,18 @@
 ## Executive Summary: 53/53 Clean Sweep Across 225.16 MB
 
 Across all 5 public and modern real-world benchmark suites (53 files / streams totaling **225,159,007 bytes**):
-* 🟢 **Orpane-MAX Cumulative Archive Size**: **49,904,579 bytes**
+* 🟢 **Orpane-MAX Cumulative Archive Size**: **49,904,064 bytes**
 * ❌ **7-Zip 26.02 (-mx9) Cumulative Size**: **52,034,935 bytes**
-* 🟩 **Net Space Saved over 7-Zip mx9**: **-2,130,356 bytes (> 2.13 MB)**
+* 🟩 **Net Space Saved over 7-Zip mx9**: **-2,130,871 bytes (> 2.13 MB)**
 * 🏆 **Win Rate vs 7-Zip / Reference Standard**: **53 / 53 (100.0% clean sweep)**
 * ⚡ **Decompression Speed**: Up to **1,058.9 MB/s (> 1.05 GB/s)** in streaming profile.
 
 ```diff
-+ 🟢 Orpane-MAX (.orpane):  49,904,579 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
-- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,356 B larger)
-- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,583,853 B larger)
-- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,215,861 B larger)
-- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,282,935 B larger)
++ 🟢 Orpane-MAX (.orpane):  49,904,064 B  [CHAMPION — 100% Win Rate across 53/53 Streams]
+- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,871 B larger)
+- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,584,368 B larger)
+- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,216,376 B larger)
+- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,283,450 B larger)
 ```
 
 ---
@@ -33,9 +33,9 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 | **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | 🟢 **46,626,496 B** | 🟩 **-1,733,904 B** | 🟩 **-3.59%** | 🏆 **12 / 12 (100%)** |
 | **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **815,053 B** | 🟩 **-69,421 B** | 🟩 **-7.85%** | 🏆 **18 / 18 (100%)** |
 | **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,196 B** | 🟩 **-74,973 B** | 🟩 **-15.20%** | 🏆 **11 / 11 (100%)** |
-| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,516,355 B** | 🟩 **-243,425 B** | 🟩 **-13.83%** | 🏆 **6 / 6 (100%)** |
+| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,515,840 B** | 🟩 **-243,940 B** | 🟩 **-13.86%** | 🏆 **6 / 6 (100%)** |
 | **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | 🟢 **528,479 B** | 🟩 **-8,633 B** | 🟩 **-1.61%** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,904,579 B** | 🟩 **-2,130,356 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100%)** |
+| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,904,064 B** | 🟩 **-2,130,871 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100%)** |
 
 ---
 
@@ -63,13 +63,13 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 
 | File Name | Domain / Type | Original Size | 7-Zip 26.02 (mx9) | Brotli-11 | Zstandard-19 | 🟢 Orpane-MAX | 🟩 Net vs 7z | 🟩 Gain (%) |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `enwik8_real_1MB.raw` | Wikipedia Text | 1,048,576 B | 302,752 B | 293,057 B | 312,661 B | 🟢 **291,788 B** | 🟩 **-10,964 B** | 🟩 **-3.62%** |
+| `enwik8_real_1MB.raw` | Wikipedia Text | 1,048,576 B | 302,752 B | 293,057 B | 312,661 B | 🟢 **291,273 B** | 🟩 **-11,479 B** | 🟩 **-3.79%** |
 | `compiled_x86_1MB.bin` | Compiled Code | 1,048,576 B | 733,479 B | 707,373 B | 743,329 B | 🟢 **642,073 B** | 🟩 **-91,406 B** | 🟩 **-12.46%** |
 | `real_c_source_1MB.c` | C Codebase | 1,048,576 B | 172,747 B | 170,218 B | 178,262 B | 🟢 **164,887 B** | 🟩 **-7,860 B** | 🟩 **-4.55%** |
 | `source_code_kernel_512KB.c`| Linux Kernel | 524,288 B | 7,873 B | 8,435 B | 8,674 B | 🟢 **5,184 B** | 🟩 **-2,689 B** | 🟩 **-34.16%** |
 | `uniprot_protein_512KB.fasta`| Bio/Proteomics | 524,288 B | 233,286 B | 225,506 B | 239,176 B | 🟢 **217,895 B** | 🟩 **-15,391 B** | 🟩 **-6.60%** |
 | `astro_sensor_telemetry_512KB.raw`| Float Telemetry | 524,288 B | 309,643 B | 334,113 B | 376,108 B | 🟢 **194,528 B** | 🟩 **-115,115 B** | 🟩 **-37.18%** |
-| **TOTAL** | **6 Modern Files** | **4,718,592 B** | **1,759,780 B** | **1,738,702 B** | **1,858,210 B** | 🟢 **1,516,355 B** | 🟩 **-243,425 B** | 🟩 **-13.83%** |
+| **TOTAL** | **6 Modern Files** | **4,718,592 B** | **1,759,780 B** | **1,738,702 B** | **1,858,210 B** | 🟢 **1,515,840 B** | 🟩 **-243,940 B** | 🟩 **-13.86%** |
 
 ---
 
@@ -86,6 +86,6 @@ Across all 5 public and modern real-world benchmark suites (53 files / streams t
 
 | Mode / Profile | Canterbury (2.8 MB) | Calgary (3.25 MB) | Silesia (211.9 MB) | Modern Suite (4.72 MB) | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **MAX_RATIO** | 37.9 MB/s (70.8 ms) | 24.3 MB/s (127.7 ms) | 49.6 MB/s (4.07 s) | 24.5 MB/s (192.6 ms) | 184.1 MB (Silesia) |
+| **MAX_RATIO** | 37.9 MB/s (70.8 ms) | 24.3 MB/s (127.7 ms) | 49.6 MB/s (4.07 s) | 25.1 MB/s (188.0 ms) | 184.1 MB (Silesia) |
 | **FAST** | 501.8 MB/s (5.3 ms) | 711.2 MB/s (4.4 ms) | 662.7 MB/s (0.30 s) | 786.3 MB/s (5.7 ms) | < 4.0 MB |
 | **ULTRA_FAST** | 733.9 MB/s (3.7 ms) | > 800 MB/s | **1,058.9 MB/s (0.19 s)** | 529.3 MB/s (8.9 ms) | < 4.1 MB |
