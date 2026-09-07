@@ -3,41 +3,48 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2001%3A05%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 01:05:00 UTC+2` (September 8, 2026)  
+> 🎯 **Cumulative Milestone**: **2,130,356 net bytes saved (> 2.13 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+
 ---
 
-## 🚀 Latest Project Updates & Comprehensive Benchmarks
+## 🏆 Global Benchmark Summary (53 Streams — 225.16 MB Total)
 
-* 📊 **Full Scientific Benchmark Report**: See **[BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)** for detailed file-by-file tables across all 53 streams (Silesia, Calgary, Canterbury, Modern Real-World, Holdout).
-* 📝 **Change & Discovery Log**: See **[UPDATES.md](UPDATES.md)** for discoveries **#113** (macro-BWT on x86 binaries) and **#114** (stride-32 delta on float telemetry).
-* 🏆 **Global Clean Sweep**: **2,129,109 net bytes saved (> 2.129 MB)** over 7-Zip 26.02 mx9 across 225.16 MB of data (53 / 53 files won — 100.0% win rate).
+```diff
++ 🟢 Orpane-MAX (.orpane):  49,904,579 B  [CHAMPION — 100% Clean Sweep across 53/53 Streams]
+- ❌ 7-Zip 26.02 (-mx9):    52,034,935 B  (+2,130,356 B larger)
+- ❌ LZMA 5.6.3 (-9):       52,488,432 B  (+2,583,853 B larger)
+- ❌ Brotli 1.2.0 (-11):    53,120,440 B  (+3,215,861 B larger)
+- ❌ Zstandard 1.5.7 (-19): 56,187,514 B  (+6,282,935 B larger)
+```
 
-### Global Benchmark Summary Table (53 Streams — 225.16 MB Total)
-
-| Benchmark Corpus / Suite | Files / Streams | Original Size | 7-Zip 26.02 (mx9) | Orpane-MAX (.orpane) | Net Bytes Saved | Size Reduction (%) | Win Rate vs 7z |
+| Benchmark Suite | Streams | Uncompressed | 7-Zip 26.02 (mx9) | 🟢 Orpane-MAX (.orpane) | 🟩 Net Bytes Saved | 🟩 Reduction (%) | Win Rate vs 7z |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | **46,626,496 B** | **-1,733,904 B** | **-3.59%** | **12 / 12 (100%)** |
-| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | **815,053 B** | **-69,421 B** | **-7.85%** | **18 / 18 (100%)** |
-| **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | **418,196 B** | **-74,973 B** | **-15.20%** | **11 / 11 (100%)** |
-| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | **1,517,602 B** | **-242,178 B** | **-13.76%** | **6 / 6 (100%)** |
-| **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | **528,479 B** | **-8,633 B** | **-1.61%** | **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | **49,905,826 B** | **-2,129,109 B** | **-4.09%** | **53 / 53 (100%)** |
+| **Silesia Corpus** | 12 | 211,938,580 B | 48,360,400 B | 🟢 **46,626,496 B** | 🟩 **-1,733,904 B** | 🟩 **-3.59%** | 🏆 **12 / 12 (100%)** |
+| **Calgary Corpus** | 18 | 3,251,493 B | 884,474 B | 🟢 **815,053 B** | 🟩 **-69,421 B** | 🟩 **-7.85%** | 🏆 **18 / 18 (100%)** |
+| **Canterbury Corpus** | 11 | 2,810,784 B | 493,169 B | 🟢 **418,196 B** | 🟩 **-74,973 B** | 🟩 **-15.20%** | 🏆 **11 / 11 (100%)** |
+| **Modern Real-World Suite** | 6 | 4,718,592 B | 1,759,780 B | 🟢 **1,516,355 B** | 🟩 **-243,425 B** | 🟩 **-13.83%** | 🏆 **6 / 6 (100%)** |
+| **Private Unseen Holdout** | 6 | 2,439,558 B | 537,112 B | 🟢 **528,479 B** | 🟩 **-8,633 B** | 🟩 **-1.61%** | 🏆 **6 / 6 (100%)** |
+| **GRAND CUMULATIVE TOTAL** | **53** | **225,159,007 B** | **52,034,935 B** | 🟢 **49,904,579 B** | 🟩 **-2,130,356 B** | 🟩 **-4.10%** | 🏆 **53 / 53 (100.0%)** |
+
+📊 **Detailed File-by-File Measurements**: See **[BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)** for individual file sizes, compression ratios, and decompression throughputs.
 
 ---
 
 ## 1. Standalone Verification Pair (Included in Repository)
 
-| Target File | Benchmark Corpus | Data Type | Original Size | 7-Zip 26.02 (-mx9) | Orpane (MAX_RATIO) | Net Space Saved | Size Reduction | Decompression Throughput |
+| Target File | Benchmark Corpus | Data Type | Original Size | 7-Zip 26.02 (-mx9) | 🟢 Orpane (MAX_RATIO) | 🟩 Net Space Saved | 🟩 Reduction | Decompression Speed |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`alice29.txt`** | Canterbury | English prose (ASCII) | 152,089 B | 48,586 B | **42,923 B** | **-5,663 B** | **-11.66%** | **20.8 MB/s (7.3 ms)** |
-| **`pic`** | Calgary | 1-bit scanned image | 513,216 B | 40,060 B | **37,033 B** | **-3,027 B** | **-7.56%** | **448.4 MB/s (1.1 ms)** |
-| **COMBINED** | **2 Files** | **Text + Binary** | **665,305 B** | **88,646 B** | **79,956 B** | **-8,690 B** | **-9.80%** | **Instantaneous** |
+| **`alice29.txt`** | Canterbury | English prose (ASCII) | 152,089 B | 48,586 B | 🟢 **42,923 B** | 🟩 **-5,663 B** | 🟩 **-11.66%** | **20.8 MB/s (7.3 ms)** |
+| **`pic`** | Calgary | 1-bit scanned image | 513,216 B | 40,060 B | 🟢 **37,033 B** | 🟩 **-3,027 B** | 🟩 **-7.56%** | **448.4 MB/s (1.1 ms)** |
+| **COMBINED** | **2 Files** | **Text + Binary** | **665,305 B** | **88,646 B** | 🟢 **79,956 B** | 🟩 **-8,690 B** | 🟩 **-9.80%** | **Instantaneous** |
 
 * **Asymmetric Decompression Speed**: On `pic`, Orpane decompresses in **1.14 ms (448.4 MB/s)**, which is **21.7x faster than 7-Zip** (24.8 ms / 20.7 MB/s).
 * **Multi-Codec Comparison**: Orpane also beats **Brotli-11** (87,426 B, -8.54%), **LZMA-9** (90,484 B, -11.64%), and **Zstandard-19** (92,851 B, -13.89%) across this suite.
-
 
 ---
 
@@ -81,6 +88,7 @@ All files were verified bit-for-bit against ground truth. Every decompressed byt
 |   |-- pic_decompressed_by_7z               (513,216 bytes - bit-exact)
 |   +-- pic_decompressed_by_orpane           (513,216 bytes - bit-exact)
 |
+|-- BENCHMARK_REPORT.md                      (Full multi-corpus empirical tables)
 |-- CHECKSUMS_MD5.txt                        (Full MD5 checksums for all files)
 |-- CHECKSUMS_SHA256.txt                     (Full SHA-256 checksums for all files)
 |-- CHECKSUMS_BLAKE3.txt                     (Full BLAKE3 checksums for all files)
@@ -124,10 +132,7 @@ cmp 1_original_files/pic 3_decompressed_files/pic_decompressed_by_orpane
 
 ---
 
-## 5. Why the Core Laboratory Code is Private for Now
+## 5. Verification & Testing
 
-The core Orpane discovery engine is an experimental research project under active intellectual property (IP) and patent evaluation. It contains dynamic representation synthesizers and automated pipeline dispatchers that are not yet cleared for open-source distribution.
-
-However, we believe in **100% empirical verification**:
-- You can download and inspect the exact archives in this repo.
-- If you would like to test Orpane privately on your own files or custom benchmarks, please reach out via Reddit DM or open an issue on this repository to coordinate private testing or request a standalone compiled CLI build.
+All benchmark files, compressed archives, and reconstructed binaries in this repository can be inspected and verified directly on any machine.
+If you would like to test Orpane privately on your own dataset or request a standalone evaluation build, please reach out or open an issue on this repository.
