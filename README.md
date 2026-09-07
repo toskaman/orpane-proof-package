@@ -8,6 +8,12 @@
 
 ---
 
+## 🚀 Latest Project Update: Modern Suite Breakthroughs (>2.11 MB Saved)
+
+See **[UPDATES.md](UPDATES.md)** for the latest benchmark records across the **Modern Real-World Suite (6 datasets)**, new algorithmic discoveries (**#113** on x86 code and **#114** on telemetry), and the cumulative grand total crossing **2,118,774 net bytes saved (> 2.11 MB)** over 7-Zip 26.02 mx9 across 53 public and real-world test streams (100% win rate).
+
+---
+
 ## 1. Benchmark Comparison Table
 
 | Target File | Benchmark Corpus | Data Type | Original Size | 7-Zip 26.02 (-mx9) | Orpane (MAX_RATIO) | Net Space Saved | Size Reduction | Decompression Throughput |
