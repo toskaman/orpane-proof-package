@@ -61,7 +61,7 @@
 | 7-Zip 26.02 (-mx9) | 48,586 B | 2.556 | 3.130:1 | 68.05% | +5,663 B (-11.66%) | 41.83 ms | 3.64 MB/s | 20.81 ms | 7.31 MB/s |
 | Zstandard 1.5.7 (-19) | 49,211 B | 2.589 | 3.091:1 | 67.64% | +6,288 B (-12.78%) | 75.97 ms | 2.00 MB/s | 0.34 ms | 445.36 MB/s |
 
-**Orpane Pipeline Dispatched**: `dictionary -> BZ2`
+**Orpane Execution Profile**: MAX_RATIO (Proprietary Adaptive Bit-Exact Pipeline)
 
 ### Benchmark Report: `pic` (Calgary Corpus — High-Resolution 1-bit Scanned Bitmap (Binary/Image))
 - **Uncompressed Source Size**: **513,216 bytes**
@@ -75,7 +75,7 @@
 | LZMA 5.6.3 (-9) | 41,992 B | 0.655 | 12.222:1 | 91.82% | +4,959 B (-11.81%) | 99.66 ms | 5.15 MB/s | 2.72 ms | 188.41 MB/s |
 | Zstandard 1.5.7 (-19) | 43,640 B | 0.680 | 11.760:1 | 91.50% | +6,607 B (-15.14%) | 265.41 ms | 1.93 MB/s | 0.22 ms | 2321.19 MB/s |
 
-**Orpane Pipeline Dispatched**: `byte_transpose -> BROTLI`
+**Orpane Execution Profile**: MAX_RATIO (Proprietary Adaptive Bit-Exact Pipeline)
 
 ---
 
