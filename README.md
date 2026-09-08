@@ -3,8 +3,8 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.599%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2013%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.608%20MB%20vs%207z-brightgreen.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2014%3A00%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -17,29 +17,35 @@
 | Benchmark Corpus | Files | Uncompressed | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7-Zip | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 🏆 **12 / 12 (100%)** |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **808,530 B** | 🟩 **-75,944 B (-8.59%)** | 🏆 **18 / 18 (100%)** |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **417,328 B** | 🟩 **-75,841 B (-15.38%)** | 🏆 **11 / 11 (100%)** |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,692 B** | 🟩 **-79,782 B (-9.02%)** | 🏆 **18 / 18 (100%)** |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,075 B** | 🟩 **-237,705 B (-13.51%)** | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,434 B** | 🟩 **-156,416 B (-29.30%)** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,431,960 B** | 🟩 **-2,599,713 B (-5.00%)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,423,297 B** | 🟩 **-2,608,376 B (-5.01%)** | 🏆 **53 / 53 (100.0%)** |
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.7.6` ➔ `v1.7.7`)
+## 🚀 Version Progress & Milestone Diff (`v1.7.7` ➔ `v1.7.8`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,548,855 B -> 2,599,713 B (+50,858 B more space saved / >2.599 MB landmark)
-+ 🟢 Silesia X-Ray Scan (8.47M):    3,988,345 B -> 3,937,487 B (-50,858 B reduction / -542,384 B vs 7-Zip)
-+ 🟢 Silesia Corpus Subtotal:       46,357,451 B -> 46,306,593 B (-50,858 B reduction / >2.053 MB saved vs 7-Zip)
-+ 🟢 Global Archive Total:         49,482,818 B -> 49,431,960 B (-50,858 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,599,713 B -> 2,608,376 B (+8,663 B more space saved / >2.608 MB landmark)
++ 🟢 Canterbury Kennedy.xls (1.03M): 24,911 B -> 23,924 B (-987 B reduction / -27,204 B vs 7-Zip / -53.2%)
++ 🟢 Canterbury Ptt5 Fax (513KB):     37,008 B -> 33,170 B (-3,838 B reduction / -6,727 B vs 7-Zip / -16.8%)
++ 🟢 Calgary Pic Fax (513KB):        37,008 B -> 33,170 B (-3,838 B reduction / -6,727 B vs 7-Zip / -16.8%)
++ 🟢 Canterbury Corpus Subtotal:    417,328 B -> 412,503 B (-4,825 B reduction / -80,666 B vs 7-Zip)
++ 🟢 Calgary Corpus Subtotal:       808,530 B -> 804,692 B (-3,838 B reduction / -79,782 B vs 7-Zip)
++ 🟢 Global Archive Total:         49,431,960 B -> 49,423,297 B (-8,663 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.7.6`) | Current (`v1.7.7`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.7.7`) | Current (`v1.7.8`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Silesia `x-ray`** | 16-bit Radiograph (8.47 MB) | 3,988,345 B | 🟢 **3,937,487 B** | 🟩 **-50,858 B** (-1.28%) | 0.4 MB/s | 130.5 MB/s | < 43.9 MB | 🟢 PASS |
-| **Silesia Corpus Subtotal** | 12 Files (211.94 MB) | 46,357,451 B | 🟢 **46,306,593 B** | 🟩 **-50,858 B** (-0.110%) | ~1.8 MB/s | ~96.5 MB/s | < 699.1 MB | 🏆 12/12 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,482,818 B | 🟢 **49,431,960 B** | 🟩 **-50,858 B** (-0.103%) | ~2.0 MB/s | ~76.6 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,548,855 B | 🟢 **2,599,713 B** | 🟩 **+50,858 B** (+2.00%) | — | — | — | 🟢 **>2.599 MB** |
+| **Canterbury `kennedy.xls`** | BIFF Spreadsheet (1.03 MB) | 24,911 B | 🟢 **23,924 B** | 🟩 **-987 B** (-3.96%) | 30.7 MB/s | 251.5 MB/s | < 23.6 MB | 🟢 PASS |
+| **Canterbury `ptt5`** | Bilevel Fax (513 KB) | 37,008 B | 🟢 **33,170 B** | 🟩 **-3,838 B** (-10.37%) | 26.6 MB/s | 191.6 MB/s | < 7.4 MB | 🟢 PASS |
+| **Calgary `pic`** | Bilevel Fax (513 KB) | 37,008 B | 🟢 **33,170 B** | 🟩 **-3,838 B** (-10.37%) | 26.8 MB/s | 179.3 MB/s | < 7.4 MB | 🟢 PASS |
+| **Canterbury Subtotal** | 11 Files (2.81 MB) | 417,328 B | 🟢 **412,503 B** | 🟩 **-4,825 B** (-1.156%) | ~2.3 MB/s | ~58.2 MB/s | < 25 MB | 🏆 11/11 PASS |
+| **Calgary Subtotal** | 18 Files (3.25 MB) | 808,530 B | 🟢 **804,692 B** | 🟩 **-3,838 B** (-0.475%) | ~1.5 MB/s | ~42.1 MB/s | < 16 MB | 🏆 18/18 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,431,960 B | 🟢 **49,423,297 B** | 🟩 **-8,663 B** (-0.018%) | ~2.0 MB/s | ~77.1 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,599,713 B | 🟢 **2,608,376 B** | 🟩 **+8,663 B** (+0.33%) | — | — | — | 🟢 **>2.608 MB** |
 
 ---
 
@@ -85,12 +91,12 @@
 | `paper4` | 13 KB | 5,469 B | 🟢 **4,294 B** | 🟩 **-1,175 B** (-21.5%) | 3.09:1 | 19ms (0.7 MB/s) | 0.1ms (12.7 MB/s) | 8 MB |
 | `paper5` | 12 KB | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B** (-17.7%) | 2.93:1 | 12ms (0.9 MB/s) | 0.2ms (50.5 MB/s) | 8 MB |
 | `paper6` | 38 KB | 12,564 B | 🟢 **11,145 B** | 🟩 **-1,419 B** (-11.3%) | 3.42:1 | 40ms (0.9 MB/s) | 0.4ms (98.5 MB/s) | 8 MB |
-| `pic` | 513 KB | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** (-7.6%) | 13.87:1 | 458ms (1.1 MB/s) | 1.4ms (349.6 MB/s) | 13 MB |
+| `pic` | 513 KB | 40,060 B | 🟢 **33,170 B** | 🟩 **-6,727 B** (-16.8%) | 15.47:1 | 18.2ms (26.8 MB/s) | 2.7ms (179.3 MB/s) | 8 MB |
 | `progc` | 40 KB | 12,626 B | 🟢 **11,626 B** | 🟩 **-1,000 B** (-7.9%) | 3.41:1 | 38ms (1.0 MB/s) | 0.3ms (119.0 MB/s) | 8 MB |
 | `progl` | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
 | `progp` | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
 | `trans` | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
-| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **808,530 B** | 🟩 **-75,944 B (-8.59%)** | **4.02:1** | **~1.5 MB/s** | **~39.8 MB/s** | **< 16 MB** |
+| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,692 B** | 🟩 **-79,782 B (-9.02%)** | **4.04:1** | **~1.5 MB/s** | **~42.1 MB/s** | **< 16 MB** |
 
 ---
 
@@ -103,13 +109,13 @@
 | `cp.html` | 25 KB | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** (-10.6%) | 3.56:1 | 26ms (0.9 MB/s) | 0.2ms (23.5 MB/s) | 8 MB |
 | `fields.c` | 11 KB | 3,084 B | 🟢 **2,727 B** | 🟩 **-357 B** (-11.6%) | 4.09:1 | 12ms (0.9 MB/s) | 0.2ms (59.2 MB/s) | 8 MB |
 | `grammar.lsp` | 4 KB | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** (-16.9%) | 3.28:1 | 5ms (0.8 MB/s) | 0.1ms (39.2 MB/s) | 8 MB |
-| `kennedy.xls` | 1.03 MB | 51,128 B | 🟢 **24,911 B** | 🟩 **-26,217 B (-51.3%)** | 41.34:1 | 23ms (42.3 MB/s) | 7.5ms (130.9 MB/s) | 25 MB |
+| `kennedy.xls` | 1.03 MB | 51,128 B | 🟢 **23,924 B** | 🟩 **-27,204 B (-53.2%)** | 43.04:1 | 32.0ms (30.7 MB/s) | 3.9ms (251.5 MB/s) | 24 MB |
 | `lcet10.txt` | 427 KB | 119,505 B | 🟢 **106,830 B** | 🟩 **-12,675 B** (-10.6%) | 3.99:1 | 35ms (11.7 MB/s) | 15.0ms (27.2 MB/s) | 16 MB |
 | `plrabn12.txt` | 482 KB | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** (-12.7%) | 3.33:1 | 55ms (8.3 MB/s) | 14.9ms (30.9 MB/s) | 16 MB |
-| `ptt5` | 513 KB | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** (-7.6%) | 13.87:1 | 541ms (0.9 MB/s) | 1.1ms (444.9 MB/s) | 8 MB |
+| `ptt5` | 513 KB | 40,060 B | 🟢 **33,170 B** | 🟩 **-6,727 B** (-16.8%) | 15.47:1 | 18.4ms (26.6 MB/s) | 2.6ms (191.6 MB/s) | 8 MB |
 | `sum` | 38 KB | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** (-1.1%) | 4.07:1 | 6ms (6.3 MB/s) | 0.6ms (36.5 MB/s) | 8 MB |
 | `xargs.1` | 4 KB | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** (-22.5%) | 2.90:1 | 6ms (0.7 MB/s) | 0.1ms (4.0 MB/s) | 8 MB |
-| **Canterbury Total** | **2.81 MB** | **493,169 B** | 🟢 **417,328 B** | 🟩 **-75,841 B (-15.38%)** | **6.74:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** |
+| **Canterbury Total** | **2.81 MB** | **493,169 B** | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | **6.81:1** | **~2.3 MB/s** | **~58.2 MB/s** | **< 25 MB** |
 
 ---
 
