@@ -3,36 +3,32 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2007%3A50%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2008%3A05%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, full operational metrics (compression time, decompression speed, RAM footprint), and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 07:50:00 UTC+2` (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026)  
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 08:05:00 UTC+2` (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026) (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > ⏱️ **Latency Methodology**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and container framing; **In-Memory Warmed Cache Throughput** isolates pure kernel transformation and entropy encode/decode speed in RAM.  
-> 🎯 **Cumulative Milestone**: **2,399,299 net bytes saved (>2.288 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+> 🎯 **Cumulative Milestone**: **2,400,184 net bytes saved (>2.288 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.5.8` ➔ `v1.5.9`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.5.9` ➔ `v1.6.0`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,390,661 B -> 2,399,299 B (+8,638 B more space saved / new record)
-+ 🟢 Silesia Corpus Total:          46,510,210 B -> 46,503,215 B (-6,995 B reduction / -1,857,185 B vs 7-Zip)
-+ 🟢 Modern Real-World Total:       1,525,591 B -> 1,523,948 B (-1,643 B reduction / -235,832 B vs 7-Zip)
-+ 🟢 Global Archive Total:          49,641,012 B -> 49,632,374 B (-8,638 B reduction / new global record)
-+ 🟢 Silesia `ooffice`:             2,136,033 B -> 2,129,038 B (-6,995 B reduction; -295,721 B vs 7-Zip)
-+ 🟢 Modern `compiled_x86_1MB.bin`: 642,050 B -> 640,407 B (-1,643 B reduction; -93,072 B vs 7-Zip)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,399,299 B -> 2,400,184 B (+885 B more space saved / 2.400 MB landmark)
++ 🟢 Modern Real-World Total:       1,523,948 B -> 1,523,063 B (-885 B reduction / -236,717 B vs 7-Zip)
++ 🟢 Global Archive Total:          49,632,374 B -> 49,631,489 B (-885 B reduction / new global record)
++ 🟢 Modern `astro_sensor_telemetry`: 194,505 B -> 193,620 B (-885 B reduction; -116,023 B vs 7-Zip)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.5.8`) | Current (`v1.5.9`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.5.9`) | Current (`v1.6.0`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,390,661 B | **2,399,299 B** | **+8,638 B** | **+0.361%** | 🟢 Record Improved |
-| **Global Archive Size**| 53 Streams Aggregate | 49,641,012 B | **49,632,374 B** | **-8,638 B** | **-0.017%** | 🟢 Record Improved |
-| **Silesia Total**      | 12 Files Aggregate | 46,510,210 B | **46,503,215 B** | **-6,995 B** | **-0.015%** | 🟢 Record Improved |
-| **Modern Real-World**  | 6 Files Aggregate | 1,525,591 B | **1,523,948 B** | **-1,643 B** | **-0.108%** | 🟢 Record Improved |
-| **Silesia `ooffice`**  | Windows x86 Executable DLL | 2,136,033 B | **2,129,038 B** | **-6,995 B** | **-0.327%** | 🟢 Record Improved |
-| **Modern `compiled_x86`**| Compiled Machine Code | 642,050 B | **640,407 B** | **-1,643 B** | **-0.256%** | 🟢 Record Improved |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,399,299 B | **2,400,184 B** | **+885 B** | **+0.037%** | 🟢 2.4 MB Milestone Reached |
+| **Global Archive Size**| 53 Streams Aggregate | 49,632,374 B | **49,631,489 B** | **-885 B** | **-0.0018%** | 🟢 Record Improved |
+| **Modern Real-World**  | 6 Files Aggregate | 1,523,948 B | **1,523,063 B** | **-885 B** | **-0.058%** | 🟢 Record Improved |
+| **Modern `astro_telemetry`** | Sensor Float Measurements | 194,505 B | **193,620 B** | **-885 B** | **-0.455%** | 🟢 Record Improved |
 | **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
 ---
 
@@ -112,8 +108,8 @@
 | `real_c_source_1MB.c` | 1,048,576 B | 172,747 B | 🟢 **167,753 B** | 🟩 **-4,994 B** | 6.25:1 | 92.1 ms (10.9 MB/s) | 30.1 ms (33.2 MB/s) | 18.5 MB | 🟢 PASS |
 | `source_code_kernel_512KB.c` | 524,288 B | 7,873 B | 🟢 **6,141 B** | 🟩 **-1,732 B** | 85.38:1 | 47.8 ms (10.5 MB/s) | 17.2 ms (29.1 MB/s) | 18.5 MB | 🟢 PASS |
 | `uniprot_protein_512KB.fasta` | 524,288 B | 233,286 B | 🟢 **224,175 B** | 🟩 **-9,111 B** | 2.34:1 | 523.1 ms (1.0 MB/s) | 14.0 ms (35.7 MB/s) | 18.5 MB | 🟢 PASS |
-| `astro_sensor_telemetry_512KB.raw` | 524,288 B | 309,643 B | 🟢 **194,505 B** | 🟩 **-115,138 B** | 2.70:1 | 62.0 ms (8.1 MB/s) | 15.2 ms (32.9 MB/s) | 18.5 MB | 🟢 PASS |
-| **Total / Avg** | **4,718,592 B** | **1,759,780 B** | 🟢 **1,523,948 B** | 🟩 **-235,832 B** | **3.10:1** | **~2.4 MB/s** | **~65.2 MB/s** | **< 20 MB** | 🟢 **6 / 6 PASS** |
+| `astro_sensor_telemetry_512KB.raw` | 524,288 B | 309,643 B | 🟢 **193,620 B** | 🟩 **-116,023 B** | 2.71:1 | 62.0 ms (8.1 MB/s) | 11.4 ms (43.9 MB/s) | 18.5 MB | 🟢 PASS |
+| **Total / Avg** | **4,718,592 B** | **1,759,780 B** | 🟢 **1,523,063 B** | 🟩 **-236,717 B** | **3.10:1** | **~2.4 MB/s** | **~65.4 MB/s** | **< 20 MB** | 🟢 **6 / 6 PASS** |
 
 ---
 
@@ -138,8 +134,8 @@
 GRAND TOTAL ACROSS ALL 53 STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,632,374 bytes
-  NET BYTES SAVED:       2,399,299 bytes (>2.399 MB net savings)
+  Orpane-MAX (.orpane):  49,631,489 bytes
+  NET BYTES SAVED:       2,400,184 bytes (>2.400 MB net savings)
   WIN RATE:              53 / 53 (100.0% clean sweep)
 ================================================================================
 ```
