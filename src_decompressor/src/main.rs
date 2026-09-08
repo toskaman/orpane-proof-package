@@ -745,7 +745,7 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
         match t.name.as_str() {
             "byte_transpose" | "record_transpose" | "stage_1" | "transpose" => {
                 let stride = t.params.get("stride").or_else(|| t.params.get("cols")).and_then(|v| v.as_u64()).unwrap_or(4) as usize;
-                let tail_len = t.params.get("tail_len").and_then(|v| v.as_u64()).unwrap_or(0) as usize;
+                let tail_len = t.params.get("tail_len").and_then(|v| v.as_u64()).unwrap_or_else(|| (stream.len() % stride) as u64) as usize;
                 stream = kernel_stage_transpose(&stream, stride, tail_len);
             }
             "dictionary" | "stage_2" | "dict" => {
