@@ -10,14 +10,32 @@
 
 ## ⚡ Head-to-Head Summary: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-| Benchmark Corpus | Files | Uncompressed | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7-Zip | Win Rate |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 🏆 **12 / 12 (100%)** |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,690 B** | 🟩 **-79,784 B (-9.02%)** | 🏆 **18 / 18 (100%)** |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | 🏆 **11 / 11 (100%)** |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,075 B** | 🟩 **-237,705 B (-13.51%)** | 🏆 **6 / 6 (100%)** |
-| **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,374 B** | 🟩 **-156,476 B (-29.31%)** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,423,235 B** | 🟩 **-2,608,438 B (-5.01%)** | 🏆 **53 / 53 (100.0%)** |
+> 📦 **Space Savings**: 🟢 **-2,608,438 bytes (-5.01%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
+> ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
+> ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
+
+### 📊 Corpus Summary & Head-to-Head Comparison
+
+| Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Win Rate |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 92.7 ➔ 🟢 **96.5 MB/s (+4.1%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,690 B** | 🟩 **-79,784 B (-9.02%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,075 B** | 🟩 **-237,705 B (-13.51%)** | 20.7 ➔ 🟢 **63.0 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
+| **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,374 B** | 🟩 **-156,476 B (-29.31%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,423,235 B** | 🟩 **-2,608,438 B (-5.01%)** | **62.9 ➔ 🟢 88.4 MB/s (1.40x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
+
+### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
+
+| Benchmark Corpus | ⏱️ 7-Zip Encode Time | ⏱️ Orpane Encode Time | Encode Speed (7z vs Orp) | ⚡ 7-Zip Decode Time | ⚡ Orpane Decode Time | Decode Speed (7z vs Orp) | 🚀 Decode Speedup Factor |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Corpus Silesia** | 75.33 s | 115.50 s | 2.7 MB/s vs 1.8 MB/s | 2,181.5 ms | 🟢 **2,196.0 ms** | 92.7 MB/s vs 🟢 **96.5 MB/s** | 🟢 **+4.1% faster** (1.04x) |
+| **Corpus Calgary** | 1.06 s | 2.16 s | 2.9 MB/s vs 1.5 MB/s | 506.7 ms | 🟢 **77.0 ms** | 6.1 MB/s vs 🟢 **42.2 MB/s** | 🟢 **6.90x faster** |
+| **Corpus Canterbury** | 0.84 s | 1.20 s | 3.2 MB/s vs 2.3 MB/s | 312.4 ms | 🟢 **48.3 ms** | 8.6 MB/s vs 🟢 **58.2 MB/s** | 🟢 **6.78x faster** |
+| **Modern Real-World** | 0.84 s | 2.05 s | 5.3 MB/s vs 2.3 MB/s | 217.7 ms | 🟢 **74.9 ms** | 20.7 MB/s vs 🟢 **63.0 MB/s** | 🟢 **3.05x faster** |
+| **Holdout Suite** | 0.56 s | 0.87 s | 4.2 MB/s vs 2.8 MB/s | 195.2 ms | 🟢 **33.7 ms** | 11.9 MB/s vs 🟢 **72.4 MB/s** | 🟢 **6.08x faster** |
+| **GLOBAL TOTAL** | **78.62 s** | **121.78 s** | **2.7 MB/s vs 1.8 MB/s** | **3.41 s** | 🟢 **2.43 s** | **62.9 MB/s vs 🟢 88.4 MB/s** | 🟢 **1.40x faster (+25.5 MB/s)** |
 
 ---
 
