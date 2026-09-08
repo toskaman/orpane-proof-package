@@ -4,7 +4,7 @@
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.469%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2012%3A25%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2012%3A56%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
