@@ -198,3 +198,12 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 - **Status**: 100% bit-exact reversible across all 53 files, cryptographic SHA-256 and BLAKE3 verified with standalone native Rust decompressor
 - **Global 53-Stream Archive Total**: 49,387,531 B (-2,644,142 B net savings vs 7-Zip mx9, >2.644 MB milestone)
 - **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 18:55:00 UTC+2] Release v1.8.7 — Optimization & Speedup (mr & osdb)
+- **Targets**:
+  - `corpus/silesia/mr` (9.97 MB DICOM MR): 2,324,760 B -> 2,324,055 B (-705 B reduction, -424,202 B vs 7-Zip mx9, encode throughput accelerated +89% from 13.58s to 7.20s, 153.1 MB/s decode)
+  - `corpus/silesia/osdb` (10.08 MB Binary Database): 2,660,038 B -> 2,657,854 B (-2,184 B reduction, -187,981 B vs 7-Zip mx9, 34.6 MB/s decode)
+- **Status**: 100% bit-exact reversible across all 53 files, cryptographic SHA-256 and BLAKE3 verified with standalone native Rust decompressor
+- **Global 53-Stream Archive Total**: 49,384,642 B (-2,647,031 B net savings vs 7-Zip mx9, >2.647 MB milestone)
+- **Total Decode Time**: 3.99 seconds across 225.16 MB (Average 56.4 MB/s)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)

@@ -3,8 +3,8 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.644%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2018%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.647%20MB%20vs%207z-brightgreen.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2018%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -14,7 +14,7 @@
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,638,531 bytes (-5.071%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,647,031 bytes (-5.087%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -23,12 +23,12 @@
 
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,287,220 B** | 🟩 **-2,073,180 B (-4.29%)** | 92.7 ➔ 🟢 **96.9 MB/s (+4.5%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,284,331 B** | 🟩 **-2,076,069 B (-4.29%)** | 92.7 ➔ 🟢 **97.2 MB/s (+4.9%)** | 75.3s ➔ 109.1s (1.45x) | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,388 B** | 🟩 **-80,086 B (-9.05%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,830 B** | 🟩 **-242,950 B (-13.81%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,393,142 B** | 🟩 **-2,638,531 B (-5.07%)** | **62.9 ➔ 🟢 88.5 MB/s (1.41x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,384,642 B** | 🟩 **-2,647,031 B (-5.09%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 115.4s (1.47x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -44,33 +44,24 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.4` ➔ `v1.8.5`)
+## 🚀 Version Progress & Milestone Diff (`v1.8.6` ➔ `v1.8.7`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,638,165 B -> 2,638,531 B (+366 B more space saved / >2.6385 MB landmark)
-+ 🟢 Calgary News Gazette (377KB):    112,980 B -> 112,707 B (-273 B reduction / -6,242 B vs 7-Zip / 142.5 MB/s)
-+ 🟢 Calgary Bitmap Pic (513KB):       33,170 B -> 33,156 B (-14 B reduction / -6,741 B vs 7-Zip / 188.4 MB/s)
-+ 🟢 Canterbury PTT5 Fax (513KB):      33,170 B -> 33,156 B (-14 B reduction / -6,741 B vs 7-Zip / 135.0 MB/s)
-+ 🟢 Calgary Seismic Geo (102KB):      48,460 B -> 48,447 B (-13 B reduction / -5,011 B vs 7-Zip / 100.8 MB/s)
-+ 🟢 Silesia MR Medical (9.97MB):   2,324,773 B -> 2,324,760 B (-13 B reduction / -423,686 B vs 7-Zip / 159.6 MB/s)
-+ 🟢 Silesia X-Ray Medical (8.47MB): 3,937,487 B -> 3,937,474 B (-13 B reduction / -542,397 B vs 7-Zip / 139.4 MB/s)
-+ 🟢 Modern Astro Telemetry (512KB):  188,663 B -> 188,650 B (-13 B reduction / -120,993 B vs 7-Zip / 40.4 MB/s)
-+ 🟢 Holdout Sensor Floats (512KB):   162,348 B -> 162,335 B (-13 B reduction / -159,947 B vs 7-Zip / 49.2 MB/s)
-+ 🟢 Global Archive Total:          49,393,508 B -> 49,393,142 B (-366 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,644,142 B -> 2,647,031 B (+2,889 B more space saved / >2.647 MB landmark)
++ 🟢 Silesia Binary Database (10M): 2,660,038 B -> 2,657,854 B (-2,184 B reduction / -187,981 B vs 7-Zip / 34.6 MB/s decode)
++ 🟢 Silesia MR Medical Scan (10M): 2,324,760 B -> 2,324,055 B (-705 B reduction / -424,202 B vs 7-Zip / 1.89x encode speedup / 153.1 MB/s decode)
++ 🟢 Silesia Suite Subtotal:       46,287,220 B -> 46,284,331 B (-2,889 B reduction / -2,076,069 B vs 7-Zip / -4.29%)
++ 🟢 Global Archive Total:          49,387,531 B -> 49,384,642 B (-2,889 B reduction / new all-time record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.4`) | Current (`v1.8.5`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.8.6`) | Current (`v1.8.7`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Calgary `news`** | Text Gazette (377 KB) | 112,980 B | 🟢 **112,707 B** | 🟩 **-273 B** (-0.24%) | 0.6 MB/s | 142.5 MB/s | < 8.0 MB | 🟢 PASS |
-| **Calgary `pic`** | 1-Bit Bilevel Bitmap (513 KB) | 33,170 B | 🟢 **33,156 B** | 🟩 **-14 B** (-0.04%) | 26.8 MB/s | 188.4 MB/s | < 8.0 MB | 🟢 PASS |
-| **Canterbury `ptt5`** | CCITT Fax Group 4 (513 KB) | 33,170 B | 🟢 **33,156 B** | 🟩 **-14 B** (-0.04%) | 26.6 MB/s | 135.0 MB/s | < 8.0 MB | 🟢 PASS |
-| **Calgary `geo`** | Seismic Float Stream (102 KB) | 48,460 B | 🟢 **48,447 B** | 🟩 **-13 B** (-0.03%) | 0.5 MB/s | 100.8 MB/s | < 13.0 MB | 🟢 PASS |
-| **Silesia `mr`** | 16-Bit DICOM MR (9.97 MB) | 2,324,773 B | 🟢 **2,324,760 B** | 🟩 **-13 B** (-0.0006%) | 0.4 MB/s | 159.6 MB/s | < 48.0 MB | 🟢 PASS |
-| **Silesia `x-ray`** | 16-Bit DICOM X-Ray (8.47 MB) | 3,937,487 B | 🟢 **3,937,474 B** | 🟩 **-13 B** (-0.0003%) | 0.4 MB/s | 139.4 MB/s | < 44.0 MB | 🟢 PASS |
-| **Modern `astro_sensor`** | Kinematic Float Telemetry (512 KB) | 188,663 B | 🟢 **188,650 B** | 🟩 **-13 B** (-0.007%) | 3.7 MB/s | 40.4 MB/s | < 8.0 MB | 🟢 PASS |
-| **Holdout `sensor_floats`** | Physical Sensor Vector (512 KB) | 162,348 B | 🟢 **162,335 B** | 🟩 **-13 B** (-0.008%) | 5.5 MB/s | 49.2 MB/s | < 8.0 MB | 🟢 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,393,508 B | 🟢 **49,393,142 B** | 🟩 **-366 B** (-0.0007%) | ~1.8 MB/s | ~88.5 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,638,165 B | 🟢 **2,638,531 B** | 🟩 **+366 B** (+0.014%) | — | — | — | 🟢 **>2.6385 MB** |
+| **Silesia `osdb`** | Binary Database (10.08 MB) | 2,660,038 B | 🟢 **2,657,854 B** | 🟩 **-2,184 B** (-0.082%) | 4.8 MB/s | 34.6 MB/s | < 77.0 MB | 🟢 PASS |
+| **Silesia `mr`** | 16-Bit DICOM MR (9.97 MB) | 2,324,760 B | 🟢 **2,324,055 B** | 🟩 **-705 B** (-0.030%) | 1.3 MB/s (+89%) | 153.1 MB/s | < 48.0 MB | 🟢 PASS |
+| **Silesia Suite Subtotal** | 12 Files (211.94 MB) | 46,287,220 B | 🟢 **46,284,331 B** | 🟩 **-2,889 B** (-0.006%) | ~1.9 MB/s | ~97.2 MB/s | < 699.1 MB | 🏆 12/12 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,387,531 B | 🟢 **49,384,642 B** | 🟩 **-2,889 B** (-0.0058%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,644,142 B | 🟢 **2,647,031 B** | 🟩 **+2,889 B** (+0.109%) | — | — | — | 🟢 **>2.647 MB** |
+
 ---
 
 ## 📊 Detailed Benchmark Results by Corpus
@@ -84,17 +75,17 @@
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `dickens` | 10.19 MB | 2,831,068 B | 🟢 **2,759,408 B** | 🟩 **-71,660 B** (-2.5%) | 3.69:1 | 1.6s (6.0 MB/s) | 376ms (25.9 MB/s) | 22 MB |
 | `mozilla` | 51.22 MB | 13,313,683 B | 🟢 **13,301,175 B** | 🟩 **-12,508 B** (-0.1%) | 3.85:1 | 20.3s (2.4 MB/s) | 697ms (70.1 MB/s) | 699 MB |
-| `mr` | 9.97 MB | 2,748,446 B | 🟢 **2,324,760 B** | 🟩 **-423,686 B** (-15.42%) | 4.29:1 | 22.4s (0.4 MB/s) | 59.6ms (159.6 MB/s) | 48 MB |
+| `mr` | 9.97 MB | 2,748,446 B | 🟢 **2,324,055 B** | 🟩 **-424,202 B** (-15.43%) | 4.29:1 | 7.2s (1.3 MB/s) | 62.1ms (153.1 MB/s) | 48 MB |
 | `nci` | 33.55 MB | 1,449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
 | `ooffice` | 6.15 MB | 2,424,759 B | 🟢 **2,129,038 B** | 🟩 **-295,721 B** (-12.2%) | 2.89:1 | 2.5s (2.5 MB/s) | 117ms (50.1 MB/s) | 106 MB |
-| `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,660,038 B** | 🟩 **-185,797 B** (-6.5%) | 3.79:1 | 2.1s (4.8 MB/s) | 263ms (36.6 MB/s) | 77 MB |
+| `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,657,854 B** | 🟩 **-187,981 B** (-6.6%) | 3.79:1 | 2.1s (4.8 MB/s) | 278ms (34.6 MB/s) | 77 MB |
 | `reymont` | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1%) | 5.36:1 | 1.9s (3.3 MB/s) | 222ms (28.5 MB/s) | 22 MB |
 | `samba` | 21.60 MB | 3,731,438 B | 🟢 **3,727,988 B** | 🟩 **-3,450 B** (-0.1%) | 5.80:1 | 9.0s (2.3 MB/s) | 205ms (100.7 MB/s) | 378 MB |
 | `sao` | 7.25 MB | 4,413,926 B | 🟢 **3,994,318 B** | 🟩 **-419,608 B** (-9.5%) | 1.82:1 | 2.5s (2.8 MB/s) | 109ms (63.7 MB/s) | 109 MB |
 | `webster` | 41.45 MB | 8,370,602 B | 🟢 **8,346,688 B** | 🟩 **-23,914 B** (-0.3%) | 4.97:1 | 28.3s (1.4 MB/s) | 367ms (107.8 MB/s) | 149 MB |
 | `x-ray` | 8.47 MB | 4,479,871 B | 🟢 **3,937,474 B** | 🟩 **-542,397 B** (-12.11%) | 2.15:1 | 21.8s (0.4 MB/s) | 58.0ms (139.4 MB/s) | 44 MB |
 | `xml` | 5.34 MB | 435,212 B | 🟢 **430,163 B** | 🟩 **-5,049 B** (-1.2%) | 12.43:1 | 6.4s (0.8 MB/s) | 9ms (579.3 MB/s) | 10 MB |
-| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,287,220 B** | 🟩 **-2,073,180 B (-4.29%)** | **4.58:1** | **~1.8 MB/s** | **~96.9 MB/s** | **< 699 MB** |
+| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,284,331 B** | 🟩 **-2,076,069 B (-4.29%)** | **4.58:1** | **~1.9 MB/s** | **~97.2 MB/s** | **< 699 MB** |
 
 ---
 
@@ -178,8 +169,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,393,142 bytes
-  NET BYTES SAVED:       2,638,531 bytes (>2.6385 MB net space savings)
+  Orpane-MAX (.orpane):  49,384,642 bytes
+  NET BYTES SAVED:       2,647,031 bytes (>2.647 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
