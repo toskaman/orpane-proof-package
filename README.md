@@ -1,7 +1,7 @@
 # Orpane — Lossless Compressor Verification Suite
 
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
-[![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
+[![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.608%20MB%20vs%207z-brightgreen.svg)](#)
 [![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2014%3A00%20UTC%2B2-blue.svg?logo=clock)](#)
