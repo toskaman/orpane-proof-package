@@ -44,21 +44,25 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.1` ➔ `v1.8.2`)
+## 🚀 Version Progress & Milestone Diff (`v1.8.1` ➔ `v1.8.4`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,624,470 B -> 2,624,471 B (+1 B more space saved / >2.624 MB landmark)
-+ 🟢 Calgary Paper6 Troff (38KB):      11,145 B -> 11,144 B (-1 B reduction / -1,421 B vs 7-Zip / 106.6 MB/s decode)
-+ 🟢 Calgary Corpus Subtotal:          804,689 B -> 804,688 B (-1 B reduction / -79,786 B vs 7-Zip / -9.02%)
-+ 🟢 Global Archive Total:          49,407,203 B -> 49,407,202 B (-1 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,624,470 B -> 2,638,165 B (+13,695 B more space saved / >2.638 MB landmark)
++ 🟢 Silesia MR Medical Scan (10MB): 2,338,409 B -> 2,324,773 B (-13,636 B reduction / -423,673 B vs 7-Zip / 136.8 MB/s)
++ 🟢 Modern Compiled x86 (1MB):       640,407 B -> 640,190 B (-217 B reduction / -93,289 B vs 7-Zip / -12.72%)
++ 🟢 Modern Kernel Source (512KB):      5,928 B -> 5,870 B (-58 B reduction / -2,003 B vs 7-Zip / 89.32:1 ratio)
++ 🟢 Calgary Paper6 Troff (38KB):      11,145 B -> 11,144 B (-1 B reduction / -1,420 B vs 7-Zip / 106.6 MB/s)
++ 🟢 Global Archive Total:          49,407,203 B -> 49,393,508 B (-13,695 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.1`) | Current (`v1.8.2`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.8.1`) | Current (`v1.8.4`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Silesia `mr`** | 16-Bit DICOM MR Scan (9.97 MB) | 2,338,409 B | 🟢 **2,324,773 B** | 🟩 **-13,636 B** (-0.58%) | 0.4 MB/s | 136.8 MB/s | < 48.0 MB | 🟢 PASS |
+| **Modern `compiled_x86_1MB.bin`** | Raw Machine Code (1.00 MB) | 640,407 B | 🟢 **640,190 B** | 🟩 **-217 B** (-0.034%) | 2.8 MB/s | 5.9 MB/s | < 16.0 MB | 🟢 PASS |
+| **Modern `source_code_kernel_512KB.c`** | C Kernel Tree (512 KB) | 5,928 B | 🟢 **5,870 B** | 🟩 **-58 B** (-0.98%) | 10.8 MB/s | 97.1 MB/s | < 8.0 MB | 🟢 PASS |
 | **Calgary `paper6`** | Typographic Troff (38.1 KB) | 11,145 B | 🟢 **11,144 B** | 🟩 **-1 B** (-0.009%) | 0.9 MB/s | 106.6 MB/s | < 8.0 MB | 🟢 PASS |
-| **Calgary Subtotal** | 18 Files (3.25 MB) | 804,689 B | 🟢 **804,688 B** | 🟩 **-1 B** (-0.0001%) | ~1.5 MB/s | ~42.3 MB/s | < 16 MB | 🏆 18/18 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,407,203 B | 🟢 **49,407,202 B** | 🟩 **-1 B** (-0.000002%) | ~1.8 MB/s | ~88.4 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,624,470 B | 🟢 **2,624,471 B** | 🟩 **+1 B** (+0.000038%) | — | — | — | 🟢 **>2.624 MB** |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,407,203 B | 🟢 **49,393,508 B** | 🟩 **-13,695 B** (-0.028%) | ~1.8 MB/s | ~88.5 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,624,470 B | 🟢 **2,638,165 B** | 🟩 **+13,695 B** (+0.52%) | — | — | — | 🟢 **>2.638 MB** |
 ---
 
 ## 📊 Detailed Benchmark Results by Corpus
@@ -136,11 +140,11 @@
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,663 B** | 🟩 **-120,980 B (-39.1%)** | 2.78:1 | 135.9ms (3.7 MB/s) | 10.3ms (48.6 MB/s) | 8 MB |
-| `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,407 B** | 🟩 **-93,072 B (-12.7%)** | 1.64:1 | 287ms (3.5 MB/s) | 59.5ms (16.8 MB/s) | 19 MB |
+| `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
 | `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,814 B** | 🟩 **-9,472 B** (-4.1%) | 2.34:1 | 3364ms (0.1 MB/s) | 28.5ms (17.5 MB/s) | 24 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
 | `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
-| `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,928 B** | 🟩 **-1,945 B (-24.70%)** | 88.44:1 | 48ms (10.8 MB/s) | 4.3ms (117.3 MB/s) | 8 MB |
+| `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
 | **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,843 B** | 🟩 **-242,937 B (-13.81%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
 
 ---
@@ -166,8 +170,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,407,203 bytes
-  NET BYTES SAVED:       2,624,470 bytes (>2.624 MB net space savings)
+  Orpane-MAX (.orpane):  49,393,508 bytes
+  NET BYTES SAVED:       2,638,165 bytes (>2.638 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
