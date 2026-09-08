@@ -1,4 +1,6 @@
 target/
+**/target/
+crates/**/target/
 Cargo.lock
 *.tmp
 *.pyc

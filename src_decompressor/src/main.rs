@@ -3,12 +3,12 @@
 //! Strictly pure decompression verification pipeline.
 use std::fs;
 use std::io::{self, Read, Write};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::time::Instant;
 
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
-use twox_hash::XxHash3_64;
+use twox_hash::{XxHash32, XxHash3_64};
 
 const VERSION: &str = "1.2.3";
 
@@ -27,6 +27,10 @@ struct ArchiveMeta {
     l: Option<usize>,
     #[serde(default)]
     intermediate_len: Option<usize>,
+    #[serde(default)]
+    h: Option<String>,
+    #[serde(default)]
+    blake3: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -73,7 +77,7 @@ fn read_leb_chunk<'a>(buf: &'a [u8], pos: usize) -> Result<(&'a [u8], usize), St
     Ok((&buf[off..off + len], off + len))
 }
 
-fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
+fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
     if data.len() < 8 {
         return Err("Archive too small: truncated container header".into());
     }
@@ -89,6 +93,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
             return Err("Truncated header: missing XXH3 checksum".into());
         }
         let xxh_stored = &data[off..off + 8];
+        let chunks_start = off + 8;
         off += 8;
 
         let (meta_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
@@ -102,15 +107,29 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
             return Err(format!("Trailing garbage in archive: {} bytes", data.len() - off));
         }
 
-        // Verify XXH3-64 payload checksum
-        let computed_xxh = XxHash3_64::oneshot(payload_bytes).to_be_bytes();
-        if computed_xxh != xxh_stored {
-            return Err("XXH3-64 payload integrity check failed (corrupted payload)".into());
+        // Verify XXH3-64 checksum (Audit Fix I4: full framing chunks or legacy payload)
+        let computed_chunks_xxh = XxHash3_64::oneshot(&data[chunks_start..]).to_be_bytes();
+        let computed_payload_xxh = XxHash3_64::oneshot(payload_bytes).to_be_bytes();
+        if computed_chunks_xxh != xxh_stored && computed_payload_xxh != xxh_stored {
+            return Err("XXH3-64 integrity check failed (corrupted slim archive)".into());
         }
 
         let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
         let coder = meta.c.or(meta.entropy_coder).unwrap_or_else(|| "lzma".into());
         let intermediate_len = meta.l.or(meta.intermediate_len).unwrap_or(orig_sz as usize);
+
+        let expected_blake3 = meta.h.or(meta.blake3).and_then(|h_hex| {
+            if h_hex.len() == 64 {
+                let mut b = [0u8; 32];
+                if hex::decode_to_slice(&h_hex, &mut b).is_ok() {
+                    Some(b)
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        });
 
         let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
             serde_json::from_slice(trans_bytes).unwrap_or_default()
@@ -125,7 +144,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
             coder,
             transforms,
             payload: payload_bytes,
-            expected_blake3: None,
+            expected_blake3,
         });
     }
 
@@ -144,7 +163,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
         let (_dict_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
         let (_model_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
         let (_inst_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
-        let (payload_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
+        let (payload_bytes, _) = read_leb_chunk(data, off)?;
 
         let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
         let coder = meta.c.or(meta.entropy_coder).unwrap_or_else(|| "lzma".into());
@@ -180,7 +199,9 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
         if off + 4 > data.len() {
             return Err("Truncated header: missing XXH32 hash".into());
         }
-        off += 4; // skip xxh32
+        let stored_xxh = &data[off..off + 4];
+        let framing_start = off + 4;
+        off += 4;
 
         let mut coder_name = match coder_id {
             0 => "store",
@@ -205,15 +226,33 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
         }
 
         let mut intermediate_len = orig_sz as usize;
+        let mut expected_blake3: Option<[u8; 32]> = None;
         if has_meta {
             let (m_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
             let meta: ArchiveMeta = serde_json::from_slice(m_bytes).unwrap_or_default();
             if let Some(l) = meta.l.or(meta.intermediate_len) {
                 intermediate_len = l;
             }
+            if let Some(ref h_hex) = meta.h.or(meta.blake3) {
+                if h_hex.len() == 64 {
+                    let mut b = [0u8; 32];
+                    if hex::decode_to_slice(h_hex, &mut b).is_ok() {
+                        expected_blake3 = Some(b);
+                    }
+                }
+            }
         }
 
         let payload = &data[off..];
+
+        // Audit Fix I2 & I4: Validate XXH32 against full framing or legacy payload
+        let computed_framing_xxh = XxHash32::oneshot(0, &data[framing_start..]).to_be_bytes();
+        let computed_payload_xxh = XxHash32::oneshot(0, payload).to_be_bytes();
+
+        if computed_framing_xxh != stored_xxh && computed_payload_xxh != stored_xxh {
+            return Err("XXH32 integrity check failed (corrupted micro archive)".into());
+        }
+
         return Ok(UnpackedArchive {
             profile: "MICRO (v4)",
             original_size: orig_sz as usize,
@@ -221,7 +260,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
             coder: coder_name,
             transforms,
             payload,
-            expected_blake3: None,
+            expected_blake3,
         });
     }
 
@@ -252,7 +291,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
         let (_dict_bytes, new_off) = read_be_chunk(off)?; off = new_off;
         let (_model_bytes, new_off) = read_be_chunk(off)?; off = new_off;
         let (_inst_bytes, new_off) = read_be_chunk(off)?; off = new_off;
-        let (payload_bytes, new_off) = read_be_chunk(off)?; off = new_off;
+        let (payload_bytes, _) = read_be_chunk(off)?;
 
         let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
         let coder = meta.c.or(meta.entropy_coder).unwrap_or_else(|| "lzma".into());
@@ -311,7 +350,7 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
             decoder.read_to_end(&mut out).map_err(|_| "Stream payload decode failed")?;
             Ok(out)
         }
-        "orpane_lz" | "olz1" | "8" => {
+        "orpane_lz" | "olz1" | "olz2" | "8" => {
             orpane_codec::decompress_orpane_lz(payload, target_len)
                 .map_err(|e| format!("Stream payload decode failed: {}", e))
         }
@@ -423,18 +462,37 @@ fn kernel_stage_dict(data: &[u8], dict_entries: &[Vec<u8>], escape_byte: u8) -> 
     Ok(out)
 }
 
-fn kernel_stage_delta(data: &[u8]) -> Vec<u8> {
-    let mut out = Vec::with_capacity(data.len());
-    let mut acc: u8 = 0;
-    for &b in data {
-        acc = acc.wrapping_add(b);
-        out.push(acc);
+fn kernel_stage_delta(data: &[u8], order: usize, stride: usize) -> Result<Vec<u8>, String> {
+    if stride == 0 {
+        return Err("Delta transform requires positive stride".into());
     }
-    out
+    if order == 0 || order > 2 {
+        return Err(format!("Delta unsupported order: {} (expected 1 or 2)", order));
+    }
+    let mut out = data.to_vec();
+    let n = out.len();
+    for _ in 0..order {
+        if n > stride {
+            for i in stride..n {
+                out[i] = out[i].wrapping_add(out[i - stride]);
+            }
+        }
+    }
+    Ok(out)
 }
 
-fn kernel_stage_xor(data: &[u8], key: u8) -> Vec<u8> {
-    data.iter().map(|&b| b ^ key).collect()
+fn kernel_stage_xor(data: &[u8], stride: usize) -> Result<Vec<u8>, String> {
+    if stride == 0 {
+        return Err("XOR transform requires positive stride".into());
+    }
+    let mut out = data.to_vec();
+    let n = out.len();
+    if n > stride {
+        for i in stride..n {
+            out[i] ^= out[i - stride];
+        }
+    }
+    Ok(out)
 }
 
 fn kernel_stage_bcj(data: &[u8]) -> Vec<u8> {
@@ -676,6 +734,11 @@ fn kernel_stage_bwt(data: &[u8], params: &serde_json::Value) -> Result<Vec<u8>, 
 }
 
 fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
+    const MAX_ALLOWED_DECOMPRESS_SIZE: usize = 16 * 1024 * 1024 * 1024;
+    if unpacked.original_size > MAX_ALLOWED_DECOMPRESS_SIZE || unpacked.intermediate_size > MAX_ALLOWED_DECOMPRESS_SIZE {
+        return Err("Security: Declared stream size exceeds maximum safety limit (16 GB)".into());
+    }
+
     let mut stream = entropy_stage_decode(&unpacked.coder, unpacked.payload, unpacked.intermediate_size)?;
 
     for t in unpacked.transforms.iter().rev() {
@@ -700,11 +763,13 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
                 stream = kernel_stage_dict(&stream, &dict_entries, esc)?;
             }
             "delta" | "stage_3" => {
-                stream = kernel_stage_delta(&stream);
+                let order = t.params.get("order").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
+                let stride = t.params.get("stride").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
+                stream = kernel_stage_delta(&stream, order, stride)?;
             }
             "xor" | "stage_4" => {
-                let key = t.params.get("key").and_then(|v| v.as_u64()).unwrap_or(0) as u8;
-                stream = kernel_stage_xor(&stream, key);
+                let stride = t.params.get("stride").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
+                stream = kernel_stage_xor(&stream, stride)?;
             }
             "bcj" | "stage_5" => {
                 stream = kernel_stage_bcj(&stream);
