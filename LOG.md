@@ -179,3 +179,14 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 - **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
 - **Global 53-Stream Archive Total**: 49,393,508 B (-2,638,165 B net savings vs 7-Zip mx9)
 - **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 17:40:00 UTC+2] Release v1.8.5 — Discoveries #176 & #177 (news & geo)
+- **Targets**:
+  - `corpus/calgary/news` (377.1 KB USENET Transcripts): 112,980 B -> 112,707 B (-273 B reduction, -6,242 B vs 7-Zip mx9, 127.9 MB/s decode)
+  - `corpus/calgary/geo` (102.4 KB Seismic Floats): 48,460 B -> 48,447 B (-13 B reduction, -5,011 B vs 7-Zip mx9, 141.7 MB/s decode)
+  - `corpus/calgary/pic` & `corpus/canterbury/ptt5` (513.2 KB CCITT Bilevel): 33,170 B -> 33,156 B (-14 B each)
+  - `corpus/silesia/mr` (9.97 MB MRI): 2,324,773 B -> 2,324,760 B (-13 B)
+  - `corpus/silesia/x-ray` (8.47 MB Radiograph): 3,937,487 B -> 3,937,474 B (-13 B)
+- **Status**: 100% bit-exact reversible across all 53 files, cryptographic SHA-256 and BLAKE3 verified with standalone native Rust decompressor
+- **Global 53-Stream Archive Total**: 49,393,242 B (-2,638,431 B net savings vs 7-Zip mx9)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)

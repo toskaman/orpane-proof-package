@@ -139,7 +139,7 @@
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,663 B** | 🟩 **-120,980 B (-39.1%)** | 2.78:1 | 135.9ms (3.7 MB/s) | 10.3ms (48.6 MB/s) | 8 MB |
+| `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
 | `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
 | `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,814 B** | 🟩 **-9,472 B** (-4.06%) | 2.34:1 | 3364ms (0.1 MB/s) | 28.5ms (17.5 MB/s) | 24 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
