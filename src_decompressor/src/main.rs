@@ -583,6 +583,98 @@ fn kernel_stage_rle(data: &[u8], escape_byte: u8, orig_len: Option<usize>) -> Re
     Ok(out)
 }
 
+fn binarysearch_lower(a: &[usize], mut size: usize, value: usize) -> usize {
+    let mut i = 0;
+    let mut half = size >> 1;
+    while size > 0 {
+        if a[i + half] < value {
+            i += half + 1;
+            half -= (size & 1) ^ 1;
+        }
+        size = half;
+        half >>= 1;
+    }
+    i
+}
+
+fn kernel_bwt_block_decode(t: &[u8], idx: usize) -> Result<Vec<u8>, String> {
+    let n = t.len();
+    if n <= 1 {
+        return Ok(t.to_vec());
+    }
+    if idx == 0 || idx > n {
+        return Err("Invalid container block index".into());
+    }
+    let mut c = [0usize; 256];
+    let mut d = [0u8; 256];
+    let mut b = vec![0usize; n];
+    for &byte in t {
+        c[byte as usize] += 1;
+    }
+    let mut d_len = 0;
+    let mut sum = 0;
+    for ch in 0..256 {
+        let p = c[ch];
+        if p > 0 {
+            c[ch] = sum;
+            d[d_len] = ch as u8;
+            d_len += 1;
+            sum += p;
+        }
+    }
+    for i in 0..idx {
+        let byte = t[i] as usize;
+        b[c[byte]] = i;
+        c[byte] += 1;
+    }
+    for i in idx..n {
+        let byte = t[i] as usize;
+        b[c[byte]] = i + 1;
+        c[byte] += 1;
+    }
+    for ch in 0..d_len {
+        c[ch] = c[d[ch] as usize];
+    }
+    let mut u = vec![0u8; n];
+    let mut p = idx;
+    for i in 0..n {
+        let c_idx = binarysearch_lower(&c, d_len, p);
+        u[i] = d[c_idx];
+        p = b[p - 1];
+    }
+    Ok(u)
+}
+
+fn kernel_stage_bwt(data: &[u8], params: &serde_json::Value) -> Result<Vec<u8>, String> {
+    let block_size = params.get("block_size").and_then(|v| v.as_u64()).unwrap_or(262144) as usize;
+    let indices: Vec<usize> = params.get("indices")
+        .and_then(|v| v.as_array())
+        .map(|arr| arr.iter().filter_map(|v| v.as_u64().map(|x| x as usize)).collect())
+        .unwrap_or_default();
+
+    if block_size == 0 {
+        return Err("Invalid block specification".into());
+    }
+
+    let mut out = Vec::with_capacity(data.len());
+    let mut off = 0;
+    let mut chunk_idx = 0;
+    while off < data.len() {
+        let end = (off + block_size).min(data.len());
+        let chunk = &data[off..end];
+        let p_idx = if chunk_idx < indices.len() {
+            indices[chunk_idx]
+        } else {
+            return Err("Missing block index".into());
+        };
+        let decoded = kernel_bwt_block_decode(chunk, p_idx)?;
+        out.extend_from_slice(&decoded);
+        off = end;
+        chunk_idx += 1;
+    }
+    Ok(out)
+}
+
 fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
     let mut stream = entropy_stage_decode(&unpacked.coder, unpacked.payload, unpacked.intermediate_size)?;
 
@@ -627,6 +719,9 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
                 let esc = t.params.get("escape_byte").and_then(|v| v.as_u64()).unwrap_or(0) as u8;
                 let orig_len = t.params.get("orig_len").and_then(|v| v.as_u64()).map(|v| v as usize);
                 stream = kernel_stage_rle(&stream, esc, orig_len)?;
+            }
+            "bwt" | "stage_9" => {
+                stream = kernel_stage_bwt(&stream, &t.params)?;
             }
             "acir_program" | "acir" | "byte_program" => {
                 let source = t.params.get("source")
