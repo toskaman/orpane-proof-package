@@ -189,6 +189,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive, String> {
             3 => "bz2",
             4 => "zstd",
             5 => "lz4",
+            8 => "orpane_lz",
             _ => "lzma",
         }.to_string();
 
@@ -310,9 +311,65 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
             decoder.read_to_end(&mut out).map_err(|_| "Stream payload decode failed")?;
             Ok(out)
         }
+        "orpane_lz" | "olz1" | "8" => {
+            orpane_codec::decompress_orpane_lz(payload, target_len)
+                .map_err(|e| format!("Stream payload decode failed: {}", e))
+        }
         "store" | "0" => Ok(payload.to_vec()),
         _ => Err("Unsupported or invalid stream encoding".into()),
     }
+}
+
+fn parse_acir_program(source: &str) -> Vec<orpane_codec::Opcode> {
+    let mut opcodes = Vec::new();
+    for line in source.lines() {
+        let line = line.trim();
+        if line.is_empty() || line.starts_with('#') || line.starts_with("AC-IR") || line.starts_with("RBL") {
+            continue;
+        }
+        let parts: Vec<&str> = line.split_whitespace().collect();
+        if parts.is_empty() {
+            continue;
+        }
+        match parts[0].to_uppercase().as_str() {
+            "ADD" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Add(v)); }
+            }
+            "SUB" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Add((-(v as i32)).rem_euclid(256) as u8)); }
+            }
+            "XOR" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Xor(v)); }
+            }
+            "MUL" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Mul(v)); }
+            }
+            "ROL" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Rol(v)); }
+            }
+            "ROR" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Rol((8 - (v % 8)) % 8)); }
+            }
+            "SHUFFLE" if parts.len() > 1 => {
+                if let Ok(v) = parts[1].parse::<usize>() { opcodes.push(orpane_codec::Opcode::Shuffle(v)); }
+            }
+            "DELTA" if parts.len() > 2 => {
+                if let (Ok(s), Ok(o)) = (parts[1].parse::<usize>(), parts[2].parse::<usize>()) {
+                    opcodes.push(orpane_codec::Opcode::Delta { stride: s, order: o });
+                }
+            }
+            "BIT_PLANE" => {
+                opcodes.push(orpane_codec::Opcode::BitPlane);
+            }
+            "PREDICT" if parts.len() > 3 => {
+                if let (Ok(s), Ok(a), Ok(b)) = (parts[1].parse::<usize>(), parts[2].parse::<i32>(), parts[3].parse::<i32>()) {
+                    opcodes.push(orpane_codec::Opcode::Predict { stride: s, a, b });
+                }
+            }
+            _ => {}
+        }
+    }
+    opcodes
 }
 
 fn kernel_stage_transpose(data: &[u8], stride: usize, tail_len: usize) -> Vec<u8> {
@@ -570,6 +627,14 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
                 let esc = t.params.get("escape_byte").and_then(|v| v.as_u64()).unwrap_or(0) as u8;
                 let orig_len = t.params.get("orig_len").and_then(|v| v.as_u64()).map(|v| v as usize);
                 stream = kernel_stage_rle(&stream, esc, orig_len)?;
+            }
+            "acir_program" | "acir" | "byte_program" => {
+                let source = t.params.get("source")
+                    .or_else(|| t.params.get("program"))
+                    .and_then(|v| v.as_str())
+                    .unwrap_or("");
+                let prog = parse_acir_program(source);
+                stream = orpane_codec::ReversibleVm::execute_inverse(&stream, &prog);
             }
             _ => {
                 return Err("Unsupported stream transform stage".into());

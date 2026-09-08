@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-08 13:05:00 UTC+2` (September 8, 2026)  
+> 🕒 **Last Updated**: `2026-09-08 13:10:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -16,26 +16,26 @@
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **808,530 B** | 🟩 **-75,944 B (-8.59%)** | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **417,328 B** | 🟩 **-75,841 B (-15.38%)** | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,820 B** | 🟩 **-236,960 B (-13.47%)** | 🏆 **6 / 6 (100%)** |
-| **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,909 B** | 🟩 **-155,941 B (-29.21%)** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,562,255 B** | 🟩 **-2,469,418 B (-4.75%)** | 🏆 **53 / 53 (100.0%)** |
+| **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,735 B** | 🟩 **-156,115 B (-29.24%)** | 🏆 **6 / 6 (100%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,562,081 B** | 🟩 **-2,469,592 B (-4.75%)** | 🏆 **53 / 53 (100.0%)** |
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.7.0` ➔ `v1.7.1`)
+## 🚀 Version Progress & Milestone Diff (`v1.7.1` ➔ `v1.7.2`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,469,348 B -> 2,469,418 B (+70 B more space saved / >2.469 MB landmark)
-+ 🟢 Holdout Archive (tar):              251 B -> 181 B (-70 B reduction / -236 B vs 7-Zip)
-+ 🟢 Holdout Suite Subtotal:          377,979 B -> 377,909 B (-70 B reduction / -155,941 B vs 7-Zip)
-+ 🟢 Global Archive Total:         49,562,325 B -> 49,562,255 B (-70 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,469,418 B -> 2,469,592 B (+174 B more space saved / >2.469 MB landmark)
++ 🟢 Holdout Telemetry (json):       14,469 B -> 14,295 B (-174 B reduction / -1,238 B vs 7-Zip)
++ 🟢 Holdout Suite Subtotal:          377,909 B -> 377,735 B (-174 B reduction / -156,115 B vs 7-Zip)
++ 🟢 Global Archive Total:         49,562,255 B -> 49,562,081 B (-174 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.7.0`) | Current (`v1.7.1`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.7.1`) | Current (`v1.7.2`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Holdout `unseen_archive.tar`** | Sparse Archive (153.6 KB) | 251 B | 🟢 **181 B** | 🟩 **-70 B** (-27.89%) | 17.3 MB/s | 260.2 MB/s | < 14.0 MB | 🟢 PASS |
-| **Holdout Subtotal** | 6 Files (2.44 MB) | 377,979 B | 🟢 **377,909 B** | 🟩 **-70 B** (-0.019%) | ~2.8 MB/s | ~69.4 MB/s | < 20.0 MB | 🟢 6/6 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,562,325 B | 🟢 **49,562,255 B** | 🟩 **-70 B** (-0.00014%) | ~2.0 MB/s | ~75.6 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,469,348 B | 🟢 **2,469,418 B** | 🟩 **+70 B** (+0.0028%) | — | — | — | 🟢 **>2.469 MB** |
+| **Holdout `unseen_telemetry.json`** | Telemetry JSON (512 KB) | 14,469 B | 🟢 **14,295 B** | 🟩 **-174 B** (-1.20%) | 12.3 MB/s | 69.4 MB/s | < 14.0 MB | 🟢 PASS |
+| **Holdout Subtotal** | 6 Files (2.44 MB) | 377,909 B | 🟢 **377,735 B** | 🟩 **-174 B** (-0.046%) | ~2.8 MB/s | ~69.4 MB/s | < 20.0 MB | 🟢 6/6 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,562,255 B | 🟢 **49,562,081 B** | 🟩 **-174 B** (-0.00035%) | ~2.0 MB/s | ~75.6 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,469,418 B | 🟢 **2,469,592 B** | 🟩 **+174 B** (+0.0070%) | — | — | — | 🟢 **>2.469 MB** |
 
 ---
 
@@ -127,10 +127,10 @@
 | `unseen_sensor_floats.raw` | 512 KB | 322,282 B | 🟢 **173,205 B** | 🟩 **-149,077 B (-46.3%)** | 3.03:1 | 1.26s (0.4 MB/s) | 19.2ms (26.0 MB/s) | 19 MB |
 | `unseen_c_headers.c` | 512 KB | 104,529 B | 🟢 **100,572 B** | 🟩 **-3,957 B** (-3.8%) | 5.21:1 | 82ms (6.1 MB/s) | 20.6ms (24.2 MB/s) | 8 MB |
 | `unseen_protein.fasta` | 500 KB | 2,208 B | 🟢 **1,106 B** | 🟩 **-1,102 B (-49.9%)** | 463.28:1 | 47ms (10.4 MB/s) | 5.6ms (87.3 MB/s) | 14 MB |
-| `unseen_telemetry.json` | 512 KB | 15,533 B | 🟢 **14,469 B** | 🟩 **-1,064 B** (-6.9%) | 36.24:1 | 53ms (9.5 MB/s) | 6.5ms (76.9 MB/s) | 14 MB |
+| `unseen_telemetry.json` | 512 KB | 15,533 B | 🟢 **14,295 B** | 🟩 **-1,238 B** (-7.97%) | 36.68:1 | 42ms (12.3 MB/s) | 7.2ms (69.4 MB/s) | 14 MB |
 | `unseen_win_pe.bin` | 196 KB | 88,881 B | 🟢 **88,376 B** | 🟩 **-505 B** (-0.6%) | 2.27:1 | 41ms (4.6 MB/s) | 5.2ms (36.8 MB/s) | 14 MB |
 | `unseen_archive.tar` | 154 KB | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.59%)** | 848.62:1 | 8.5ms (17.3 MB/s) | 0.56ms (260.2 MB/s) | 14 MB |
-| **Holdout Suite Total** | **2.44 MB** | **533,850 B** | 🟢 **377,909 B** | 🟩 **-155,941 B (-29.21%)** | **6.45:1** | **~2.8 MB/s** | **~69.4 MB/s** | **< 20 MB** |
+| **Holdout Suite Total** | **2.44 MB** | **533,850 B** | 🟢 **377,735 B** | 🟩 **-156,115 B (-29.24%)** | **6.45:1** | **~2.8 MB/s** | **~69.4 MB/s** | **< 20 MB** |
 
 ---
 
@@ -141,8 +141,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,562,255 bytes
-  NET BYTES SAVED:       2,469,418 bytes (>2.469 MB net space savings)
+  Orpane-MAX (.orpane):  49,562,081 bytes
+  NET BYTES SAVED:       2,469,592 bytes (>2.469 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
