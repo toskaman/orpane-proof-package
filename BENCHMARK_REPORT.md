@@ -1,6 +1,6 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 08:35:00 UTC+2` (September 8, 2026)
+> 🕒 **Data Updated**: `2026-09-08 09:05:00 UTC+2` (September 8, 2026)
 > **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > **Measurement Protocol**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and cold disk cache; **In-Memory Warmed Cache Throughput** measures pure computational kernel transformation and entropy encode/decode execution in RAM.  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
@@ -8,24 +8,25 @@
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.0` ➔ `v1.6.1`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.1` ➔ `v1.6.2`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,400,184 B -> 2,404,951 B (+4,767 B more space saved / >2.404 MB landmark)
-+ 🟢 Silesia Literature Total:     3,999,673 B -> 3,995,506 B (-4,767 B reduction across dickens & reymont)
-+ 🟢 Silesia Corpus Subtotal:       46,503,215 B -> 46,498,448 B (-4,767 B reduction / -1,861,952 B vs 7-Zip)
-+ 🟢 Global Archive Total:          49,631,489 B -> 49,626,722 B (-4,767 B reduction / new global record)
-+ 🟢 Silesia `dickens`:             2,763,674 B -> 2,759,408 B (-4,266 B reduction; -71,660 B vs 7-Zip)
-+ 🟢 Silesia `reymont`:             1,236,599 B -> 1,236,098 B (-501 B reduction; -80,113 B vs 7-Zip)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,404,951 B -> 2,405,265 B (+314 B more space saved / >2.405 MB landmark)
++ 🟢 Calgary Literature `book1`:     230,469 B -> 230,301 B (-168 B reduction; -30,913 B vs 7-Zip)
++ 🟢 Canterbury Text `lcet10.txt`:   106,976 B -> 106,830 B (-146 B reduction; -12,675 B vs 7-Zip)
++ 🟢 Calgary Subtotal:               808,777 B -> 808,609 B (-168 B reduction / -75,865 B vs 7-Zip)
++ 🟢 Canterbury Subtotal:            417,519 B -> 417,373 B (-146 B reduction / -75,796 B vs 7-Zip)
++ 🟢 Global Archive Total:          49,626,722 B -> 49,626,408 B (-314 B reduction / new global record)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.6.0`) | Current (`v1.6.1`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.6.1`) | Current (`v1.6.2`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,400,184 B | **2,404,951 B** | **+4,767 B** | **+0.199%** | 🟢 Record Expanded |
-| **Global Archive Size**| 53 Streams Aggregate | 49,631,489 B | **49,626,722 B** | **-4,767 B** | **-0.0096%** | 🟢 Record Improved |
-| **Silesia Subtotal**   | 12 Files Aggregate | 46,503,215 B | **46,498,448 B** | **-4,767 B** | **-0.0102%** | 🟢 Record Improved |
-| **Silesia `dickens`**  | English Literary Prose | 2,763,674 B | **2,759,408 B** | **-4,266 B** | **-0.154%** | 🟢 Record Improved |
-| **Silesia `reymont`**  | Polish Inflected Prose | 1,236,599 B | **1,236,098 B** | **-501 B** | **-0.041%** | 🟢 Record Improved |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,404,951 B | **2,405,265 B** | **+314 B** | **+0.013%** | 🟢 Record Expanded |
+| **Global Archive Size**| 53 Streams Aggregate | 49,626,722 B | **49,626,408 B** | **-314 B** | **-0.0006%** | 🟢 Record Improved |
+| **Calgary Subtotal**   | 18 Files Aggregate | 808,777 B | **808,609 B** | **-168 B** | **-0.021%** | 🟢 Record Improved |
+| **Canterbury Subtotal**| 11 Files Aggregate | 417,519 B | **417,373 B** | **-146 B** | **-0.035%** | 🟢 Record Improved |
+| **Calgary `book1`**    | English Classical Prose | 230,469 B | **230,301 B** | **-168 B** | **-0.073%** | 🟢 Record Improved |
+| **Canterbury `lcet10`**| Technical/Educational Text | 106,976 B | **106,830 B** | **-146 B** | **-0.136%** | 🟢 Record Improved |
 | **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
 ---
 
@@ -52,7 +53,7 @@
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `bib` | 111,261 B | 30,602 B | 🟢 **27,479 B** | 🟩 **-3,123 B** | 4.05:1 | 8.7 ms (12.2 MB/s) | 3.6 ms (29.5 MB/s) | 8.2 MB | 🟢 PASS |
-| `book1` | 768,771 B | 261,214 B | 🟢 **230,469 B** | 🟩 **-30,745 B** | 3.34:1 | 101.4 ms (7.2 MB/s) | 22.0 ms (33.4 MB/s) | 15.4 MB | 🟢 PASS |
+| `book1` | 768,771 B | 261,214 B | 🟢 **230,301 B** | 🟩 **-30,913 B** | 3.34:1 | 1.16 s (0.6 MB/s) | 25.8 ms (28.4 MB/s) | 15.4 MB | 🟢 PASS |
 | `book2` | 610,856 B | 169,814 B | 🟢 **156,576 B** | 🟩 **-13,238 B** | 3.90:1 | 66.7 ms (8.7 MB/s) | 15.1 ms (38.7 MB/s) | 15.4 MB | 🟢 PASS |
 | `geo` | 102,400 B | 53,458 B | 🟢 **48,460 B** | 🟩 **-4,998 B** | 2.11:1 | 185.6 ms (0.5 MB/s) | 4.9 ms (19.9 MB/s) | 12.8 MB | 🟢 PASS |
 | `news` | 377,109 B | 118,949 B | 🟢 **112,980 B** | 🟩 **-5,969 B** | 3.34:1 | 560.8 ms (0.6 MB/s) | 1.2 ms (299.7 MB/s) | 8.2 MB | 🟢 PASS |
@@ -69,7 +70,7 @@
 | `progl` | 71,646 B | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** | 5.11:1 | 77.4 ms (0.9 MB/s) | 0.2 ms (68.3 MB/s) | 8.2 MB | 🟢 PASS |
 | `progp` | 49,379 B | 10,378 B | 🟢 **9,890 B** | 🟩 **-488 B** | 4.99:1 | 58.1 ms (0.8 MB/s) | 0.2 ms (47.1 MB/s) | 8.2 MB | 🟢 PASS |
 | `trans` | 93,695 B | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** | 6.09:1 | 114.8 ms (0.8 MB/s) | 0.6 ms (89.4 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **808,777 B** | 🟩 **-75,697 B** | **4.02:1** | **~1.5 MB/s** | **~39.8 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
+| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **808,609 B** | 🟩 **-75,865 B** | **4.02:1** | **~1.5 MB/s** | **~39.8 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
 
 ### 3. Corpus Canterbury
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
@@ -80,12 +81,12 @@
 | `fields.c` | 11,150 B | 3,084 B | 🟢 **2,728 B** | 🟩 **-356 B** | 4.09:1 | 12.6 ms (0.8 MB/s) | 0.1 ms (10.6 MB/s) | 8.2 MB | 🟢 PASS |
 | `grammar.lsp` | 3,721 B | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** | 3.28:1 | 4.7 ms (0.8 MB/s) | 0.1 ms (39.2 MB/s) | 8.2 MB | 🟢 PASS |
 | `kennedy.xls` | 1,029,744 B | 51,128 B | 🟢 **24,911 B** | 🟩 **-26,217 B** | 41.34:1 | 23.2 ms (42.3 MB/s) | 7.5 ms (130.9 MB/s) | 24.6 MB | 🟢 PASS |
-| `lcet10.txt` | 426,754 B | 119,505 B | 🟢 **106,976 B** | 🟩 **-12,529 B** | 3.99:1 | 40.9 ms (10.0 MB/s) | 11.3 ms (36.2 MB/s) | 16.2 MB | 🟢 PASS |
+| `lcet10.txt` | 426,754 B | 119,505 B | 🟢 **106,830 B** | 🟩 **-12,675 B** | 3.99:1 | 34.8 ms (11.7 MB/s) | 15.0 ms (27.2 MB/s) | 16.2 MB | 🟢 PASS |
 | `plrabn12.txt` | 481,861 B | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** | 3.33:1 | 55.3 ms (8.3 MB/s) | 14.9 ms (30.9 MB/s) | 16.2 MB | 🟢 PASS |
 | `ptt5` | 513,216 B | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** | 13.87:1 | 541.2 ms (0.9 MB/s) | 1.1 ms (444.9 MB/s) | 8.2 MB | 🟢 PASS |
 | `sum` | 38,240 B | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** | 4.07:1 | 5.8 ms (6.3 MB/s) | 0.6 ms (36.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `xargs.1` | 4,227 B | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** | 2.90:1 | 6.0 ms (0.7 MB/s) | 0.1 ms (4.0 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,519 B** | 🟩 **-75,650 B** | **6.73:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
+| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,373 B** | 🟩 **-75,796 B** | **6.73:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
 
 ### 4. Modern Real-World Multi-Domain Suite
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
@@ -118,8 +119,8 @@
 GRAND TOTAL ACROSS ALL 53 STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,626,722 bytes
-  NET BYTES SAVED:       2,404,951 bytes (>2.404 MB net savings)
+  Orpane-MAX (.orpane):  49,626,408 bytes
+  NET BYTES SAVED:       2,405,265 bytes (>2.405 MB net savings)
   WIN RATE:              53 / 53 (100.0% clean sweep)
 ================================================================================
 ```
