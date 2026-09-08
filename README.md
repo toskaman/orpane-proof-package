@@ -3,8 +3,8 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.647%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2018%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.6473%20MB%20vs%207z-brightgreen.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2019%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -14,7 +14,7 @@
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,647,031 bytes (-5.087%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,647,351 bytes (-5.088%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -26,9 +26,9 @@
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,284,331 B** | 🟩 **-2,076,069 B (-4.29%)** | 92.7 ➔ 🟢 **97.2 MB/s (+4.9%)** | 75.3s ➔ 109.1s (1.45x) | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,388 B** | 🟩 **-80,086 B (-9.05%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,830 B** | 🟩 **-242,950 B (-13.81%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,384,642 B** | 🟩 **-2,647,031 B (-5.09%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 115.4s (1.47x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,384,322 B** | 🟩 **-2,647,351 B (-5.09%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 115.4s (1.47x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -44,24 +44,21 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.6` ➔ `v1.8.7`)
+## 🚀 Version Progress & Milestone Diff (`v1.8.7` ➔ `v1.8.8`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,644,142 B -> 2,647,031 B (+2,889 B more space saved / >2.647 MB landmark)
-+ 🟢 Silesia Binary Database (10M): 2,660,038 B -> 2,657,854 B (-2,184 B reduction / -187,981 B vs 7-Zip / 34.6 MB/s decode)
-+ 🟢 Silesia MR Medical Scan (10M): 2,324,760 B -> 2,324,055 B (-705 B reduction / -424,202 B vs 7-Zip / 1.89x encode speedup / 153.1 MB/s decode)
-+ 🟢 Silesia Suite Subtotal:       46,287,220 B -> 46,284,331 B (-2,889 B reduction / -2,076,069 B vs 7-Zip / -4.29%)
-+ 🟢 Global Archive Total:          49,387,531 B -> 49,384,642 B (-2,889 B reduction / new all-time record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,647,031 B -> 2,647,351 B (+320 B more space saved / >2.6473 MB landmark)
++ 🟢 Modern Peptide FASTA (512KB):    223,814 B -> 223,494 B (-320 B reduction / -9,792 B vs 7-Zip / 2.4x decode speedup)
++ 🟢 Modern Suite Subtotal:         1,516,830 B -> 1,516,510 B (-320 B reduction / -243,270 B vs 7-Zip / -13.82%)
++ 🟢 Global Archive Total:          49,384,642 B -> 49,384,322 B (-320 B reduction / new all-time record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.6`) | Current (`v1.8.7`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.8.7`) | Current (`v1.8.8`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Silesia `osdb`** | Binary Database (10.08 MB) | 2,660,038 B | 🟢 **2,657,854 B** | 🟩 **-2,184 B** (-0.082%) | 4.8 MB/s | 34.6 MB/s | < 77.0 MB | 🟢 PASS |
-| **Silesia `mr`** | 16-Bit DICOM MR (9.97 MB) | 2,324,760 B | 🟢 **2,324,055 B** | 🟩 **-705 B** (-0.030%) | 1.3 MB/s (+89%) | 153.1 MB/s | < 48.0 MB | 🟢 PASS |
-| **Silesia Suite Subtotal** | 12 Files (211.94 MB) | 46,287,220 B | 🟢 **46,284,331 B** | 🟩 **-2,889 B** (-0.006%) | ~1.9 MB/s | ~97.2 MB/s | < 699.1 MB | 🏆 12/12 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,387,531 B | 🟢 **49,384,642 B** | 🟩 **-2,889 B** (-0.0058%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,644,142 B | 🟢 **2,647,031 B** | 🟩 **+2,889 B** (+0.109%) | — | — | — | 🟢 **>2.647 MB** |
-
+| **Modern `uniprot_protein`** | Peptide FASTA (512 KB) | 223,814 B | 🟢 **223,494 B** | 🟩 **-320 B** (-0.143%) | 1.0 MB/s | 29.0 MB/s (+66%) | < 8.0 MB | 🟢 PASS |
+| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,516,830 B | 🟢 **1,516,510 B** | 🟩 **-320 B** (-0.021%) | ~2.3 MB/s | ~63.2 MB/s | < 20.0 MB | 🏆 6/6 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,384,642 B | 🟢 **49,384,322 B** | 🟩 **-320 B** (-0.00065%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,647,031 B | 🟢 **2,647,351 B** | 🟩 **+320 B** (+0.012%) | — | — | — | 🟢 **>2.6473 MB** |
 ---
 
 ## 📊 Detailed Benchmark Results by Corpus
@@ -140,11 +137,11 @@
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
 | `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
-| `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,814 B** | 🟩 **-9,472 B** (-4.1%) | 2.34:1 | 3364ms (0.1 MB/s) | 28.5ms (17.5 MB/s) | 24 MB |
+| `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,494 B** | 🟩 **-9,792 B** (-4.20%) | 2.35:1 | 481ms (1.0 MB/s) | 17.3ms (29.0 MB/s) | 8 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
 | `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
 | `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
-| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,880 B** | 🟩 **-242,900 B (-13.80%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
+| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
 
 ---
 
@@ -169,8 +166,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,384,642 bytes
-  NET BYTES SAVED:       2,647,031 bytes (>2.647 MB net space savings)
+  Orpane-MAX (.orpane):  49,384,322 bytes
+  NET BYTES SAVED:       2,647,351 bytes (>2.6473 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
