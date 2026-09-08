@@ -18,14 +18,16 @@
 + 🟢 Global Archive Total:         49,562,327 B -> 49,562,325 B (-2 B reduction / new global record)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.6.9`) | Current (`v1.7.0`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,469,346 B | **2,469,348 B** | **+2 B** | **+0.0001%** | 🟢 Record Expanded |
-| **Global Archive Size**| 53 Streams Aggregate | 49,562,327 B | **49,562,325 B** | **-2 B** | **-0.000004%** | 🟢 Record Improved |
-| **Calgary Subtotal**   | 18 Files Aggregate | 808,532 B | **808,530 B** | **-2 B** | **-0.0002%** | 🟢 Record Improved |
-| **Calgary `progc`**    | C Source Code | 11,627 B | **11,626 B** | **-1 B** | **-0.009%** | 🟢 Record Improved |
-| **Calgary `progp`**    | Pascal Source Code | 9,890 B | **9,889 B** | **-1 B** | **-0.010%** | 🟢 Record Improved |
-| **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
+| Benchmark Target | Scope / Data Type | Previous (`v1.6.9`) | Current (`v1.7.0`) | 🟩 Net Delta (%) | Compression Time | Encode Speed | Decompress Time | Decode Speed | Peak RAM | Verification |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Calgary `progc`** | C Source Code (39.6 KB) | 11,627 B | 🟢 **11,626 B** | 🟩 **-1 B** (-0.009%) | 38.2 ms | **1.0 MB/s** | 4.32 ms | **8.7 MB/s** | < 8.2 MB | 🟢 PASS |
+| **Calgary `progp`** | Pascal Source Code (49.4 KB) | 9,890 B | 🟢 **9,889 B** | 🟩 **-1 B** (-0.010%) | 55.4 ms | **0.9 MB/s** | 5.48 ms | **8.6 MB/s** | < 8.2 MB | 🟢 PASS |
+| **Silesia `x-ray`** | DICOM Medical Scan (8.47 MB) | 4,051,125 B | 🟢 **3,988,345 B** | 🟩 **-62,780 B** (-1.55%) | 5.30 s | **1.5 MB/s** | 262.4 ms | **30.8 MB/s** | < 24.0 MB | 🟢 PASS |
+| **Canterbury `fields.c`** | C Source Code (11.1 KB) | 2,728 B | 🟢 **2,727 B** | 🟩 **-1 B** (-0.037%) | 23.0 ms | **0.5 MB/s** | 5.74 ms | **1.9 MB/s** | < 8.2 MB | 🟢 PASS |
+| **Modern `real_c_source`** | C Codebase (1.00 MB) | 167,753 B | 🟢 **167,631 B** | 🟩 **-122 B** (-0.073%) | 311.2 ms | **3.2 MB/s** | 30.6 ms | **32.7 MB/s** | < 18.5 MB | 🟢 PASS |
+| **Calgary Subtotal** | 18 Files Aggregate (3.25 MB) | 808,532 B | 🟢 **808,530 B** | 🟩 **-2 B** (-0.0002%) | ~2.1 s | **~1.5 MB/s** | ~80.2 ms | **~39.8 MB/s** | < 16.0 MB | 🟢 18/18 PASS |
+| **Global Archive Total** | 53 Streams Aggregate (225.16 MB) | 49,562,327 B | 🟢 **49,562,325 B** | 🟩 **-2 B** (-0.000004%) | ~112.4 s | **~2.0 MB/s** | ~2.98 s | **~75.4 MB/s** | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Net Savings** | Margin vs 7-Zip mx9 (52.03 MB) | 2,469,346 B | 🟢 **2,469,348 B** | 🟩 **+2 B** (+0.0001%) | — | — | — | — | — | 🟢 **>2.469 MB** |
 ---
 
 ## 📊 Detailed Corpus Breakdown
