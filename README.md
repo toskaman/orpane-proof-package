@@ -3,35 +3,34 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2011%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2012%3A05%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, full operational metrics (compression time, decompression speed, RAM footprint), and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 11:55:00 UTC+2` (September 8, 2026)  
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 12:05:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > ⏱️ **Latency Methodology**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and container framing; **In-Memory Warmed Cache Throughput** measures encode and decode speed in RAM.  
-> 🎯 **Cumulative Milestone**: **2,469,346 net bytes saved (>2.469 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+> 🎯 **Cumulative Milestone**: **2,469,348 net bytes saved (>2.469 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.8` ➔ `v1.6.9`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.9` ➔ `v1.7.0`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,406,565 B -> 2,469,346 B (+62,781 B more space saved / >2.469 MB landmark)
-+ 🟢 Silesia Medical X-Ray (x-ray): 4,051,125 B -> 3,988,345 B (-62,780 B reduction; -491,526 B vs 7-Zip)
-+ 🟢 Canterbury C Script (fields.c):     2,728 B -> 2,727 B (-1 B reduction; -357 B vs 7-Zip)
-+ 🟢 Silesia Suite Subtotal:       46,498,448 B -> 46,435,668 B (-62,780 B reduction / -1,924,732 B vs 7-Zip)
-+ 🟢 Canterbury Suite Subtotal:       417,329 B -> 417,328 B (-1 B reduction / -75,841 B vs 7-Zip)
-+ 🟢 Global Archive Total:         49,625,108 B -> 49,562,327 B (-62,781 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,469,346 B -> 2,469,348 B (+2 B more space saved / >2.469 MB landmark)
++ 🟢 Calgary C Source (progc):         11,627 B -> 11,626 B (-1 B reduction; -1,000 B vs 7-Zip)
++ 🟢 Calgary Pascal Code (progp):       9,890 B -> 9,889 B (-1 B reduction; -489 B vs 7-Zip)
++ 🟢 Calgary Suite Subtotal:          808,532 B -> 808,530 B (-2 B reduction / -75,944 B vs 7-Zip)
++ 🟢 Global Archive Total:         49,562,327 B -> 49,562,325 B (-2 B reduction / new global record)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.6.8`) | Current (`v1.6.9`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.6.9`) | Current (`v1.7.0`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,406,565 B | **2,469,346 B** | **+62,781 B** | **+2.609%** | 🟢 Record Expanded |
-| **Global Archive Size**| 53 Streams Aggregate | 49,625,108 B | **49,562,327 B** | **-62,781 B** | **-0.127%** | 🟢 Record Improved |
-| **Silesia Subtotal**   | 12 Files Aggregate | 46,498,448 B | **46,435,668 B** | **-62,780 B** | **-0.135%** | 🟢 Record Improved |
-| **Silesia `x-ray`**    | 16-Bit Radiographic Scan | 4,051,125 B | **3,988,345 B** | **-62,780 B** | **-1.550%** | 🟢 Record Improved |
-| **Canterbury `fields.c`**| C Source Script | 2,728 B | **2,727 B** | **-1 B** | **-0.037%** | 🟢 Record Improved |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,469,346 B | **2,469,348 B** | **+2 B** | **+0.0001%** | 🟢 Record Expanded |
+| **Global Archive Size**| 53 Streams Aggregate | 49,562,327 B | **49,562,325 B** | **-2 B** | **-0.000004%** | 🟢 Record Improved |
+| **Calgary Subtotal**   | 18 Files Aggregate | 808,532 B | **808,530 B** | **-2 B** | **-0.0002%** | 🟢 Record Improved |
+| **Calgary `progc`**    | C Source Code | 11,627 B | **11,626 B** | **-1 B** | **-0.009%** | 🟢 Record Improved |
+| **Calgary `progp`**    | Pascal Source Code | 9,890 B | **9,889 B** | **-1 B** | **-0.010%** | 🟢 Record Improved |
 | **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
 ---
 
@@ -75,11 +74,11 @@
 | `paper5` | 11,954 B | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B** | 2.93:1 | 12.4 ms (0.9 MB/s) | 0.2 ms (50.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `paper6` | 38,105 B | 12,564 B | 🟢 **11,145 B** | 🟩 **-1,419 B** | 3.42:1 | 40.2 ms (0.9 MB/s) | 0.4 ms (98.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `pic` | 513,216 B | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** | 13.87:1 | 458.3 ms (1.1 MB/s) | 1.4 ms (349.6 MB/s) | 12.8 MB | 🟢 PASS |
-| `progc` | 39,611 B | 12,626 B | 🟢 **11,627 B** | 🟩 **-999 B** | 3.41:1 | 39.5 ms (1.0 MB/s) | 0.2 ms (37.8 MB/s) | 8.2 MB | 🟢 PASS |
+| `progc` | 39,611 B | 12,626 B | 🟢 **11,626 B** | 🟩 **-1,000 B** | 3.41:1 | 38.2 ms (1.0 MB/s) | 0.3 ms (119.0 MB/s) | 8.2 MB | 🟢 PASS |
 | `progl` | 71,646 B | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** | 5.11:1 | 77.4 ms (0.9 MB/s) | 0.2 ms (68.3 MB/s) | 8.2 MB | 🟢 PASS |
-| `progp` | 49,379 B | 10,378 B | 🟢 **9,890 B** | 🟩 **-488 B** | 4.99:1 | 58.1 ms (0.8 MB/s) | 0.2 ms (47.1 MB/s) | 8.2 MB | 🟢 PASS |
+| `progp` | 49,379 B | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** | 4.99:1 | 55.4 ms (0.9 MB/s) | 0.3 ms (152.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `trans` | 93,695 B | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** | 6.09:1 | 114.8 ms (0.8 MB/s) | 0.6 ms (89.4 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **808,532 B** | 🟩 **-75,942 B** | **4.02:1** | **~1.5 MB/s** | **~39.8 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
+| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **808,530 B** | 🟩 **-75,944 B** | **4.02:1** | **~1.5 MB/s** | **~39.8 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
 
 ---
 
@@ -137,8 +136,8 @@
 GRAND TOTAL ACROSS ALL 53 STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,562,327 bytes
-  NET BYTES SAVED:       2,469,346 bytes (>2.469 MB net savings)
+  Orpane-MAX (.orpane):  49,562,325 bytes
+  NET BYTES SAVED:       2,469,348 bytes (>2.469 MB net savings)
   WIN RATE:              53 / 53 (100.0% clean sweep)
 ================================================================================
 ```
