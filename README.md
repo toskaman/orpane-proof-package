@@ -3,8 +3,8 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.6084%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2014%3A50%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.624%20MB%20vs%207z-brightgreen.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2015%3A10%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -44,25 +44,29 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.7.8` ➔ `v1.7.9`)
+## 🚀 Version Progress & Milestone Diff (`v1.7.9` ➔ `v1.8.0`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,608,376 B -> 2,608,438 B (+62 B more space saved / >2.6084 MB landmark)
-+ 🟢 Holdout Unseen C Headers (512K): 100,572 B -> 100,512 B (-60 B reduction / -4,017 B vs 7-Zip / 5.3x faster decode: 122.6 MB/s)
-+ 🟢 Calgary Paper4 (13.28KB):         4,294 B -> 4,292 B (-2 B reduction / -1,177 B vs 7-Zip / -21.5%)
-+ 🟢 Holdout Suite Subtotal:         377,434 B -> 377,374 B (-60 B reduction / -156,476 B vs 7-Zip / -29.31%)
-+ 🟢 Calgary Corpus Subtotal:        804,692 B -> 804,690 B (-2 B reduction / -79,784 B vs 7-Zip / -9.02%)
-+ 🟢 Global Archive Total:          49,423,297 B -> 49,423,235 B (-62 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,608,438 B -> 2,624,253 B (+15,815 B more space saved / >2.624 MB landmark)
++ 🟢 Holdout Sensor Floats (512K):   173,205 B -> 162,348 B (-10,857 B reduction / -159,934 B vs 7-Zip / -6.27%)
++ 🟢 Modern Astro Telemetry (512K):  193,620 B -> 188,663 B (-4,957 B reduction / -120,980 B vs 7-Zip / -2.56%)
++ 🟢 Calgary Obj1 Binary (21.5KB):     9,278 B -> 9,277 B (-1 B reduction / -186 B vs 7-Zip / -1.97%)
++ 🟢 Holdout Suite Subtotal:         377,374 B -> 366,517 B (-10,857 B reduction / -167,333 B vs 7-Zip / -31.34%)
++ 🟢 Modern Suite Subtotal:        1,522,075 B -> 1,517,118 B (-4,957 B reduction / -242,662 B vs 7-Zip / -13.79%)
++ 🟢 Calgary Corpus Subtotal:        804,690 B -> 804,689 B (-1 B reduction / -79,785 B vs 7-Zip / -9.02%)
++ 🟢 Global Archive Total:          49,423,235 B -> 49,407,420 B (-15,815 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.7.8`) | Current (`v1.7.9`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.7.9`) | Current (`v1.8.0`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Holdout `unseen_c_headers.c`** | C API Header (512 KB) | 100,572 B | 🟢 **100,512 B** | 🟩 **-60 B** (-0.06%) | 0.7 MB/s | 122.6 MB/s | < 5.0 MB | 🟢 PASS |
-| **Calgary `paper4`** | Typeset Prose (13.28 KB) | 4,294 B | 🟢 **4,292 B** | 🟩 **-2 B** (-0.05%) | 0.8 MB/s | 330.8 MB/s | < 0.8 MB | 🟢 PASS |
-| **Holdout Suite Subtotal** | 6 Files (2.44 MB) | 377,434 B | 🟢 **377,374 B** | 🟩 **-60 B** (-0.016%) | ~2.8 MB/s | ~72.4 MB/s | < 20 MB | 🏆 6/6 PASS |
-| **Calgary Subtotal** | 18 Files (3.25 MB) | 804,692 B | 🟢 **804,690 B** | 🟩 **-2 B** (-0.0002%) | ~1.5 MB/s | ~42.2 MB/s | < 16 MB | 🏆 18/18 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,423,297 B | 🟢 **49,423,235 B** | 🟩 **-62 B** (-0.0001%) | ~2.0 MB/s | ~78.0 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,608,376 B | 🟢 **2,608,438 B** | 🟩 **+62 B** (+0.002%) | — | — | — | 🟢 **>2.6084 MB** |
+| **Holdout `unseen_sensor_floats.raw`** | 32-bit Float Sensor (512 KB) | 173,205 B | 🟢 **162,348 B** | 🟩 **-10,857 B** (-6.27%) | 5.5 MB/s | 52.8 MB/s | < 8.0 MB | 🟢 PASS |
+| **Modern `astro_sensor_telemetry_512KB.raw`** | Scientific Sensor (512 KB) | 193,620 B | 🟢 **188,663 B** | 🟩 **-4,957 B** (-2.56%) | 3.7 MB/s | 48.6 MB/s | < 8.0 MB | 🟢 PASS |
+| **Calgary `obj1`** | Machine Code Binary (21.5 KB) | 9,278 B | 🟢 **9,277 B** | 🟩 **-1 B** (-0.01%) | 4.1 MB/s | 61.4 MB/s | < 2.0 MB | 🟢 PASS |
+| **Holdout Suite Subtotal** | 6 Files (2.44 MB) | 377,374 B | 🟢 **366,517 B** | 🟩 **-10,857 B** (-2.877%) | ~3.1 MB/s | ~76.2 MB/s | < 20 MB | 🏆 6/6 PASS |
+| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,522,075 B | 🟢 **1,517,118 B** | 🟩 **-4,957 B** (-0.326%) | ~2.6 MB/s | ~82.5 MB/s | < 25 MB | 🏆 6/6 PASS |
+| **Calgary Subtotal** | 18 Files (3.25 MB) | 804,690 B | 🟢 **804,689 B** | 🟩 **-1 B** (-0.0001%) | ~1.5 MB/s | ~42.3 MB/s | < 16 MB | 🏆 18/18 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,423,235 B | 🟢 **49,407,420 B** | 🟩 **-15,815 B** (-0.032%) | ~2.0 MB/s | ~78.4 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,608,438 B | 🟢 **2,624,253 B** | 🟩 **+15,815 B** (+0.61%) | — | — | — | 🟢 **>2.624 MB** |
 
 ---
 
@@ -100,7 +104,7 @@
 | `book2` | 611 KB | 169,814 B | 🟢 **156,559 B** | 🟩 **-13,255 B** (-7.8%) | 3.90:1 | 67ms (8.7 MB/s) | 15.9ms (36.6 MB/s) | 15 MB |
 | `geo` | 102 KB | 53,458 B | 🟢 **48,460 B** | 🟩 **-4,998 B** (-9.4%) | 2.11:1 | 186ms (0.5 MB/s) | 4.9ms (19.9 MB/s) | 13 MB |
 | `news` | 377 KB | 118,949 B | 🟢 **112,980 B** | 🟩 **-5,969 B** (-5.0%) | 3.34:1 | 561ms (0.6 MB/s) | 1.2ms (299.7 MB/s) | 8 MB |
-| `obj1` | 22 KB | 9,463 B | 🟢 **9,278 B** | 🟩 **-185 B** (-2.0%) | 2.32:1 | 2.5ms (8.2 MB/s) | 0.4ms (20.5 MB/s) | 8 MB |
+| `obj1` | 22 KB | 9,463 B | 🟢 **9,277 B** | 🟩 **-186 B** (-2.0%) | 2.32:1 | 5.0ms (4.1 MB/s) | 0.3ms (61.4 MB/s) | 2 MB |
 | `obj2` | 247 KB | 61,447 B | 🟢 **61,129 B** | 🟩 **-318 B** (-0.5%) | 4.04:1 | 35ms (6.6 MB/s) | 2.8ms (84.1 MB/s) | 8 MB |
 | `paper1` | 53 KB | 17,331 B | 🟢 **15,469 B** | 🟩 **-1,862 B** (-10.7%) | 3.44:1 | 50ms (1.0 MB/s) | 0.2ms (50.7 MB/s) | 8 MB |
 | `paper2` | 82 KB | 27,321 B | 🟢 **24,851 B** | 🟩 **-2,470 B** (-9.0%) | 3.31:1 | 89ms (0.9 MB/s) | 0.6ms (132.4 MB/s) | 8 MB |
@@ -113,7 +117,7 @@
 | `progl` | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
 | `progp` | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
 | `trans` | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
-| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,690 B** | 🟩 **-79,784 B (-9.02%)** | **4.04:1** | **~1.5 MB/s** | **~42.2 MB/s** | **< 16 MB** |
+| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,689 B** | 🟩 **-79,785 B (-9.02%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
 
 ---
 
@@ -140,7 +144,7 @@
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **193,620 B** | 🟩 **-116,023 B (-37.5%)** | 2.71:1 | 62ms (8.1 MB/s) | 11.4ms (43.9 MB/s) | 19 MB |
+| `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,663 B** | 🟩 **-120,980 B (-39.1%)** | 2.78:1 | 135.9ms (3.7 MB/s) | 10.3ms (48.6 MB/s) | 8 MB |
 | `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,407 B** | 🟩 **-93,072 B (-12.7%)** | 1.64:1 | 287ms (3.5 MB/s) | 59.5ms (16.8 MB/s) | 19 MB |
 | `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,814 B** | 🟩 **-9,472 B** (-4.1%) | 2.34:1 | 3364ms (0.1 MB/s) | 28.5ms (17.5 MB/s) | 24 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
@@ -154,13 +158,13 @@
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `unseen_sensor_floats.raw` | 512 KB | 322,282 B | 🟢 **173,205 B** | 🟩 **-149,077 B (-46.3%)** | 3.03:1 | 1.26s (0.4 MB/s) | 19.2ms (26.0 MB/s) | 19 MB |
+| `unseen_sensor_floats.raw` | 512 KB | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 3.23:1 | 91.4ms (5.5 MB/s) | 9.5ms (52.8 MB/s) | 8 MB |
 | `unseen_c_headers.c` | 512 KB | 104,529 B | 🟢 **100,512 B** | 🟩 **-4,017 B** (-3.8%) | 5.22:1 | 698.9ms (0.7 MB/s) | 4.1ms (122.6 MB/s) | 5 MB |
 | `unseen_protein.fasta` | 500 KB | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 636.51:1 | 51ms (9.6 MB/s) | 9.1ms (54.0 MB/s) | 4 MB |
 | `unseen_telemetry.json` | 512 KB | 15,533 B | 🟢 **14,295 B** | 🟩 **-1,238 B** (-7.97%) | 36.68:1 | 42ms (12.3 MB/s) | 7.2ms (69.4 MB/s) | 14 MB |
 | `unseen_win_pe.bin` | 196 KB | 88,881 B | 🟢 **88,376 B** | 🟩 **-505 B** (-0.6%) | 2.27:1 | 41ms (4.6 MB/s) | 5.2ms (36.8 MB/s) | 14 MB |
 | `unseen_archive.tar` | 154 KB | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.59%)** | 848.62:1 | 8.5ms (17.3 MB/s) | 0.56ms (260.2 MB/s) | 14 MB |
-| **Holdout Suite Total** | **2.44 MB** | **533,850 B** | 🟢 **377,374 B** | 🟩 **-156,476 B (-29.31%)** | **6.46:1** | **~2.8 MB/s** | **~72.4 MB/s** | **< 20 MB** |
+| **Holdout Suite Total** | **2.44 MB** | **533,850 B** | 🟢 **366,517 B** | 🟩 **-167,333 B (-31.34%)** | **6.66:1** | **~3.1 MB/s** | **~76.2 MB/s** | **< 20 MB** |
 
 ---
 
