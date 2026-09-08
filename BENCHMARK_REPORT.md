@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-08 13:35:00 UTC+2` (September 8, 2026)  
+> 🕒 **Last Updated**: `2026-09-08 13:40:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -12,30 +12,30 @@
 
 | Benchmark Corpus | Files | Uncompressed | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7-Zip | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,357,451 B** | 🟩 **-2,002,949 B (-4.14%)** | 🏆 **12 / 12 (100%)** |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **808,530 B** | 🟩 **-75,944 B (-8.59%)** | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **417,328 B** | 🟩 **-75,841 B (-15.38%)** | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,075 B** | 🟩 **-237,705 B (-13.51%)** | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,434 B** | 🟩 **-156,416 B (-29.30%)** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,482,818 B** | 🟩 **-2,548,855 B (-4.90%)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,431,960 B** | 🟩 **-2,599,713 B (-5.00%)** | 🏆 **53 / 53 (100.0%)** |
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.7.5` ➔ `v1.7.6`)
+## 🚀 Version Progress & Milestone Diff (`v1.7.6` ➔ `v1.7.7`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,470,638 B -> 2,548,855 B (+78,217 B more space saved / >2.548 MB landmark)
-+ 🟢 Silesia MR Medical Scan (9.97M): 2,416,626 B -> 2,338,409 B (-78,217 B reduction / -410,037 B vs 7-Zip)
-+ 🟢 Silesia Corpus Subtotal:       46,435,668 B -> 46,357,451 B (-78,217 B reduction / >2.002 MB saved vs 7-Zip)
-+ 🟢 Global Archive Total:         49,561,035 B -> 49,482,818 B (-78,217 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,548,855 B -> 2,599,713 B (+50,858 B more space saved / >2.599 MB landmark)
++ 🟢 Silesia X-Ray Scan (8.47M):    3,988,345 B -> 3,937,487 B (-50,858 B reduction / -542,384 B vs 7-Zip)
++ 🟢 Silesia Corpus Subtotal:       46,357,451 B -> 46,306,593 B (-50,858 B reduction / >2.053 MB saved vs 7-Zip)
++ 🟢 Global Archive Total:         49,482,818 B -> 49,431,960 B (-50,858 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.7.5`) | Current (`v1.7.6`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.7.6`) | Current (`v1.7.7`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Silesia `mr`** | 16-bit DICOM (9.97 MB) | 2,416,626 B | 🟢 **2,338,409 B** | 🟩 **-78,217 B** (-3.24%) | 0.4 MB/s | 157.2 MB/s | < 48.2 MB | 🟢 PASS |
-| **Silesia Corpus Subtotal** | 12 Files (211.94 MB) | 46,435,668 B | 🟢 **46,357,451 B** | 🟩 **-78,217 B** (-0.168%) | ~1.8 MB/s | ~95.8 MB/s | < 699.1 MB | 🏆 12/12 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,561,035 B | 🟢 **49,482,818 B** | 🟩 **-78,217 B** (-0.158%) | ~2.0 MB/s | ~76.2 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,470,638 B | 🟢 **2,548,855 B** | 🟩 **+78,217 B** (+3.17%) | — | — | — | 🟢 **>2.548 MB** |
+| **Silesia `x-ray`** | 16-bit Radiograph (8.47 MB) | 3,988,345 B | 🟢 **3,937,487 B** | 🟩 **-50,858 B** (-1.28%) | 0.4 MB/s | 130.5 MB/s | < 43.9 MB | 🟢 PASS |
+| **Silesia Corpus Subtotal** | 12 Files (211.94 MB) | 46,357,451 B | 🟢 **46,306,593 B** | 🟩 **-50,858 B** (-0.110%) | ~1.8 MB/s | ~96.5 MB/s | < 699.1 MB | 🏆 12/12 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,482,818 B | 🟢 **49,431,960 B** | 🟩 **-50,858 B** (-0.103%) | ~2.0 MB/s | ~76.6 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,548,855 B | 🟢 **2,599,713 B** | 🟩 **+50,858 B** (+2.00%) | — | — | — | 🟢 **>2.599 MB** |
 
 ---
 
@@ -55,9 +55,9 @@
 | `samba` | 21.60 MB | 3,731,438 B | 🟢 **3,727,988 B** | 🟩 **-3,450 B** (-0.1%) | 5.80:1 | 9.0s (2.3 MB/s) | 205ms (100.7 MB/s) | 378 MB |
 | `sao` | 7.25 MB | 4,413,926 B | 🟢 **3,994,318 B** | 🟩 **-419,608 B** (-9.5%) | 1.82:1 | 2.5s (2.8 MB/s) | 109ms (63.7 MB/s) | 109 MB |
 | `webster` | 41.45 MB | 8,370,602 B | 🟢 **8,346,688 B** | 🟩 **-23,914 B** (-0.3%) | 4.97:1 | 28.3s (1.4 MB/s) | 367ms (107.8 MB/s) | 149 MB |
-| `x-ray` | 8.47 MB | 4,479,871 B | 🟢 **3,988,345 B** | 🟩 **-491,526 B** (-11.0%) | 2.12:1 | 6.7s (1.2 MB/s) | 281ms (28.7 MB/s) | 24 MB |
+| `x-ray` | 8.47 MB | 4,479,871 B | 🟢 **3,937,487 B** | 🟩 **-542,384 B** (-12.1%) | 2.15:1 | 21.8s (0.4 MB/s) | 61.9ms (130.5 MB/s) | 44 MB |
 | `xml` | 5.34 MB | 435,212 B | 🟢 **430,163 B** | 🟩 **-5,049 B** (-1.2%) | 12.43:1 | 6.4s (0.8 MB/s) | 9ms (579.3 MB/s) | 10 MB |
-| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,357,451 B** | 🟩 **-2,002,949 B (-4.14%)** | **4.57:1** | **~1.8 MB/s** | **~95.8 MB/s** | **< 699 MB** |
+| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | **4.58:1** | **~1.8 MB/s** | **~96.5 MB/s** | **< 699 MB** |
 
 ---
 
@@ -141,8 +141,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,482,818 bytes
-  NET BYTES SAVED:       2,548,855 bytes (>2.548 MB net space savings)
+  Orpane-MAX (.orpane):  49,431,960 bytes
+  NET BYTES SAVED:       2,599,713 bytes (>2.599 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
