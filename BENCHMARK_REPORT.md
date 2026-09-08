@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-08 13:14:00 UTC+2` (September 8, 2026)  
+> 🕒 **Last Updated**: `2026-09-08 13:16:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -15,27 +15,27 @@
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,435,668 B** | 🟩 **-1,924,732 B (-3.98%)** | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **808,530 B** | 🟩 **-75,944 B (-8.59%)** | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **417,328 B** | 🟩 **-75,841 B (-15.38%)** | 🏆 **11 / 11 (100%)** |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,631 B** | 🟩 **-237,149 B (-13.48%)** | 🏆 **6 / 6 (100%)** |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,522,426 B** | 🟩 **-237,354 B (-13.49%)** | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **377,735 B** | 🟩 **-156,115 B (-29.24%)** | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,561,892 B** | 🟩 **-2,469,781 B (-4.75%)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,561,687 B** | 🟩 **-2,469,986 B (-4.75%)** | 🏆 **53 / 53 (100.0%)** |
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.7.2` ➔ `v1.7.3`)
+## 🚀 Version Progress & Milestone Diff (`v1.7.3` ➔ `v1.7.4`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,469,592 B -> 2,469,781 B (+189 B more space saved / >2.469 MB landmark)
-+ 🟢 Modern Real C Source (1MB):     167,631 B -> 167,442 B (-189 B reduction / -5,305 B vs 7-Zip)
-+ 🟢 Modern Suite Subtotal:        1,522,820 B -> 1,522,631 B (-189 B reduction / -237,149 B vs 7-Zip)
-+ 🟢 Global Archive Total:         49,562,081 B -> 49,561,892 B (-189 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,469,781 B -> 2,469,986 B (+205 B more space saved / >2.469 MB landmark)
++ 🟢 Modern Kernel C Source (512K):    6,133 B -> 5,928 B (-205 B reduction / -1,945 B vs 7-Zip)
++ 🟢 Modern Suite Subtotal:        1,522,631 B -> 1,522,426 B (-205 B reduction / -237,354 B vs 7-Zip)
++ 🟢 Global Archive Total:         49,561,892 B -> 49,561,687 B (-205 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.7.2`) | Current (`v1.7.3`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.7.3`) | Current (`v1.7.4`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Modern `real_c_source_1MB.c`** | C Source Code (1.00 MB) | 167,631 B | 🟢 **167,442 B** | 🟩 **-189 B** (-0.11%) | 11.5 MB/s | 32.8 MB/s | < 19.0 MB | 🟢 PASS |
-| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,522,820 B | 🟢 **1,522,631 B** | 🟩 **-189 B** (-0.012%) | ~2.4 MB/s | ~65.7 MB/s | < 20.0 MB | 🟢 6/6 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,562,081 B | 🟢 **49,561,892 B** | 🟩 **-189 B** (-0.00038%) | ~2.0 MB/s | ~75.6 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,469,592 B | 🟢 **2,469,781 B** | 🟩 **+189 B** (+0.0076%) | — | — | — | 🟢 **>2.469 MB** |
+| **Modern `source_code_kernel_512KB.c`** | Kernel Source (512 KB) | 6,133 B | 🟢 **5,928 B** | 🟩 **-205 B** (-3.34%) | 10.8 MB/s | 117.3 MB/s | < 8.0 MB | 🟢 PASS |
+| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,522,631 B | 🟢 **1,522,426 B** | 🟩 **-205 B** (-0.013%) | ~2.4 MB/s | ~66.1 MB/s | < 20.0 MB | 🟢 6/6 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,561,892 B | 🟢 **49,561,687 B** | 🟩 **-205 B** (-0.00041%) | ~2.0 MB/s | ~75.8 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,469,781 B | 🟢 **2,469,986 B** | 🟩 **+205 B** (+0.0083%) | — | — | — | 🟢 **>2.469 MB** |
 
 ---
 
@@ -115,8 +115,8 @@
 | `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **224,165 B** | 🟩 **-9,121 B** (-3.9%) | 2.34:1 | 523ms (1.0 MB/s) | 14.0ms (35.7 MB/s) | 19 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
 | `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
-| `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **6,133 B** | 🟩 **-1,740 B (-22.1%)** | 85.49:1 | 1.39s (0.4 MB/s) | 10.3ms (48.4 MB/s) | 8 MB |
-| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,522,631 B** | 🟩 **-237,149 B (-13.48%)** | **3.10:1** | **~2.4 MB/s** | **~65.7 MB/s** | **< 20 MB** |
+| `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,928 B** | 🟩 **-1,945 B (-24.70%)** | 88.44:1 | 48ms (10.8 MB/s) | 4.3ms (117.3 MB/s) | 8 MB |
+| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,522,426 B** | 🟩 **-237,354 B (-13.49%)** | **3.10:1** | **~2.4 MB/s** | **~66.1 MB/s** | **< 20 MB** |
 
 ---
 
@@ -141,8 +141,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,561,892 bytes
-  NET BYTES SAVED:       2,469,781 bytes (>2.469 MB net space savings)
+  Orpane-MAX (.orpane):  49,561,687 bytes
+  NET BYTES SAVED:       2,469,986 bytes (>2.469 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
