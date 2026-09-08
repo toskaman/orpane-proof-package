@@ -1,3 +1,6 @@
+d1af2c4728853462d7e33dd726a4a9f0  BENCHMARK_REPORT.md
+288d21512ceaf75de8f25489e5941f38  LOG.md
+00ab6e1cf14a9a1f8f2b48416208a539  README.md
 74c3b556c76ea0cfae111cdb64d08255  1_original_files/alice29.txt
 29eca86237730fce52232612036284b9  1_original_files/pic
 ad6246afacb574a8c9a4e0169d91230d  2_compressed_files/alice29.txt.7z
@@ -8,7 +11,6 @@ e77cc5cb6c3613b52441653d76988998  2_compressed_files/alice29.txt.orpane
 74c3b556c76ea0cfae111cdb64d08255  3_decompressed_files/alice29_decompressed_by_orpane.txt
 29eca86237730fce52232612036284b9  3_decompressed_files/pic_decompressed_by_7z
 29eca86237730fce52232612036284b9  3_decompressed_files/pic_decompressed_by_orpane
-8b471b8e0e3dfbb86cfcf20aac801254  README.txt
-57364c67c13a960b0ef0261e595fd1b5  VERIFICATION_LOG.md
-57364c67c13a960b0ef0261e595fd1b5  VERIFICATION_LOG.txt
 ba8bb4fc432b2a40ff274d754c40f30f  bin/orpane-dec.exe
+32010c5e17178c789e568327627f55e2  src_decompressor/Cargo.toml
+6c879bd3bb3a36e259959eb9eb4c04a1  src_decompressor/src/main.rs
