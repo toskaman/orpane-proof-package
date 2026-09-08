@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-08 16:30:00 UTC+2` (September 8, 2026)  
+> 🕒 **Last Updated**: `2026-09-08 16:35:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -10,7 +10,7 @@
 
 ## ⚡ Head-to-Head Summary: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,624,471 bytes (-5.04%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,624,529 bytes (-5.04%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -22,9 +22,9 @@
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 92.7 ➔ 🟢 **96.5 MB/s (+4.1%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,688 B** | 🟩 **-79,786 B (-9.02%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,901 B** | 🟩 **-242,879 B (-13.80%)** | 20.7 ➔ 🟢 **63.0 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,843 B** | 🟩 **-242,937 B (-13.81%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,517 B** | 🟩 **-167,333 B (-31.34%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,407,202 B** | 🟩 **-2,624,471 B (-5.04%)** | **62.9 ➔ 🟢 88.4 MB/s (1.40x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,407,144 B** | 🟩 **-2,624,529 B (-5.04%)** | **62.9 ➔ 🟢 88.4 MB/s (1.40x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -133,7 +133,7 @@
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
 | `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
 | `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,928 B** | 🟩 **-1,945 B (-24.70%)** | 88.44:1 | 48ms (10.8 MB/s) | 4.3ms (117.3 MB/s) | 8 MB |
-| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,901 B** | 🟩 **-242,879 B (-13.80%)** | **3.11:1** | **~2.3 MB/s** | **~63.0 MB/s** | **< 20 MB** |
+| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,843 B** | 🟩 **-242,937 B (-13.81%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
 
 ---
 

@@ -163,3 +163,11 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 - **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
 - **Global 53-Stream Archive Total**: 49,407,202 B (-2,624,471 B net savings vs 7-Zip mx9)
 - **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 16:35:00 UTC+2] Release v1.8.3 — Discoveries #173 & #174 (paper6 & kernel)
+- **Target 1**: `corpus/calgary/paper6` (38.1 KB): 11,145 B -> 11,144 B (-1 B reduction)
+- **Target 2**: `corpus/source_code_kernel_512KB.c` (512 KB): 5,928 B -> 5,870 B (-58 B reduction, 89.32:1 ratio)
+- **Decompression Speed**: 119.0 MB/s on kernel, 106.6 MB/s on paper6
+- **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
+- **Global 53-Stream Archive Total**: 49,407,144 B (-2,624,529 B net savings vs 7-Zip mx9)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)
