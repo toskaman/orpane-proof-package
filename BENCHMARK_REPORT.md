@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-08 19:15:00 UTC+2` (September 8, 2026)  
+> 🕒 **Last Updated**: `2026-09-08 19:40:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -10,7 +10,7 @@
 
 ## ⚡ Head-to-Head Summary: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,647,351 bytes (-5.088%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,647,389 bytes (-5.088%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -20,11 +20,11 @@
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,284,331 B** | 🟩 **-2,076,069 B (-4.29%)** | 92.7 ➔ 🟢 **97.2 MB/s (+4.9%)** | 75.3s ➔ 109.1s (1.45x) | 🏆 **12 / 12 (100%)** |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,388 B** | 🟩 **-80,086 B (-9.05%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,384,322 B** | 🟩 **-2,647,351 B (-5.09%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 115.4s (1.47x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,384,284 B** | 🟩 **-2,647,389 B (-5.09%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 115.4s (1.47x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -39,21 +39,21 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.7` ➔ `v1.8.8`)
+## 🚀 Version Progress & Milestone Diff (`v1.8.8` ➔ `v1.8.9`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,647,031 B -> 2,647,351 B (+320 B more space saved / >2.6473 MB landmark)
-+ 🟢 Modern Peptide FASTA (512KB):    223,814 B -> 223,494 B (-320 B reduction / -9,792 B vs 7-Zip / 2.4x decode speedup)
-+ 🟢 Modern Suite Subtotal:         1,516,830 B -> 1,516,510 B (-320 B reduction / -243,270 B vs 7-Zip / -13.82%)
-+ 🟢 Global Archive Total:          49,384,642 B -> 49,384,322 B (-320 B reduction / new all-time record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,647,351 B -> 2,647,389 B (+38 B more space saved / >2.6473 MB landmark)
++ 🟢 Calgary Binary Module (247KB):    61,129 B ->    61,091 B (-38 B reduction / -356 B vs 7-Zip / 67.5 MB/s decode)
++ 🟢 Calgary Suite Subtotal:          804,388 B ->   804,350 B (-38 B reduction / -80,124 B vs 7-Zip / -9.06%)
++ 🟢 Global Archive Total:          49,384,322 B -> 49,384,284 B (-38 B reduction / new all-time record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.7`) | Current (`v1.8.8`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.8.8`) | Current (`v1.8.9`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Modern `uniprot_protein`** | Peptide FASTA (512 KB) | 223,814 B | 🟢 **223,494 B** | 🟩 **-320 B** (-0.143%) | 1.0 MB/s | 29.0 MB/s (+66%) | < 8.0 MB | 🟢 PASS |
-| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,516,830 B | 🟢 **1,516,510 B** | 🟩 **-320 B** (-0.021%) | ~2.3 MB/s | ~63.2 MB/s | < 20.0 MB | 🏆 6/6 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,384,642 B | 🟢 **49,384,322 B** | 🟩 **-320 B** (-0.00065%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,647,031 B | 🟢 **2,647,351 B** | 🟩 **+320 B** (+0.012%) | — | — | — | 🟢 **>2.6473 MB** |
+| **Calgary `obj2`** | 16-Bit Binary Object (247 KB) | 61,129 B | 🟢 **61,091 B** | 🟩 **-38 B** (-0.062%) | 4.1 MB/s | 67.5 MB/s | < 8.0 MB | 🟢 PASS |
+| **Calgary Suite Subtotal** | 18 Files (3.25 MB) | 804,388 B | 🟢 **804,350 B** | 🟩 **-38 B** (-0.0047%) | ~1.5 MB/s | ~42.3 MB/s | < 16.0 MB | 🏆 18/18 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,384,322 B | 🟢 **49,384,284 B** | 🟩 **-38 B** (-0.000077%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,647,351 B | 🟢 **2,647,389 B** | 🟩 **+38 B** (+0.0014%) | — | — | — | 🟢 **>2.6473 MB** |
 ---
 
 ## 📊 Detailed Corpus Breakdown
@@ -88,7 +88,7 @@
 | `geo` | 102 KB | 53,458 B | 🟢 **48,447 B** | 🟩 **-5,011 B** (-9.37%) | 2.11:1 | 186ms (0.5 MB/s) | 1.0ms (100.8 MB/s) | 13 MB |
 | `news` | 377 KB | 118,949 B | 🟢 **112,707 B** | 🟩 **-6,242 B** (-5.25%) | 3.35:1 | 561ms (0.6 MB/s) | 2.5ms (142.5 MB/s) | 8 MB |
 | `obj1` | 22 KB | 9,463 B | 🟢 **9,277 B** | 🟩 **-186 B** (-2.0%) | 2.32:1 | 5.0ms (4.1 MB/s) | 0.3ms (61.4 MB/s) | 2 MB |
-| `obj2` | 247 KB | 61,447 B | 🟢 **61,129 B** | 🟩 **-318 B** (-0.5%) | 4.04:1 | 35ms (6.6 MB/s) | 2.8ms (84.1 MB/s) | 8 MB |
+| `obj2` | 247 KB | 61,447 B | 🟢 **61,091 B** | 🟩 **-356 B** (-0.58%) | 4.04:1 | 57ms (4.1 MB/s) | 3.5ms (67.5 MB/s) | 8 MB |
 | `paper1` | 53 KB | 17,331 B | 🟢 **15,469 B** | 🟩 **-1,862 B** (-10.7%) | 3.44:1 | 50ms (1.0 MB/s) | 0.2ms (50.7 MB/s) | 8 MB |
 | `paper2` | 82 KB | 27,321 B | 🟢 **24,851 B** | 🟩 **-2,470 B** (-9.0%) | 3.31:1 | 89ms (0.9 MB/s) | 0.6ms (132.4 MB/s) | 8 MB |
 | `paper3` | 47 KB | 17,132 B | 🟢 **14,651 B** | 🟩 **-2,481 B** (-14.5%) | 3.18:1 | 45ms (1.0 MB/s) | 0.3ms (44.4 MB/s) | 8 MB |
@@ -100,7 +100,7 @@
 | `progl` | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
 | `progp` | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
 | `trans` | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
-| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,388 B** | 🟩 **-80,086 B (-9.05%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
+| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
 
 ---
 
@@ -158,8 +158,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,384,322 bytes
-  NET BYTES SAVED:       2,647,351 bytes (>2.6473 MB net space savings)
+  Orpane-MAX (.orpane):  49,384,284 bytes
+  NET BYTES SAVED:       2,647,389 bytes (>2.6473 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
