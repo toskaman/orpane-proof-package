@@ -3,39 +3,37 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2006%3A10%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2006%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, full operational metrics (compression time, decompression speed, RAM footprint), and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 06:10:00 UTC+2` (September 8, 2026)  
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 06:40:00 UTC+2` (September 8, 2026) (September 8, 2026) (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > ⏱️ **Latency Methodology**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and container framing; **In-Memory Warmed Cache Throughput** isolates pure kernel transformation and entropy encode/decode speed in RAM.  
-> 🎯 **Cumulative Milestone**: **2,300,361 net bytes saved (>2.194 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+> 🎯 **Cumulative Milestone**: **2,300,933 net bytes saved (>2.194 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.5.3` ➔ `v1.5.4`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.5.4` ➔ `v1.5.5`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,298,617 B -> 2,300,361 B (+1,744 B more space saved / new record)
-+ 🟢 Modern Real-World Total:       1,527,458 B -> 1,526,038 B (-1,420 B reduction / -233,742 B vs 7-Zip)
-+ 🟢 Private Holdout Total:         379,208 B -> 378,915 B (-293 B reduction / -154,935 B vs 7-Zip)
-+ 🟢 Calgary Corpus Total:          809,035 B -> 809,004 B (-31 B reduction / -75,470 B vs 7-Zip)
-+ 🟢 Global Archive Total:          49,733,056 B -> 49,731,312 B (-1,744 B reduction / new global record)
-+ 🟢 Modern `real_c_source_1MB.c`:  168,907 B -> 167,753 B (-1,154 B reduction; -4,994 B vs 7-Zip)
-+ 🟢 Holdout `unseen_c_headers.c`:  101,193 B -> 100,900 B (-293 B reduction; -3,629 B vs 7-Zip)
-+ 🟢 Modern `source_code_kernel`:   6,407 B -> 6,141 B (-266 B reduction; -1,732 B vs 7-Zip)
-+ 🟢 Calgary `trans`:               15,414 B -> 15,383 B (-31 B reduction; -1,316 B vs 7-Zip)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,300,361 B -> 2,300,933 B (+572 B more space saved / new record)
++ 🟢 Canterbury Corpus Total:       417,885 B -> 417,520 B (-365 B reduction / -75,649 B vs 7-Zip)
++ 🟢 Calgary Corpus Total:          809,004 B -> 808,797 B (-207 B reduction / -75,677 B vs 7-Zip)
++ 🟢 Global Archive Total:          49,731,312 B -> 49,730,740 B (-572 B reduction / new global record)
++ 🟢 Canterbury `plrabn12.txt`:     144,810 B -> 144,564 B (-246 B reduction; -21,094 B vs 7-Zip)
++ 🟢 Calgary `book2`:               156,699 B -> 156,576 B (-123 B reduction; -13,238 B vs 7-Zip)
++ 🟢 Calgary `book1`:               230,553 B -> 230,469 B (-84 B reduction; -30,745 B vs 7-Zip)
++ 🟢 Canterbury `asyoulik.txt`:     39,581 B -> 39,516 B (-65 B reduction; -5,151 B vs 7-Zip)
++ 🟢 Canterbury `lcet10.txt`:       107,030 B -> 106,976 B (-54 B reduction; -12,529 B vs 7-Zip)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.5.3`) | Current (`v1.5.4`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.5.4`) | Current (`v1.5.5`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,298,617 B | **2,300,361 B** | **+1,744 B** | **+0.076%** | 🟢 Record Improved |
-| **Global Archive Size**| 53 Streams Aggregate | 49,733,056 B | **49,731,312 B** | **-1,744 B** | **-0.0035%** | 🟢 Record Improved |
-| **Modern Real-World**  | 6 Files Aggregate | 1,527,458 B | **1,526,038 B** | **-1,420 B** | **-0.093%** | 🟢 Record Improved |
-| **Private Holdout**    | 6 Streams Aggregate| 379,208 B | **378,915 B** | **-293 B** | **-0.077%** | 🟢 Record Improved |
-| **Calgary Total**      | 18 Files Aggregate | 809,035 B | **809,004 B** | **-31 B** | **-0.004%** | 🟢 Record Improved |
-| **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,300,361 B | **2,300,933 B** | **+572 B** | **+0.025%** | 🟢 Record Improved |
+| **Global Archive Size**| 53 Streams Aggregate | 49,731,312 B | **49,730,740 B** | **-572 B** | **-0.0012%** | 🟢 Record Improved |
+| **Canterbury Total**   | 11 Files Aggregate | 417,885 B | **417,520 B** | **-365 B** | **-0.087%** | 🟢 Record Improved |
+| **Calgary Total**      | 18 Files Aggregate | 809,004 B | **808,797 B** | **-207 B** | **-0.026%** | 🟢 Record Improved |
 
 ---
 
@@ -66,8 +64,8 @@
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `bib` | 111,261 B | 30,602 B | 🟢 **27,479 B** | 🟩 **-3,123 B** | 4.05:1 | 8.7 ms (12.2 MB/s) | 3.6 ms (29.5 MB/s) | 8.2 MB | 🟢 PASS |
-| `book1` | 768,771 B | 261,214 B | 🟢 **230,553 B** | 🟩 **-30,661 B** | 3.33:1 | 101.4 ms (7.2 MB/s) | 38.3 ms (19.1 MB/s) | 15.4 MB | 🟢 PASS |
-| `book2` | 610,856 B | 169,814 B | 🟢 **156,699 B** | 🟩 **-13,115 B** | 3.90:1 | 66.7 ms (8.7 MB/s) | 22.6 ms (25.8 MB/s) | 15.4 MB | 🟢 PASS |
+| `book1` | 768,771 B | 261,214 B | 🟢 **230,469 B** | 🟩 **-30,745 B** | 3.34:1 | 101.4 ms (7.2 MB/s) | 22.0 ms (33.4 MB/s) | 15.4 MB | 🟢 PASS |
+| `book2` | 610,856 B | 169,814 B | 🟢 **156,576 B** | 🟩 **-13,238 B** | 3.90:1 | 66.7 ms (8.7 MB/s) | 15.1 ms (38.7 MB/s) | 15.4 MB | 🟢 PASS |
 | `geo` | 102,400 B | 53,458 B | 🟢 **48,460 B** | 🟩 **-4,998 B** | 2.11:1 | 185.6 ms (0.5 MB/s) | 4.9 ms (19.9 MB/s) | 12.8 MB | 🟢 PASS |
 | `news` | 377,109 B | 118,949 B | 🟢 **112,980 B** | 🟩 **-5,969 B** | 3.34:1 | 560.8 ms (0.6 MB/s) | 1.2 ms (299.7 MB/s) | 8.2 MB | 🟢 PASS |
 | `obj1` | 21,504 B | 9,463 B | 🟢 **9,278 B** | 🟩 **-185 B** | 2.32:1 | 2.5 ms (8.2 MB/s) | 0.4 ms (20.5 MB/s) | 8.2 MB | 🟢 PASS |
@@ -83,7 +81,7 @@
 | `progl` | 71,646 B | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** | 5.11:1 | 77.4 ms (0.9 MB/s) | 0.2 ms (68.3 MB/s) | 8.2 MB | 🟢 PASS |
 | `progp` | 49,379 B | 10,378 B | 🟢 **9,890 B** | 🟩 **-488 B** | 4.99:1 | 58.1 ms (0.8 MB/s) | 0.2 ms (47.1 MB/s) | 8.2 MB | 🟢 PASS |
 | `trans` | 93,695 B | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** | 6.09:1 | 114.8 ms (0.8 MB/s) | 0.6 ms (89.4 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **809,004 B** | 🟩 **-75,470 B** | **4.02:1** | **~1.5 MB/s** | **~38.2 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
+| **Total / Avg** | **3,251,493 B** | **884,474 B** | 🟢 **808,797 B** | 🟩 **-75,677 B** | **4.02:1** | **~1.5 MB/s** | **~39.5 MB/s** | **< 16 MB** | 🟢 **18 / 18 PASS** |
 
 ---
 
@@ -92,17 +90,17 @@
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `alice29.txt` | 152,089 B | 48,586 B | 🟢 **42,913 B** | 🟩 **-5,673 B** | 3.54:1 | 24.8 ms (5.8 MB/s) | 6.5 ms (22.3 MB/s) | 8.2 MB | 🟢 PASS |
-| `asyoulik.txt` | 125,179 B | 44,667 B | 🟢 **39,581 B** | 🟩 **-5,086 B** | 3.16:1 | 8.6 ms (13.9 MB/s) | 3.4 ms (35.1 MB/s) | 8.2 MB | 🟢 PASS |
+| `asyoulik.txt` | 125,179 B | 44,667 B | 🟢 **39,516 B** | 🟩 **-5,151 B** | 3.17:1 | 8.6 ms (13.9 MB/s) | 3.5 ms (34.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `cp.html` | 24,603 B | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** | 3.56:1 | 25.8 ms (0.9 MB/s) | 0.2 ms (23.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `fields.c` | 11,150 B | 3,084 B | 🟢 **2,728 B** | 🟩 **-356 B** | 4.09:1 | 12.6 ms (0.8 MB/s) | 0.1 ms (10.6 MB/s) | 8.2 MB | 🟢 PASS |
 | `grammar.lsp` | 3,721 B | 1,364 B | 🟢 **1,135 B** | 🟩 **-229 B** | 3.28:1 | 4.7 ms (0.8 MB/s) | 0.0 ms (3.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `kennedy.xls` | 1,029,744 B | 51,128 B | 🟢 **24,911 B** | 🟩 **-26,217 B** | 41.34:1 | 23.2 ms (42.3 MB/s) | 7.5 ms (130.9 MB/s) | 24.6 MB | 🟢 PASS |
-| `lcet10.txt` | 426,754 B | 119,505 B | 🟢 **107,030 B** | 🟩 **-12,475 B** | 3.99:1 | 40.9 ms (10.0 MB/s) | 14.3 ms (28.5 MB/s) | 16.2 MB | 🟢 PASS |
-| `plrabn12.txt` | 481,861 B | 165,658 B | 🟢 **144,810 B** | 🟩 **-20,848 B** | 3.33:1 | 55.3 ms (8.3 MB/s) | 28.5 ms (16.1 MB/s) | 16.2 MB | 🟢 PASS |
+| `lcet10.txt` | 426,754 B | 119,505 B | 🟢 **106,976 B** | 🟩 **-12,529 B** | 3.99:1 | 40.9 ms (10.0 MB/s) | 11.3 ms (36.2 MB/s) | 16.2 MB | 🟢 PASS |
+| `plrabn12.txt` | 481,861 B | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** | 3.33:1 | 55.3 ms (8.3 MB/s) | 14.9 ms (30.9 MB/s) | 16.2 MB | 🟢 PASS |
 | `ptt5` | 513,216 B | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** | 13.87:1 | 541.2 ms (0.9 MB/s) | 1.1 ms (444.9 MB/s) | 8.2 MB | 🟢 PASS |
 | `sum` | 38,240 B | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** | 4.07:1 | 5.8 ms (6.3 MB/s) | 0.6 ms (36.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `xargs.1` | 4,227 B | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** | 2.90:1 | 6.0 ms (0.7 MB/s) | 0.1 ms (4.0 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,885 B** | 🟩 **-75,284 B** | **6.73:1** | **~2.2 MB/s** | **~52.1 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
+| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,520 B** | 🟩 **-75,649 B** | **6.73:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
 
 ---
 
