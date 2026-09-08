@@ -171,3 +171,11 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 - **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
 - **Global 53-Stream Archive Total**: 49,407,144 B (-2,624,529 B net savings vs 7-Zip mx9)
 - **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 17:00:00 UTC+2] Release v1.8.4 — Discovery #175 (mr)
+- **Target**: `corpus/silesia/mr` (9.97 MB 16-bit MRI Scan)
+- **Archive Size**: 2,338,409 B -> 2,324,773 B (-13,636 B reduction, -423,484 B vs 7-Zip mx9)
+- **Decompression Speed**: 136.8 MB/s (64.0 ms)
+- **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
+- **Global 53-Stream Archive Total**: 49,393,508 B (-2,638,165 B net savings vs 7-Zip mx9)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)
