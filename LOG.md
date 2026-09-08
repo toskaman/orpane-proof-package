@@ -147,3 +147,19 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 ```
 
 > All comparison commands return **0 differences** (`FC: no differences encountered`).
+
+### [2026-09-08 16:30:00 UTC+2] Release v1.8.2 — Discovery #173 (paper6)
+- **Target**: `corpus/calgary/paper6` (38.1 KB)
+- **Archive Size**: 11,145 B -> 11,144 B (-1 B reduction, -1,420 B vs 7-Zip mx9)
+- **Decompression Speed**: 106.6 MB/s (0.34 ms)
+- **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
+- **Global 53-Stream Archive Total**: 49,407,202 B (-2,624,471 B net savings vs 7-Zip mx9)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 16:30:00 UTC+2] Release v1.8.2 — Discovery #173 (paper6)
+- **Target**: `corpus/calgary/paper6` (38.1 KB)
+- **Archive Size**: 11,145 B -> 11,144 B (-1 B reduction, -1,420 B vs 7-Zip mx9)
+- **Decompression Speed**: 106.6 MB/s (0.34 ms)
+- **Status**: 100% bit-exact reversible, cryptographic SHA-256 and BLAKE3 verified
+- **Global 53-Stream Archive Total**: 49,407,202 B (-2,624,471 B net savings vs 7-Zip mx9)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)

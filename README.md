@@ -4,7 +4,7 @@
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.624%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2015%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2016%3A30%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -14,7 +14,7 @@
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,624,470 bytes (-5.04%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,624,471 bytes (-5.04%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -24,11 +24,11 @@
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,306,593 B** | 🟩 **-2,053,807 B (-4.25%)** | 92.7 ➔ 🟢 **96.5 MB/s (+4.1%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,689 B** | 🟩 **-79,785 B (-9.02%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,688 B** | 🟩 **-79,786 B (-9.02%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,503 B** | 🟩 **-80,666 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,901 B** | 🟩 **-242,879 B (-13.80%)** | 20.7 ➔ 🟢 **63.0 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,517 B** | 🟩 **-167,333 B (-31.34%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,407,203 B** | 🟩 **-2,624,470 B (-5.04%)** | **62.9 ➔ 🟢 88.4 MB/s (1.40x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,407,202 B** | 🟩 **-2,624,471 B (-5.04%)** | **62.9 ➔ 🟢 88.4 MB/s (1.40x)** | **78.6s ➔ 121.8s (1.55x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -44,21 +44,21 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.0` ➔ `v1.8.1`)
+## 🚀 Version Progress & Milestone Diff (`v1.8.1` ➔ `v1.8.2`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,624,253 B -> 2,624,470 B (+217 B more space saved / >2.624 MB landmark)
-+ 🟢 Modern Compiled x86 (1MB):       640,407 B -> 640,190 B (-217 B reduction / -93,289 B vs 7-Zip / -12.72%)
-+ 🟢 Modern Suite Subtotal:        1,517,118 B -> 1,516,901 B (-217 B reduction / -242,879 B vs 7-Zip / -13.80%)
-+ 🟢 Global Archive Total:          49,407,420 B -> 49,407,203 B (-217 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,624,470 B -> 2,624,471 B (+1 B more space saved / >2.624 MB landmark)
++ 🟢 Calgary Paper6 Troff (38KB):      11,145 B -> 11,144 B (-1 B reduction / -1,421 B vs 7-Zip / 106.6 MB/s decode)
++ 🟢 Calgary Corpus Subtotal:          804,689 B -> 804,688 B (-1 B reduction / -79,786 B vs 7-Zip / -9.02%)
++ 🟢 Global Archive Total:          49,407,203 B -> 49,407,202 B (-1 B reduction / new global record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.0`) | Current (`v1.8.1`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.8.1`) | Current (`v1.8.2`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Modern `compiled_x86_1MB.bin`** | Raw Machine Code (1.00 MB) | 640,407 B | 🟢 **640,190 B** | 🟩 **-217 B** (-0.034%) | 2.8 MB/s | 6.4 MB/s | < 16.0 MB | 🟢 PASS |
-| **Modern Suite Subtotal** | 6 Files (4.72 MB) | 1,517,118 B | 🟢 **1,516,901 B** | 🟩 **-217 B** (-0.014%) | ~2.3 MB/s | ~63.0 MB/s | < 20.0 MB | 🟢 6/6 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,407,420 B | 🟢 **49,407,203 B** | 🟩 **-217 B** (-0.00044%) | ~1.8 MB/s | ~88.4 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,624,253 B | 🟢 **2,624,470 B** | 🟩 **+217 B** (+0.0083%) | — | — | — | 🟢 **>2.624 MB** |
+| **Calgary `paper6`** | Typographic Troff (38.1 KB) | 11,145 B | 🟢 **11,144 B** | 🟩 **-1 B** (-0.009%) | 0.9 MB/s | 106.6 MB/s | < 8.0 MB | 🟢 PASS |
+| **Calgary Subtotal** | 18 Files (3.25 MB) | 804,689 B | 🟢 **804,688 B** | 🟩 **-1 B** (-0.0001%) | ~1.5 MB/s | ~42.3 MB/s | < 16 MB | 🏆 18/18 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,407,203 B | 🟢 **49,407,202 B** | 🟩 **-1 B** (-0.000002%) | ~1.8 MB/s | ~88.4 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,624,470 B | 🟢 **2,624,471 B** | 🟩 **+1 B** (+0.000038%) | — | — | — | 🟢 **>2.624 MB** |
 ---
 
 ## 📊 Detailed Benchmark Results by Corpus
@@ -102,13 +102,13 @@
 | `paper3` | 47 KB | 17,132 B | 🟢 **14,651 B** | 🟩 **-2,481 B** (-14.5%) | 3.18:1 | 45ms (1.0 MB/s) | 0.3ms (44.4 MB/s) | 8 MB |
 | `paper4` | 13 KB | 5,469 B | 🟢 **4,292 B** | 🟩 **-1,177 B** (-21.52%) | 3.10:1 | 19ms (0.7 MB/s) | 0.1ms (12.7 MB/s) | 8 MB |
 | `paper5` | 12 KB | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B** (-17.7%) | 2.93:1 | 12ms (0.9 MB/s) | 0.2ms (50.5 MB/s) | 8 MB |
-| `paper6` | 38 KB | 12,564 B | 🟢 **11,145 B** | 🟩 **-1,419 B** (-11.3%) | 3.42:1 | 40ms (0.9 MB/s) | 0.4ms (98.5 MB/s) | 8 MB |
+| `paper6` | 38 KB | 12,564 B | 🟢 **11,144 B** | 🟩 **-1,420 B** (-11.3%) | 3.42:1 | 40ms (0.9 MB/s) | 0.3ms (106.6 MB/s) | 8 MB |
 | `pic` | 513 KB | 40,060 B | 🟢 **33,170 B** | 🟩 **-6,727 B** (-16.8%) | 15.47:1 | 18.2ms (26.8 MB/s) | 2.7ms (179.3 MB/s) | 8 MB |
 | `progc` | 40 KB | 12,626 B | 🟢 **11,626 B** | 🟩 **-1,000 B** (-7.9%) | 3.41:1 | 38ms (1.0 MB/s) | 0.3ms (119.0 MB/s) | 8 MB |
 | `progl` | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
 | `progp` | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
 | `trans` | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
-| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,689 B** | 🟩 **-79,785 B (-9.02%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
+| **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,688 B** | 🟩 **-79,786 B (-9.02%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
 
 ---
 
