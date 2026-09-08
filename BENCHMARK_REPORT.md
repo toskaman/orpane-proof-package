@@ -1,6 +1,6 @@
 # Comprehensive Scientific Benchmark Report: Orpane v3 vs Industry Standards
 
-> 🕒 **Data Updated**: `2026-09-08 10:38:00 UTC+2` (September 8, 2026)
+> 🕒 **Data Updated**: `2026-09-08 11:05:00 UTC+2` (September 8, 2026)
 > **Hardware Platform**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > **Measurement Protocol**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and cold disk cache; **In-Memory Warmed Cache Throughput** measures pure computational kernel transformation and entropy encode/decode execution in RAM.  
 > **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19 / --ultra), LZMA 5.6.3 (-9)  
@@ -8,25 +8,23 @@
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.5` ➔ `v1.6.6`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.6` ➔ `v1.6.7`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,406,279 B -> 2,406,399 B (+120 B more space saved / >2.406 MB landmark)
-+ 🟢 Modern Encyclopedic Slice (enwik8): 290,967 B -> 290,864 B (-103 B reduction; -11,888 B vs 7-Zip)
-+ 🟢 Calgary Classic Prose (book2):      156,576 B -> 156,559 B (-17 B reduction; -13,255 B vs 7-Zip)
-+ 🟢 Calgary Suite Subtotal:             808,549 B -> 808,532 B (-17 B reduction / -75,942 B vs 7-Zip)
-+ 🟢 Modern Real-World Subtotal:       1,523,045 B -> 1,522,942 B (-103 B reduction / -236,838 B vs 7-Zip)
-+ 🟢 Global Archive Total:              49,625,394 B -> 49,625,274 B (-120 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,406,399 B -> 2,406,443 B (+44 B more space saved / >2.406 MB landmark)
++ 🟢 Canterbury Children Prose (alice29): 42,913 B -> 42,886 B (-27 B reduction; -5,700 B vs 7-Zip)
++ 🟢 Canterbury Verse Drama (asyoulik):   39,516 B -> 39,499 B (-17 B reduction; -5,168 B vs 7-Zip)
++ 🟢 Canterbury Suite Subtotal:           417,373 B -> 417,329 B (-44 B reduction / -75,840 B vs 7-Zip)
++ 🟢 Global Archive Total:             49,625,274 B -> 49,625,230 B (-44 B reduction / new global record)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.6.5`) | Current (`v1.6.6`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.6.6`) | Current (`v1.6.7`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,406,279 B | **2,406,399 B** | **+120 B** | **+0.005%** | 🟢 Record Expanded |
-| **Global Archive Size**| 53 Streams Aggregate | 49,625,394 B | **49,625,274 B** | **-120 B** | **-0.0002%** | 🟢 Record Improved |
-| **Modern Real-World**  | 6 Files Aggregate | 1,523,045 B | **1,522,942 B** | **-103 B** | **-0.007%** | 🟢 Record Improved |
-| **Modern `enwik8`**    | Encyclopedic XML/Prose Slice | 290,967 B | **290,864 B** | **-103 B** | **-0.035%** | 🟢 Record Improved |
-| **Calgary Subtotal**   | 18 Files Aggregate | 808,549 B | **808,532 B** | **-17 B** | **-0.002%** | 🟢 Record Improved |
-| **Calgary `book2`**    | Classical Victorian Fiction | 156,576 B | **156,559 B** | **-17 B** | **-0.011%** | 🟢 Record Improved |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,406,399 B | **2,406,443 B** | **+44 B** | **+0.002%** | 🟢 Record Expanded |
+| **Global Archive Size**| 53 Streams Aggregate | 49,625,274 B | **49,625,230 B** | **-44 B** | **-0.0001%** | 🟢 Record Improved |
+| **Canterbury Subtotal**| 11 Files Aggregate | 417,373 B | **417,329 B** | **-44 B** | **-0.011%** | 🟢 Record Improved |
+| **Canterbury `alice29`**| Children's Prose Fiction | 42,913 B | **42,886 B** | **-27 B** | **-0.063%** | 🟢 Record Improved |
+| **Canterbury `asyoulik`**| Renaissance Verse Drama | 39,516 B | **39,499 B** | **-17 B** | **-0.043%** | 🟢 Record Improved |
 | **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
 ---
 
@@ -75,8 +73,8 @@
 ### 3. Corpus Canterbury
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `alice29.txt` | 152,089 B | 48,586 B | 🟢 **42,913 B** | 🟩 **-5,673 B** | 3.54:1 | 24.8 ms (5.8 MB/s) | 6.5 ms (22.3 MB/s) | 8.2 MB | 🟢 PASS |
-| `asyoulik.txt` | 125,179 B | 44,667 B | 🟢 **39,516 B** | 🟩 **-5,151 B** | 3.17:1 | 8.6 ms (13.9 MB/s) | 3.5 ms (34.5 MB/s) | 8.2 MB | 🟢 PASS |
+| `alice29.txt` | 152,089 B | 48,586 B | 🟢 **42,886 B** | 🟩 **-5,700 B** | 3.55:1 | 24.8 ms (5.8 MB/s) | 3.6 ms (40.7 MB/s) | 8.2 MB | 🟢 PASS |
+| `asyoulik.txt` | 125,179 B | 44,667 B | 🟢 **39,499 B** | 🟩 **-5,168 B** | 3.17:1 | 8.6 ms (13.9 MB/s) | 5.0 ms (23.7 MB/s) | 8.2 MB | 🟢 PASS |
 | `cp.html` | 24,603 B | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** | 3.56:1 | 25.8 ms (0.9 MB/s) | 0.2 ms (23.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `fields.c` | 11,150 B | 3,084 B | 🟢 **2,728 B** | 🟩 **-356 B** | 4.09:1 | 12.6 ms (0.8 MB/s) | 0.1 ms (10.6 MB/s) | 8.2 MB | 🟢 PASS |
 | `grammar.lsp` | 3,721 B | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** | 3.28:1 | 4.7 ms (0.8 MB/s) | 0.1 ms (39.2 MB/s) | 8.2 MB | 🟢 PASS |
@@ -86,7 +84,7 @@
 | `ptt5` | 513,216 B | 40,060 B | 🟢 **37,008 B** | 🟩 **-3,052 B** | 13.87:1 | 541.2 ms (0.9 MB/s) | 1.1 ms (444.9 MB/s) | 8.2 MB | 🟢 PASS |
 | `sum` | 38,240 B | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** | 4.07:1 | 5.8 ms (6.3 MB/s) | 0.6 ms (36.5 MB/s) | 8.2 MB | 🟢 PASS |
 | `xargs.1` | 4,227 B | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** | 2.90:1 | 6.0 ms (0.7 MB/s) | 0.1 ms (4.0 MB/s) | 8.2 MB | 🟢 PASS |
-| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,373 B** | 🟩 **-75,796 B** | **6.73:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
+| **Total / Avg** | **2,810,784 B** | **493,169 B** | 🟢 **417,329 B** | 🟩 **-75,840 B** | **6.74:1** | **~2.2 MB/s** | **~54.3 MB/s** | **< 25 MB** | 🟢 **11 / 11 PASS** |
 
 ### 4. Modern Real-World Multi-Domain Suite
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | Net Delta | Ratio | Encode Speed | Decode Speed | Peak RAM | Verification |
@@ -119,8 +117,8 @@
 GRAND TOTAL ACROSS ALL 53 STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,625,274 bytes
-  NET BYTES SAVED:       2,406,399 bytes (>2.406 MB net savings)
+  Orpane-MAX (.orpane):  49,625,230 bytes
+  NET BYTES SAVED:       2,406,443 bytes (>2.406 MB net savings)
   WIN RATE:              53 / 53 (100.0% clean sweep)
 ================================================================================
 ```
