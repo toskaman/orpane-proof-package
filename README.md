@@ -3,8 +3,8 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.6385%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2017%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.644%20MB%20vs%207z-brightgreen.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--08%2018%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -23,7 +23,7 @@
 
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Win Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,292,931 B** | 🟩 **-2,067,469 B (-4.28%)** | 92.7 ➔ 🟢 **96.8 MB/s (+4.4%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,287,220 B** | 🟩 **-2,073,180 B (-4.29%)** | 92.7 ➔ 🟢 **96.9 MB/s (+4.5%)** | 75.3s ➔ 115.5s (1.53x) | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,388 B** | 🟩 **-80,086 B (-9.05%)** | 6.1 ➔ 🟢 **42.2 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
 | **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,830 B** | 🟩 **-242,950 B (-13.81%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
@@ -87,14 +87,14 @@
 | `mr` | 9.97 MB | 2,748,446 B | 🟢 **2,324,760 B** | 🟩 **-423,686 B** (-15.42%) | 4.29:1 | 22.4s (0.4 MB/s) | 59.6ms (159.6 MB/s) | 48 MB |
 | `nci` | 33.55 MB | 1,449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
 | `ooffice` | 6.15 MB | 2,424,759 B | 🟢 **2,129,038 B** | 🟩 **-295,721 B** (-12.2%) | 2.89:1 | 2.5s (2.5 MB/s) | 117ms (50.1 MB/s) | 106 MB |
-| `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,665,749 B** | 🟩 **-180,086 B** (-6.3%) | 3.78:1 | 2.0s (4.7 MB/s) | 307ms (31.4 MB/s) | 77 MB |
+| `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,660,038 B** | 🟩 **-185,797 B** (-6.5%) | 3.79:1 | 2.1s (4.8 MB/s) | 263ms (36.6 MB/s) | 77 MB |
 | `reymont` | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1%) | 5.36:1 | 1.9s (3.3 MB/s) | 222ms (28.5 MB/s) | 22 MB |
 | `samba` | 21.60 MB | 3,731,438 B | 🟢 **3,727,988 B** | 🟩 **-3,450 B** (-0.1%) | 5.80:1 | 9.0s (2.3 MB/s) | 205ms (100.7 MB/s) | 378 MB |
 | `sao` | 7.25 MB | 4,413,926 B | 🟢 **3,994,318 B** | 🟩 **-419,608 B** (-9.5%) | 1.82:1 | 2.5s (2.8 MB/s) | 109ms (63.7 MB/s) | 109 MB |
 | `webster` | 41.45 MB | 8,370,602 B | 🟢 **8,346,688 B** | 🟩 **-23,914 B** (-0.3%) | 4.97:1 | 28.3s (1.4 MB/s) | 367ms (107.8 MB/s) | 149 MB |
 | `x-ray` | 8.47 MB | 4,479,871 B | 🟢 **3,937,474 B** | 🟩 **-542,397 B** (-12.11%) | 2.15:1 | 21.8s (0.4 MB/s) | 58.0ms (139.4 MB/s) | 44 MB |
 | `xml` | 5.34 MB | 435,212 B | 🟢 **430,163 B** | 🟩 **-5,049 B** (-1.2%) | 12.43:1 | 6.4s (0.8 MB/s) | 9ms (579.3 MB/s) | 10 MB |
-| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,292,931 B** | 🟩 **-2,067,469 B (-4.28%)** | **4.58:1** | **~1.8 MB/s** | **~96.8 MB/s** | **< 699 MB** |
+| **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,287,220 B** | 🟩 **-2,073,180 B (-4.29%)** | **4.58:1** | **~1.8 MB/s** | **~96.9 MB/s** | **< 699 MB** |
 
 ---
 

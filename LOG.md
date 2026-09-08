@@ -190,3 +190,11 @@ fc.exe /B .\1_original_files\pic .\3_decompressed_files\pic_decompressed_by_orpa
 - **Status**: 100% bit-exact reversible across all 53 files, cryptographic SHA-256 and BLAKE3 verified with standalone native Rust decompressor
 - **Global 53-Stream Archive Total**: 49,393,242 B (-2,638,431 B net savings vs 7-Zip mx9)
 - **Win Rate**: 53 / 53 (100.0% clean sweep)
+
+### [2026-09-08 18:15:00 UTC+2] Release v1.8.6 — Discovery #178 (osdb)
+- **Target**: `corpus/silesia/osdb` (10.08 MB Structured Binary Database)
+- **Archive Size**: 2,665,749 B -> 2,660,038 B (-5,711 B reduction, -185,797 B vs 7-Zip mx9)
+- **Decompression Speed**: 36.6 MB/s (263.1 ms)
+- **Status**: 100% bit-exact reversible across all 53 files, cryptographic SHA-256 and BLAKE3 verified with standalone native Rust decompressor
+- **Global 53-Stream Archive Total**: 49,387,531 B (-2,644,142 B net savings vs 7-Zip mx9, >2.644 MB milestone)
+- **Win Rate**: 53 / 53 (100.0% clean sweep)
