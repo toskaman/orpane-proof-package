@@ -3,34 +3,32 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact%20Verified-brightgreen.svg)](#)
 [![Algorithm](https://img.shields.io/badge/lossless-Zero--Divergence-blue.svg)](#)
 [![Standards](https://img.shields.io/badge/baseline-7--Zip%2026.02%20(-mx9)-orange.svg)](#)
-[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2011%3A05%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Data Refresh](https://img.shields.io/badge/Data%20Updated-2026--09--08%2011%3A35%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > This repository hosts the standalone, independently verifiable proof package for **Orpane** (an experimental lossless meta-compressor). It provides reference files from standard public benchmark suites, compressed archives comparing **Orpane (MAX_RATIO)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**, bit-exact decompressed outputs, full operational metrics (compression time, decompression speed, RAM footprint), and cryptographic checksums (**MD5**, **SHA-256**, and **BLAKE3**).
 
-> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 11:05:00 UTC+2` (September 8, 2026)  
+> 🕒 **Latest Benchmark & Data Refresh**: `2026-09-08 11:35:00 UTC+2` (September 8, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core Processor (16 threads), 32 GB DDR4-3200 RAM (31.92 GB usable), Windows 10 Pro 64-bit (Build 10.0.19045)  
 > ⏱️ **Latency Methodology**: **Cold Disk I/O Latency** captures complete storage read/write synchronization and container framing; **In-Memory Warmed Cache Throughput** isolates pure kernel transformation and entropy encode/decode speed in RAM.  
-> 🎯 **Cumulative Milestone**: **2,406,443 net bytes saved (>2.406 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
+> 🎯 **Cumulative Milestone**: **2,406,565 net bytes saved (>2.406 MB)** over 7-Zip 26.02 mx9 across **53 public and real-world test streams (100.0% win rate)**.
 
 ---
 
-## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.6` ➔ `v1.6.7`)
+## 🚀 Version-over-Version Progress & Milestone Diff (`v1.6.7` ➔ `v1.6.8`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,406,399 B -> 2,406,443 B (+44 B more space saved / >2.406 MB landmark)
-+ 🟢 Canterbury Children Prose (alice29): 42,913 B -> 42,886 B (-27 B reduction; -5,700 B vs 7-Zip)
-+ 🟢 Canterbury Verse Drama (asyoulik):   39,516 B -> 39,499 B (-17 B reduction; -5,168 B vs 7-Zip)
-+ 🟢 Canterbury Suite Subtotal:           417,373 B -> 417,329 B (-44 B reduction / -75,840 B vs 7-Zip)
-+ 🟢 Global Archive Total:             49,625,274 B -> 49,625,230 B (-44 B reduction / new global record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,406,443 B -> 2,406,565 B (+122 B more space saved / >2.406 MB landmark)
++ 🟢 Modern C Source (real_c):      167,753 B -> 167,631 B (-122 B reduction; -5,116 B vs 7-Zip)
++ 🟢 Modern Suite Subtotal:        1,522,942 B -> 1,522,820 B (-122 B reduction / -236,960 B vs 7-Zip)
++ 🟢 Global Archive Total:         49,625,230 B -> 49,625,108 B (-122 B reduction / new global record)
 ```
 
-| Benchmark Target | Evaluated Metric | Previous (`v1.6.6`) | Current (`v1.6.7`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
+| Benchmark Target | Evaluated Metric | Previous (`v1.6.7`) | Current (`v1.6.8`) | 🟩 Net Delta | 🟩 Progress Delta (%) | Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,406,399 B | **2,406,443 B** | **+44 B** | **+0.002%** | 🟢 Record Expanded |
-| **Global Archive Size**| 53 Streams Aggregate | 49,625,274 B | **49,625,230 B** | **-44 B** | **-0.0001%** | 🟢 Record Improved |
-| **Canterbury Subtotal**| 11 Files Aggregate | 417,373 B | **417,329 B** | **-44 B** | **-0.011%** | 🟢 Record Improved |
-| **Canterbury `alice29`**| Children's Prose Fiction | 42,913 B | **42,886 B** | **-27 B** | **-0.063%** | 🟢 Record Improved |
-| **Canterbury `asyoulik`**| Renaissance Verse Drama | 39,516 B | **39,499 B** | **-17 B** | **-0.043%** | 🟢 Record Improved |
+| **Cumulative Savings** | Net Bytes Saved vs 7-Zip | 2,406,443 B | **2,406,565 B** | **+122 B** | **+0.005%** | 🟢 Record Expanded |
+| **Global Archive Size**| 53 Streams Aggregate | 49,625,230 B | **49,625,108 B** | **-122 B** | **-0.0002%** | 🟢 Record Improved |
+| **Modern Suite Subtotal**| 6 Files Aggregate | 1,522,942 B | **1,522,820 B** | **-122 B** | **-0.008%** | 🟢 Record Improved |
+| **Modern `real_c_source`**| C Source Code (1 MB) | 167,753 B | **167,631 B** | **-122 B** | **-0.073%** | 🟢 Record Improved |
 | **Decompression Speed**| Native In-Memory Decode | 144 - 510 MB/s | **144 - 510 MB/s** | **Bit-Exact** | **0.0%** | 🟢 Peak Performance |
 ---
 
@@ -107,11 +105,11 @@
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `enwik8_real_1MB.raw` | 1,048,576 B | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** | 3.61:1 | 102.6 ms (9.7 MB/s) | 31.6 ms (31.7 MB/s) | 18.5 MB | 🟢 PASS |
 | `compiled_x86_1MB.bin` | 1,048,576 B | 733,479 B | 🟢 **640,407 B** | 🟩 **-93,072 B** | 1.64:1 | 286.7 ms (3.5 MB/s) | 59.5 ms (16.8 MB/s) | 18.5 MB | 🟢 PASS |
-| `real_c_source_1MB.c` | 1,048,576 B | 172,747 B | 🟢 **167,753 B** | 🟩 **-4,994 B** | 6.25:1 | 92.1 ms (10.9 MB/s) | 30.1 ms (33.2 MB/s) | 18.5 MB | 🟢 PASS |
+| `real_c_source_1MB.c` | 1,048,576 B | 172,747 B | 🟢 **167,631 B** | 🟩 **-5,116 B** | 6.25:1 | 89.4 ms (11.2 MB/s) | 27.8 ms (36.0 MB/s) | 18.5 MB | 🟢 PASS |
 | `source_code_kernel_512KB.c` | 524,288 B | 7,873 B | 🟢 **6,133 B** | 🟩 **-1,740 B** | 85.49:1 | 1.39 s (0.4 MB/s) | 10.3 ms (48.4 MB/s) | 8.2 MB | 🟢 PASS |
 | `uniprot_protein_512KB.fasta` | 524,288 B | 233,286 B | 🟢 **224,165 B** | 🟩 **-9,121 B** | 2.34:1 | 523.1 ms (1.0 MB/s) | 14.0 ms (35.7 MB/s) | 18.5 MB | 🟢 PASS |
 | `astro_sensor_telemetry_512KB.raw` | 524,288 B | 309,643 B | 🟢 **193,620 B** | 🟩 **-116,023 B** | 2.71:1 | 62.0 ms (8.1 MB/s) | 11.4 ms (43.9 MB/s) | 18.5 MB | 🟢 PASS |
-| **Total / Avg** | **4,718,592 B** | **1,759,780 B** | 🟢 **1,522,942 B** | 🟩 **-236,838 B** | **3.10:1** | **~2.4 MB/s** | **~65.4 MB/s** | **< 20 MB** | 🟢 **6 / 6 PASS** |
+| **Total / Avg** | **4,718,592 B** | **1,759,780 B** | 🟢 **1,522,820 B** | 🟩 **-236,960 B** | **3.10:1** | **~2.4 MB/s** | **~65.7 MB/s** | **< 20 MB** | 🟢 **6 / 6 PASS** |
 
 ---
 
@@ -136,8 +134,8 @@
 GRAND TOTAL ACROSS ALL 53 STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,625,230 bytes
-  NET BYTES SAVED:       2,406,443 bytes (>2.406 MB net savings)
+  Orpane-MAX (.orpane):  49,625,108 bytes
+  NET BYTES SAVED:       2,406,565 bytes (>2.406 MB net savings)
   WIN RATE:              53 / 53 (100.0% clean sweep)
 ================================================================================
 ```
