@@ -354,6 +354,10 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
             orpane_codec::decompress_orpane_lz(payload, target_len)
                 .map_err(|e| format!("Stream payload decode failed: {}", e))
         }
+        "orpane_cm" | "cm" | "9" => {
+            orpane_codec::cm::cm_decode(payload)
+                .map_err(|e| format!("Stream payload decode failed: {}", e))
+        }
         "store" | "0" => Ok(payload.to_vec()),
         _ => Err("Unsupported or invalid stream encoding".into()),
     }
