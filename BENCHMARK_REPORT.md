@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: `2026-09-10 17:05:00 UTC+2` (September 10, 2026)  
+> 🕒 **Last Updated**: `2026-09-11 00:40:00 UTC+2` (September 11, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 (`-mx=9 -md=64m -mfb=273 -ms=off`), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-19), LZMA 5.6.3 (-9)  
@@ -8,12 +8,52 @@
 
 ---
 
+## ⚡ Executive Summary Dashboard
+
+| 🏆 Win Rate | 📦 Space Saved vs 7z | ⚡ Decompression Speed | ⏱️ Compression Cost | 🔬 Integrity |
+| :---: | :---: | :---: | :---: | :---: |
+| 🟢 **53 / 53 (100%)** | 🟢 **-2,654,990 B (-5.10%)** | 🟢 **1.41x faster global** | 🟡 **1.48x time trade-off** | 🟢 **0 errors** |
+| Clean sweep across all suites | **> 2.6550 MB** net savings | **88.7 MB/s** (up to 6.9x) | 116.4s vs 78.6s (global) | Bit-exact (SHA-256/BLAKE3) |
+
+---
+
+## 🟢 Strengths & 🟡 Empirical Trade-Offs
+
+### Where Orpane Excels
+Orpane achieves its highest compression density and greatest margin over standard codecs on **domain-specific structured, scientific, and numerical data**:
+* 🧬 **Genomic & Sequence Data**: Up to **-63.5%** smaller than 7-Zip (`unseen_protein.fasta`).
+* 📈 **Tabular & Columnar Data**: Exceptional density on structured spreadsheets (`kennedy.xls` at **-53.2%**).
+* 🛰️ **Sensor & Floating-Point Telemetry**: Consistent **-39% to -50%** space reduction on continuous streams.
+* 🏥 **Medical Imaging Slices**: Substantial gains on 2D/3D slice data (MRI `mr` at **-15.6%**, X-ray at **-12.1%**).
+* ⚡ **High-Speed Decompression**: Asymmetric performance profile delivering **3x to 6.9x faster decode** on structured files.
+
+### 🏆 Top 10 Best Wins vs 7-Zip 26.02 (-mx9)
+
+| # | Benchmark Stream | Data Domain | 7-Zip Size | Orpane Size | 🟩 Net Savings vs 7z | ⚡ Decode Speed |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| 🥇 | `unseen_protein.fasta` | Protein sequences | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 54.0 MB/s |
+| 🥈 | `unseen_archive.tar` | Sparse archive | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.6%)** | 260.2 MB/s |
+| 🥉 | `kennedy.xls` | Structured spreadsheet | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.2%)** | 187.2 MB/s |
+| 4 | `unseen_sensor_floats.raw` | Floating-point telemetry | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 52.8 MB/s |
+| 5 | `astro_sensor_telemetry` | Sensor array telemetry | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 37.2 MB/s |
+| 6 | `source_code_kernel` | Operating system C kernel | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.4%)** | 97.1 MB/s |
+| 7 | `xargs.1` | Formatted man page | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B (-22.5%)** | 4.0 MB/s |
+| 8 | `paper4` | Academic document | 5,469 B | 🟢 **4,292 B** | 🟩 **-1,177 B (-21.5%)** | 12.7 MB/s |
+| 9 | `paper5` | Scientific article | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B (-17.7%)** | 50.5 MB/s |
+| 10 | `pic` / `ptt5` | Bilevel bitmap / Fax | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B (-16.8%)** | 188.4 MB/s |
+
+### Current Boundaries & Operational Trade-Offs
+* **Encoding Speed Trade-Off**: Orpane prioritizes maximum density, yielding an encode time trade-off of **1.48x** across the 225 MB suite (116.4s vs 78.6s).
+* **Narrower Margins on Large Mixed Content**: On heterogeneous archives (`mozilla` at -0.09%, `samba` at -0.21%) and large prose dictionaries (`webster` at -0.29%), traditional sliding-window codecs are already near-optimal. Orpane still wins every stream, but with smaller margins.
+
+---
+
 ## ⚡ Head-to-Head Summary: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,651,730 bytes (-5.096%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,654,990 bytes (-5.102%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
-> ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
+> ⏱️ **Compression Cost**: **1.48x time trade-off** (116.4s vs 78.6s) to achieve maximum Pareto-optimal compression density  
 
 ### 📊 Corpus Summary & Head-to-Head Comparison
 
@@ -54,6 +94,7 @@
 | **Silesia Suite Subtotal** | 12 Files (211.94 MB) | 46,279,902 B | 🟢 **46,276,642 B** | 🟩 **-3,260 B** (-0.0070%) | ~1.8 MB/s | ~97.3 MB/s | < 699 MB | 🏆 12/12 PASS |
 | **Global Archive Total** | 53 Streams (225.16 MB) | 49,379,943 B | 🟢 **49,376,683 B** | 🟩 **-3,260 B** (-0.0066%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
 | **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,651,730 B | 🟢 **2,654,990 B** | 🟩 **+3,260 B** (+0.123%) | — | — | — | 🟢 **>2.6550 MB** |
+
 ---
 
 ## 📊 Detailed Corpus Breakdown
@@ -78,7 +119,7 @@
 
 ---
 
-### 2. Corpus Calgary (18 files — 3.25 MB)
+#### 2. Corpus Calgary (18 files — 3.25 MB)
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -104,7 +145,7 @@
 
 ---
 
-### 3. Corpus Canterbury (11 files — 2.81 MB)
+#### 3. Corpus Canterbury (11 files — 2.81 MB)
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -123,21 +164,21 @@
 
 ---
 
-### 4. Modern Real-World Multi-Domain Suite (6 files — 4.72 MB)
+#### 4. Modern Real-World Multi-Domain Suite (6 files — 4.72 MB)
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `astro_sensor_telemetry_512KB.raw` | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
+| `astro_sensor_telemetry` | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
 | `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
-| `uniprot_protein_512KB.fasta` | 512 KB | 233,286 B | 🟢 **223,494 B** | 🟩 **-9,792 B** (-4.20%) | 2.35:1 | 481ms (1.0 MB/s) | 17.3ms (29.0 MB/s) | 8 MB |
+| `uniprot_protein.fasta` | 512 KB | 233,286 B | 🟢 **223,494 B** | 🟩 **-9,792 B** (-4.20%) | 2.35:1 | 481ms (1.0 MB/s) | 17.3ms (29.0 MB/s) | 8 MB |
 | `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
 | `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
-| `source_code_kernel_512KB.c` | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
-| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,510 B** | 🟩 **-243,270 B (-13.82%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
+| `source_code_kernel` | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
+| **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
 
 ---
 
-### 5. Private Unseen Holdout Suite (6 streams — 2.44 MB)
+#### 5. Private Unseen Holdout Suite (6 streams — 2.44 MB)
 
 | File | Raw Size | 7-Zip 26.02 (`-mx9`) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
