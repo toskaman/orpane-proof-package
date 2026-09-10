@@ -2,7 +2,7 @@
 //! Independent, high-assurance bit-exact decompressor.
 //! Strictly pure decompression verification pipeline.
 use std::fs;
-use std::io::{self, Read, Write};
+use std::io::{self, Write};
 use std::path::PathBuf;
 use std::time::Instant;
 
@@ -317,50 +317,61 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
     Err("Unknown or invalid archive magic signature".into())
 }
 
-fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Result<Vec<u8>, String> {
-    match coder.to_lowercase().as_str() {
-        "bz2" | "bzip2" | "3" => {
-            let mut decoder = bzip2_rs::DecoderReader::new(payload);
-            let mut out = Vec::with_capacity(target_len);
-            decoder.read_to_end(&mut out).map_err(|_| "Stream payload decode failed")?;
-            Ok(out)
+// Output is bounded before every write, including streaming LZMA output.
+struct BoundedOutput { data: Vec<u8>, limit: usize }
+impl std::io::Write for BoundedOutput {
+    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+        if buf.len() > self.limit.saturating_sub(self.data.len()) {
+            return Err(std::io::Error::new(std::io::ErrorKind::InvalidData, "Decoded size exceeded"));
         }
-        "brotli" | "2" => {
-            let mut decoder = brotli::Decompressor::new(payload, 4096);
-            let mut out = Vec::with_capacity(target_len);
-            decoder.read_to_end(&mut out).map_err(|_| "Stream payload decode failed")?;
-            Ok(out)
+        self.data.try_reserve(buf.len()).map_err(|_| std::io::Error::new(std::io::ErrorKind::OutOfMemory, "Decoded allocation failed"))?;
+        self.data.extend_from_slice(buf);
+        Ok(buf.len())
+    }
+    fn flush(&mut self) -> std::io::Result<()> { Ok(()) }
+}
+
+fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Result<Vec<u8>, String> {
+    // Explicit standalone safety budget; archives above this require a streaming decoder.
+    if target_len > 1024 * 1024 * 1024 { return Err("Decoded size exceeds 1 GiB safety limit".into()); }
+    let mut out = BoundedOutput { data: Vec::new(), limit: target_len };
+    let result = match coder.to_lowercase().as_str() {
+        "bz2" | "bzip2" | "3" => std::io::copy(&mut bzip2_rs::DecoderReader::new(payload), &mut out).map(|_| ()),
+        "brotli" | "2" => std::io::copy(&mut brotli::Decompressor::new(payload, 4096), &mut out).map(|_| ()),
+        "zstd" | "4" => {
+            let mut decoder = ruzstd::StreamingDecoder::new(payload).map_err(|_| "Stream decoder initialization failed")?;
+            std::io::copy(&mut decoder, &mut out).map(|_| ())
         }
         "lzma" | "lzma2" | "xz" | "1" => {
-            let mut out = Vec::with_capacity(target_len);
-            if payload.starts_with(b"\xfd7zXZ\x00") {
+            let decoded = if payload.starts_with(b"\xfd7zXZ\x00") {
                 lzma_rs::xz_decompress(&mut &payload[..], &mut out)
-                    .map_err(|_| "Stream payload decode failed")?;
-            } else if lzma_rs::lzma_decompress(&mut &payload[..], &mut out).is_err() {
-                out.clear();
+            } else if lzma_rs::lzma_decompress(&mut &payload[..], &mut out).is_ok() {
+                Ok(())
+            } else {
+                out.data.clear();
                 lzma_rs::lzma2_decompress(&mut &payload[..], &mut out)
-                    .map_err(|_| "Stream payload decode failed")?;
-            }
-            Ok(out)
-        }
-        "zstd" | "4" => {
-            let mut decoder = ruzstd::StreamingDecoder::new(payload)
-                .map_err(|_| "Stream decoder initialization failed")?;
-            let mut out = Vec::with_capacity(target_len);
-            decoder.read_to_end(&mut out).map_err(|_| "Stream payload decode failed")?;
-            Ok(out)
+            };
+            decoded.map_err(|_| std::io::Error::new(std::io::ErrorKind::InvalidData, "Stream payload decode failed"))
         }
         "orpane_lz" | "olz1" | "olz2" | "8" => {
-            orpane_codec::decompress_orpane_lz(payload, target_len)
-                .map_err(|e| format!("Stream payload decode failed: {}", e))
+            out.data = orpane_codec::decompress_orpane_lz(payload, target_len)?;
+            Ok(())
         }
         "orpane_cm" | "cm" | "9" => {
-            orpane_codec::cm::cm_decode(payload)
-                .map_err(|e| format!("Stream payload decode failed: {}", e))
+            let decoded = orpane_codec::cm::cm_decode(payload)
+                .map_err(|e| format!("Stream payload decode failed: {}", e))?;
+            if decoded.len() > target_len {
+                return Err("Decoded size exceeded".into());
+            }
+            out.data = decoded;
+            Ok(())
         }
-        "store" | "0" => Ok(payload.to_vec()),
-        _ => Err("Unsupported or invalid stream encoding".into()),
-    }
+        "store" | "0" => std::io::Write::write_all(&mut out, payload),
+        _ => return Err("Unsupported or invalid stream encoding".into()),
+    };
+    result.map_err(|_| "Stream payload decode failed")?;
+    if out.data.len() != target_len { return Err("Decoded size mismatch".into()); }
+    Ok(out.data)
 }
 
 fn parse_acir_program(source: &str) -> Vec<orpane_codec::Opcode> {
