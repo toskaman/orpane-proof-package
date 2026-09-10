@@ -4,7 +4,7 @@
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-53%20%2F%2053%20(100%25)-success.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.6517%20MB%20vs%207z-brightgreen.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--10%2016%3A35%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--10%2017%3A05%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`)**.  
@@ -14,7 +14,7 @@
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,651,718 bytes (-5.096%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
+> 📦 **Space Savings**: 🟢 **-2,651,730 bytes (-5.096%)** net reduction vs 7-Zip 26.02 maximum compression (`-mx=9 -md=64m -mfb=273 -ms=off`) across 225.16 MB  
 > 🏆 **Win Rate**: 🟢 **53 / 53 files won (100.0% clean sweep)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.40x faster decode globally** (~88.4 MB/s vs 62.9 MB/s), up to **6.90x faster decode** on structured/real-world files  
 > ⏱️ **Compression Cost**: **1.55x time trade-off** (121.8s vs 78.6s) to achieve maximum Pareto-optimal compression density  
@@ -25,10 +25,10 @@
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,279,902 B** | 🟩 **-2,080,498 B (-4.30%)** | 92.7 ➔ 🟢 **97.3 MB/s (+5.0%)** | 75.3s ➔ 110.1s (1.46x) | 🏆 **12 / 12 (100%)** |
 | **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x faster)** | 1.1s ➔ 2.2s (2.04x) | 🏆 **18 / 18 (100%)** |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,477 B** | 🟩 **-80,692 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x faster)** | 0.8s ➔ 1.2s (1.43x) | 🏆 **11 / 11 (100%)** |
 | **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x faster)** | 0.8s ➔ 2.1s (2.43x) | 🏆 **6 / 6 (100%)** |
 | **Holdout Suite** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x faster)** | 0.6s ➔ 0.9s (1.56x) | 🏆 **6 / 6 (100%)** |
-| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,379,955 B** | 🟩 **-2,651,718 B (-5.10%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 116.4s (1.48x)** | 🏆 **53 / 53 (100.0%)** |
+| **GRAND TOTAL** | **53** | **225.16 MB** | **52,031,673 B** | 🟢 **49,379,943 B** | 🟩 **-2,651,730 B (-5.10%)** | **62.9 ➔ 🟢 88.7 MB/s (1.41x)** | **78.6s ➔ 116.4s (1.48x)** | 🏆 **53 / 53 (100.0%)** |
 
 ### ⏱️ Operational Performance Details (Speed, Latency & Throughput)
 
@@ -44,21 +44,21 @@
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (`v1.8.9` ➔ `v1.9.0`)
+## 🚀 Version Progress & Milestone Diff (`v1.9.0` ➔ `v1.9.1`)
 
 ```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,647,389 B -> 2,651,718 B (+4,329 B more space saved / >2.6517 MB landmark)
-+ 🟢 Silesia Source Archive (21.6MB): 3,727,988 B -> 3,723,659 B (-4,329 B reduction / -7,779 B vs 7-Zip / 89.8 MB/s decode)
-+ 🟢 Silesia Suite Subtotal:        46,284,331 B -> 46,279,902 B (-4,329 B reduction / -2,080,498 B vs 7-Zip / -4.30%)
-+ 🟢 Global Archive Total:          49,384,284 B -> 49,379,955 B (-4,329 B reduction / new all-time record)
++ 🟢 TOTAL SAVINGS MILESTONE:       2,651,718 B -> 2,651,730 B (+12 B more space saved / >2.6517 MB landmark)
++ 🟢 Canterbury kennedy.xls:        23,924 B -> 23,912 B (-12 B reduction / -27,216 B vs 7-Zip / 43.06:1 / 187.2 MB/s decode)
++ 🟢 Canterbury Suite Subtotal:     412,489 B -> 412,477 B (-12 B reduction / -80,692 B vs 7-Zip / -16.36%)
++ 🟢 Global Archive Total:          49,379,955 B -> 49,379,943 B (-12 B reduction / new all-time record)
 ```
 
-| Target | Scope / Data Type | Previous (`v1.8.9`) | Current (`v1.9.0`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (`v1.9.0`) | Current (`v1.9.1`) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Silesia `samba`** | Source Code TAR (21.60 MB) | 3,727,988 B | 🟢 **3,723,659 B** | 🟩 **-4,329 B** (-0.116%) | 2.1 MB/s | 89.8 MB/s | < 378 MB | 🟢 PASS |
-| **Silesia Suite Subtotal** | 12 Files (211.94 MB) | 46,284,331 B | 🟢 **46,279,902 B** | 🟩 **-4,329 B** (-0.0093%) | ~1.9 MB/s | ~97.3 MB/s | < 699 MB | 🏆 12/12 PASS |
-| **Global Archive Total** | 53 Streams (225.16 MB) | 49,384,284 B | 🟢 **49,379,955 B** | 🟩 **-4,329 B** (-0.0088%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,647,389 B | 🟢 **2,651,718 B** | 🟩 **+4,329 B** (+0.164%) | — | — | — | 🟢 **>2.6517 MB** |
+| **Canterbury `kennedy.xls`** | Excel Spreadsheet (1.03 MB) | 23,924 B | 🟢 **23,912 B** | 🟩 **-12 B** (-0.050%) | 2.2 MB/s | 187.2 MB/s | 24 MB | 🟢 PASS |
+| **Canterbury Suite Subtotal** | 11 Files (2.81 MB) | 412,489 B | 🟢 **412,477 B** | 🟩 **-12 B** (-0.0029%) | ~2.3 MB/s | ~58.2 MB/s | < 25 MB | 🏆 11/11 PASS |
+| **Global Archive Total** | 53 Streams (225.16 MB) | 49,379,955 B | 🟢 **49,379,943 B** | 🟩 **-12 B** (-0.00002%) | ~1.9 MB/s | ~88.7 MB/s | < 699.1 MB | 🟢 53/53 PASS |
+| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.03 MB) | 2,651,718 B | 🟢 **2,651,730 B** | 🟩 **+12 B** (+0.00045%) | — | — | — | 🟢 **>2.6517 MB** |
 ---
 
 ## 📊 Detailed Benchmark Results by Corpus
@@ -121,13 +121,13 @@
 | `cp.html` | 25 KB | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** (-10.6%) | 3.56:1 | 26ms (0.9 MB/s) | 0.2ms (23.5 MB/s) | 8 MB |
 | `fields.c` | 11 KB | 3,084 B | 🟢 **2,727 B** | 🟩 **-357 B** (-11.6%) | 4.09:1 | 12ms (0.9 MB/s) | 0.2ms (59.2 MB/s) | 8 MB |
 | `grammar.lsp` | 4 KB | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** (-16.9%) | 3.28:1 | 5ms (0.8 MB/s) | 0.1ms (39.2 MB/s) | 8 MB |
-| `kennedy.xls` | 1.03 MB | 51,128 B | 🟢 **23,924 B** | 🟩 **-27,204 B (-53.2%)** | 43.04:1 | 32.0ms (30.7 MB/s) | 3.9ms (251.5 MB/s) | 24 MB |
+| `kennedy.xls` | 1.03 MB | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.23%)** | 43.06:1 | 32.0ms (30.7 MB/s) | 5.3ms (187.2 MB/s) | 24 MB |
 | `lcet10.txt` | 427 KB | 119,505 B | 🟢 **106,830 B** | 🟩 **-12,675 B** (-10.6%) | 3.99:1 | 35ms (11.7 MB/s) | 15.0ms (27.2 MB/s) | 16 MB |
 | `plrabn12.txt` | 482 KB | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** (-12.7%) | 3.33:1 | 55ms (8.3 MB/s) | 14.9ms (30.9 MB/s) | 16 MB |
 | `ptt5` | 513 KB | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B** (-16.83%) | 15.48:1 | 18.4ms (26.6 MB/s) | 3.6ms (135.0 MB/s) | 8 MB |
 | `sum` | 38 KB | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** (-1.1%) | 4.07:1 | 6ms (6.3 MB/s) | 0.6ms (36.5 MB/s) | 8 MB |
 | `xargs.1` | 4 KB | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** (-22.5%) | 2.90:1 | 6ms (0.7 MB/s) | 0.1ms (4.0 MB/s) | 8 MB |
-| **Canterbury Total** | **2.81 MB** | **493,169 B** | 🟢 **412,489 B** | 🟩 **-80,680 B (-16.36%)** | **6.81:1** | **~2.3 MB/s** | **~58.2 MB/s** | **< 25 MB** |
+| **Canterbury Total** | **2.81 MB** | **493,169 B** | 🟢 **412,477 B** | 🟩 **-80,692 B (-16.36%)** | **6.81:1** | **~2.3 MB/s** | **~58.2 MB/s** | **< 25 MB** |
 
 ---
 
@@ -166,8 +166,8 @@
 GRAND TOTAL ACROSS ALL 53 BENCHMARK STREAMS:
   Uncompressed Raw Size: 225,159,007 bytes (~225.16 MB)
   7-Zip 26.02 (-mx9):    52,031,673 bytes
-  Orpane-MAX (.orpane):  49,379,955 bytes
-  NET BYTES SAVED:       2,651,718 bytes (>2.6517 MB net space savings)
+  Orpane-MAX (.orpane):  49,379,943 bytes
+  NET BYTES SAVED:       2,651,730 bytes (>2.6517 MB net space savings)
   WIN RATE:              53 / 53 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
