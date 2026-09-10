@@ -56,6 +56,9 @@ fn decode_leb128(buf: &[u8], mut pos: usize) -> Result<(u64, usize), String> {
     while pos < buf.len() {
         let b = buf[pos];
         pos += 1;
+        if shift >= 63 && (b & 0xFE) != 0 {
+            return Err("LEB128 value overflow (> 64 bits)".into());
+        }
         val |= ((b & 0x7F) as u64) << shift;
         if (b & 0x80) == 0 {
             return Ok((val, pos));
@@ -70,11 +73,12 @@ fn decode_leb128(buf: &[u8], mut pos: usize) -> Result<(u64, usize), String> {
 
 fn read_leb_chunk<'a>(buf: &'a [u8], pos: usize) -> Result<(&'a [u8], usize), String> {
     let (len, off) = decode_leb128(buf, pos)?;
-    let len = len as usize;
-    if off + len > buf.len() {
+    let len = usize::try_from(len).map_err(|_| "Chunk length exceeds addressable memory")?;
+    let end = off.checked_add(len).ok_or("Chunk offset overflow")?;
+    if end > buf.len() {
         return Err("Chunk extends beyond buffer".into());
     }
-    Ok((&buf[off..off + len], off + len))
+    Ok((&buf[off..end], end))
 }
 
 fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
@@ -840,6 +844,7 @@ OPTIONS:
     -t, --test                   Test mode: verify integrity in RAM without disk writes
     -l, --info                   Display archive metrics, compression ratio, and stream properties
     -b, --bench [N]              Benchmark in-memory decompression speed over N runs (default: 5)
+    --json                       Output machine-readable JSON format
     -f, --force                  Overwrite destination file if it already exists
     -q, --quiet                  Quiet mode: return exit code 0 on PASS, 1 on FAIL
     -v, --verbose                Verbose mode: print detailed execution parameters
@@ -866,6 +871,7 @@ fn main() {
     let mut output_path: Option<PathBuf> = None;
     let mut test_mode = false;
     let mut info_mode = false;
+    let mut json_mode = false;
     let mut bench_runs: Option<usize> = None;
     let mut force_overwrite = false;
     let mut quiet = false;
@@ -888,6 +894,9 @@ fn main() {
             }
             "-l" | "--info" => {
                 info_mode = true;
+            }
+            "--json" => {
+                json_mode = true;
             }
             "-f" | "--force" => {
                 force_overwrite = true;
@@ -980,6 +989,15 @@ fn main() {
         let ratio = (orig_sz as f64) / (arc_sz.max(1) as f64);
         let pct = (1.0 - (arc_sz as f64 / orig_sz.max(1) as f64)) * 100.0;
 
+        if json_mode {
+            println!(
+                r#"{{"file":"{}","archive_size":{},"original_size":{},"compression_ratio":{:.4},"savings_percent":{:.2},"profile":"{}","status":"OK"}}"#,
+                arc_file.file_name().unwrap().to_string_lossy(),
+                arc_sz, orig_sz, ratio, pct, unpacked.profile
+            );
+            return;
+        }
+
         println!("\n===========================================================");
         println!("  ORPANE ARCHIVE INSPECTOR: {}", arc_file.file_name().unwrap().to_string_lossy());
         println!("===========================================================");
@@ -1012,6 +1030,15 @@ fn main() {
         latencies_ms.sort_by(|a, b| a.partial_cmp(b).unwrap());
         let median_ms = latencies_ms[latencies_ms.len() / 2];
         let throughput_mbs = ((unpacked.original_size as f64) / (1024.0 * 1024.0)) / (median_ms / 1000.0);
+
+        if json_mode {
+            println!(
+                r#"{{"file":"{}","benchmark_runs":{},"median_ms":{:.2},"throughput_mbs":{:.1}}}"#,
+                arc_file.file_name().unwrap().to_string_lossy(),
+                runs, median_ms, throughput_mbs
+            );
+            return;
+        }
 
         println!(
             "Benchmark ({} trials in RAM): Median {:.2} ms | Throughput: {:.1} MB/s",
@@ -1054,6 +1081,18 @@ fn main() {
 
     // Test mode
     if test_mode {
+        if json_mode {
+            println!(
+                r#"{{"file":"{}","status":"PASS","original_size":{},"elapsed_ms":{:.2},"throughput_mbs":{:.1},"sha256":"{}","blake3":"{}"}}"#,
+                arc_file.file_name().unwrap().to_string_lossy(),
+                decompressed.len(),
+                elapsed_ms,
+                throughput_mbs,
+                sha_hex,
+                blake_hex
+            );
+            return;
+        }
         if !quiet {
             println!(
                 "PASS (Bit-Exact): {} -> {} bytes in {:.2} ms ({:.1} MB/s)",
@@ -1097,9 +1136,30 @@ fn main() {
         std::process::exit(1);
     }
 
-    if let Err(e) = fs::write(&dest_path, &decompressed) {
+    let tmp_dest = match dest_path.parent() {
+        Some(dir) => dir.join(format!(".tmp_{}_{}", std::process::id(), dest_path.file_name().unwrap().to_string_lossy())),
+        None => PathBuf::from(format!(".tmp_{}_{}", std::process::id(), dest_path.file_name().unwrap().to_string_lossy())),
+    };
+
+    if let Err(e) = fs::write(&tmp_dest, &decompressed) {
+        let _ = fs::remove_file(&tmp_dest);
         if !quiet {
             eprintln!("Error writing destination {}: {}", dest_path.display(), e);
+        }
+        std::process::exit(1);
+    }
+
+    let rename_res = if dest_path.exists() && force_overwrite {
+        let _ = fs::remove_file(&dest_path);
+        fs::rename(&tmp_dest, &dest_path)
+    } else {
+        fs::rename(&tmp_dest, &dest_path)
+    };
+
+    if let Err(e) = rename_res {
+        let _ = fs::remove_file(&tmp_dest);
+        if !quiet {
+            eprintln!("Error finalizing destination {}: {}", dest_path.display(), e);
         }
         std::process::exit(1);
     }
