@@ -86,27 +86,30 @@ impl AdaptiveProbabilityMap {
 
     #[inline(always)]
     pub fn predict(&self, ctx: usize, p: u32) -> u32 {
-        let c = ctx % APM_CONTEXTS;
+        let c = ctx & (APM_CONTEXTS - 1);
         let p_clamped = p.clamp(1, 4094);
-        let bin = (p_clamped / 128).min(31) as usize;
-        let frac = p_clamped % 128;
+        let bin = (p_clamped >> 7) as usize;
+        let frac = p_clamped & 127;
         let v0 = self.table[c][bin] as u32;
         let v1 = self.table[c][bin + 1] as u32;
-        ((v0 * (128 - frac) + v1 * frac) / 128).clamp(1, 4094)
+        ((v0 * (128 - frac) + v1 * frac) >> 7).clamp(1, 4094)
     }
 
     #[inline(always)]
     pub fn update(&mut self, ctx: usize, p: u32, bit: u8) {
-        let c = ctx % APM_CONTEXTS;
+        let c = ctx & (APM_CONTEXTS - 1);
         let p_clamped = p.clamp(1, 4094);
-        let bin = (p_clamped / 128).min(31) as usize;
-        let frac = p_clamped % 128;
+        let bin = (p_clamped >> 7) as usize;
+        let frac = p_clamped & 127;
+        let v0 = self.table[c][bin] as u32;
+        let v1 = self.table[c][bin + 1] as u32;
+        let pred = ((v0 * (128 - frac) + v1 * frac) >> 7).clamp(1, 4094) as i32;
+
         let target = (bit as i32) * 4095;
-        let pred = self.predict(c, p) as i32;
         let err = (target - pred) >> 5;
 
-        let adj0 = err * (128 - frac as i32) / 128;
-        let adj1 = err * (frac as i32) / 128;
+        let adj0 = (err * (128 - frac as i32)) >> 7;
+        let adj1 = (err * (frac as i32)) >> 7;
 
         self.table[c][bin] = (self.table[c][bin] as i32 + adj0).clamp(1, 4094) as u16;
         self.table[c][bin + 1] = (self.table[c][bin + 1] as i32 + adj1).clamp(1, 4094) as u16;
