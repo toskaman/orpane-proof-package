@@ -10,6 +10,10 @@ use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use twox_hash::{XxHash32, XxHash3_64};
 
+mod cm_dec;
+mod codec_dec;
+mod vm_dec;
+
 const VERSION: &str = "1.2.3";
 
 const MAGIC_STANDARD: &[u8; 8] = b"ARCDISC1";
@@ -358,11 +362,11 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
             decoded.map_err(|_| std::io::Error::new(std::io::ErrorKind::InvalidData, "Stream payload decode failed"))
         }
         "orpane_lz" | "olz1" | "olz2" | "8" => {
-            out.data = orpane_codec::decompress_orpane_lz(payload, target_len)?;
+            out.data = codec_dec::decompress_orpane_lz(payload, target_len)?;
             Ok(())
         }
         "orpane_cm" | "cm" | "9" => {
-            let decoded = orpane_codec::cm::cm_decode(payload)
+            let decoded = cm_dec::cm_decode(payload)
                 .map_err(|e| format!("Stream payload decode failed: {}", e))?;
             if decoded.len() > target_len {
                 return Err("Decoded size exceeded".into());
@@ -378,7 +382,7 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
     Ok(out.data)
 }
 
-fn parse_acir_program(source: &str) -> Vec<orpane_codec::Opcode> {
+fn parse_acir_program(source: &str) -> Vec<vm_dec::Opcode> {
     let mut opcodes = Vec::new();
     for line in source.lines() {
         let line = line.trim();
@@ -391,37 +395,37 @@ fn parse_acir_program(source: &str) -> Vec<orpane_codec::Opcode> {
         }
         match parts[0].to_uppercase().as_str() {
             "ADD" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Add(v)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Add(v)); }
             }
             "SUB" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Add((-(v as i32)).rem_euclid(256) as u8)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Add((-(v as i32)).rem_euclid(256) as u8)); }
             }
             "XOR" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Xor(v)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Xor(v)); }
             }
             "MUL" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Mul(v)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Mul(v)); }
             }
             "ROL" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Rol(v)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Rol(v)); }
             }
             "ROR" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(orpane_codec::Opcode::Rol((8 - (v % 8)) % 8)); }
+                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Rol((8 - (v % 8)) % 8)); }
             }
             "SHUFFLE" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<usize>() { opcodes.push(orpane_codec::Opcode::Shuffle(v)); }
+                if let Ok(v) = parts[1].parse::<usize>() { opcodes.push(vm_dec::Opcode::Shuffle(v)); }
             }
             "DELTA" if parts.len() > 2 => {
                 if let (Ok(s), Ok(o)) = (parts[1].parse::<usize>(), parts[2].parse::<usize>()) {
-                    opcodes.push(orpane_codec::Opcode::Delta { stride: s, order: o });
+                    opcodes.push(vm_dec::Opcode::Delta { stride: s, order: o });
                 }
             }
             "BIT_PLANE" => {
-                opcodes.push(orpane_codec::Opcode::BitPlane);
+                opcodes.push(vm_dec::Opcode::BitPlane);
             }
             "PREDICT" if parts.len() > 3 => {
                 if let (Ok(s), Ok(a), Ok(b)) = (parts[1].parse::<usize>(), parts[2].parse::<i32>(), parts[3].parse::<i32>()) {
-                    opcodes.push(orpane_codec::Opcode::Predict { stride: s, a, b });
+                    opcodes.push(vm_dec::Opcode::Predict { stride: s, a, b });
                 }
             }
             _ => {}
@@ -813,7 +817,7 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
                     .and_then(|v| v.as_str())
                     .unwrap_or("");
                 let prog = parse_acir_program(source);
-                stream = orpane_codec::ReversibleVm::execute_inverse(&stream, &prog);
+                stream = vm_dec::ReversibleVm::execute_inverse(&stream, &prog);
             }
             _ => {
                 return Err("Unsupported stream transform stage".into());
