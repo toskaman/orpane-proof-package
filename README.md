@@ -42,7 +42,7 @@ Orpane achieves its greatest empirical compression advantage on **domain-specifi
 | 🥈 | unseen_archive.tar | Sparse archive | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.6%)** | 260.2 MB/s |
 | 🥉 | kennedy.xls | Structured spreadsheet | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.2%)** | 187.2 MB/s |
 | 4 | unseen_sensor_floats.raw | Floating-point telemetry | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 52.8 MB/s |
-| 5 | stro_sensor_telemetry | Sensor array telemetry | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 37.2 MB/s |
+| 5 | astro_sensor_telemetry | Sensor array telemetry | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 37.2 MB/s |
 | 6 | sealed_utf8_multilingual.bin | Multilingual text stream | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.6%)** | 4,510 MB/s |
 | 7 | sealed_financial_ticks.bin | High-frequency finance | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.4%)** | 11.6 MB/s |
 | 8 | source_code_kernel | Operating system C kernel | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.4%)** | 97.1 MB/s |
@@ -64,12 +64,11 @@ On heterogeneous data with minimal periodic or tabular structure, established sl
 
 | Benchmark File | Data Domain | 7-Zip Size | Orpane Size | 🟩 Margin vs 7z | Context & Observation |
 | :--- | :--- | :---: | :---: | :---: | :--- |
-| mozilla (51.22 MB) | Large mixed x86 tarball | 13,313,683 B | 🟢 **13,301,175 B** | **-0.09%** (-12.5 KB) | Highly diverse binary stream; 699 MB peak RAM required. |
-| samba (21.60 MB) | Mixed source code tarball | 3,731,438 B | 🟢 **3,723,659 B** | **-0.21%** (-7.8 KB) | Broad heterogeneous source tree with high entropy variety. |
-| webster (41.45 MB) | English prose dictionary | 8,370,602 B | 🟢 **8,346,688 B** | **-0.29%** (-23.9 KB) | Standard English vocabulary where sliding windows perform well. |
-| 
-ci (33.55 MB) | Chemical database | 1,449,349 B | 🟢 **1,440,072 B** | **-0.64%** (-9.3 KB) | Extremely compressed (23.3:1); incremental gains are tightly bounded. |
-| obj2 (247 KB) | Compiled object code | 61,447 B | 🟢 **61,091 B** | **-0.58%** (-356 B) | Dense compiled bytecode with small delta opportunity. |
+| `mozilla`  (51.22 MB) | Large mixed x86 tarball | 13,313,683 B | 🟢 **13,301,175 B** | **-0.09%** (-12.5 KB) | Highly diverse binary stream; 699 MB peak RAM required. |
+| `samba`  (21.60 MB) | Mixed source code tarball | 3,731,438 B | 🟢 **3,723,659 B** | **-0.21%** (-7.8 KB) | Broad heterogeneous source tree with high entropy variety. |
+| `webster`  (41.45 MB) | English prose dictionary | 8,370,602 B | 🟢 **8,346,688 B** | **-0.29%** (-23.9 KB) | Standard English vocabulary where sliding windows perform well. |
+| `nci` (33.55 MB)hemical database | 1,449,349 B | 🟢 **1,440,072 B** | **-0.64%** (-9.3 KB) | Extremely compressed (23.3:1); incremental gains are tightly bounded. |
+| `obj2`  (247 KB) | Compiled object code | 61,447 B | 🟢 **61,091 B** | **-0.58%** (-356 B) | Dense compiled bytecode with small delta opportunity. |
 
 ---
 
@@ -106,9 +105,9 @@ ci (33.55 MB) | Chemical database | 1,449,349 B | 🟢 **1,440,072 B** | **-0.64
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (1.9.2 ➔ 2.0.0)
+## 🚀 Version Progress & Milestone Diff (v1.9.2 ➔ v2.0.0)
 
-`diff
+```diff
 + 🟢 TOTAL SAVINGS MILESTONE:       2,654,990 B -> 2,771,976 B (+116,986 B more space saved / >2.7719 MB landmark)
 + 🟢 Parquet Columnar Records:      254,984 B -> 199,614 B (-55,370 B vs 7z / -21.72% / 2.13x)
 + 🟢 SQLite B-Tree Database Pages:  25,304 B -> 21,105 B (-4,199 B vs 7z / -16.59% / 24.84x)
@@ -117,9 +116,9 @@ ci (33.55 MB) | Chemical database | 1,449,349 B | 🟢 **1,440,072 B** | **-0.64
 + 🟢 Financial High-Frequency Ticks:131,836 B -> 91,801 B (-40,035 B vs 7z / -30.37% / 6.97x)
 + 🟢 Holdouts Subtotal:             562,468 B -> 445,482 B (-116,986 B vs 7z / -20.80% net savings)
 + 🟢 Global Archive Total:          49,376,683 B -> 49,822,165 B across 227.51 MB (58/58 clean sweep)
-`
+```
 
-| Target | Scope / Data Type | Previous (1.9.2) | Current (2.0.0) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Previous (v1.9.2) | Current (v2.0.0) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **sealed_parquet_columns** | Columnar records (425 KB) | 301,894 B | 🟢 **199,614 B** | 🟩 **-102,280 B** (-33.88%) | 1.2 MB/s | 10.1 MB/s | 12 MB | 🟢 PASS |
 | **sealed_sqlite_btree** | SQLite pages (524 KB) | 37,845 B | 🟢 **21,105 B** | 🟩 **-16,740 B** (-44.23%) | 1.8 MB/s | 194.1 MB/s | 8 MB | 🟢 PASS |
@@ -138,11 +137,11 @@ ci (33.55 MB) | Chemical database | 1,449,349 B | 🟢 **1,440,072 B** | **-0.64
 
 | Benchmark Stream | Raw Size | 7-Zip 26.02 (-mx9) | Brotli 1.2.0 (-q11) | Zstandard 1.5.7 (-l22) | Orpane (MAX) | 🟩 Net Savings vs Best Baseline | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| sealed_financial_ticks.bin | 640,000 B | 131,836 B | 150,743 B | 172,766 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 🟢 PASS (Bit-Exact) |
-| sealed_parquet_columns.bin | 425,000 B | 254,984 B | 246,685 B | 258,998 B | 🟢 **199,614 B** | 🟩 **-47,071 B (-19.08%)** | 🟢 PASS (Bit-Exact) |
-| sealed_sqlite_btree.bin | 524,288 B | 25,304 B | 21,698 B | 27,787 B | 🟢 **21,105 B** | 🟩 **-593 B (-2.73%)** | 🟢 PASS (Bit-Exact) |
-| sealed_utf8_multilingual.bin| 451,109 B | 5,804 B | 5,631 B | 3,608 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60% vs 7z)**| 🟢 PASS (Bit-Exact) |
-| sealed_wasm_binary.bin | 314,405 B | 144,540 B | 141,205 B | 158,409 B | 🟢 **129,340 B** | 🟩 **-11,865 B (-8.40%)** | 🟢 PASS (Bit-Exact) |
+| `sealed_financial_ticks.bin` | 640,000 B | 131,836 B | 150,743 B | 172,766 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 🟢 PASS (Bit-Exact) |
+| `sealed_parquet_columns.bin` | 425,000 B | 254,984 B | 246,685 B | 258,998 B | 🟢 **199,614 B** | 🟩 **-47,071 B (-19.08%)** | 🟢 PASS (Bit-Exact) |
+| `sealed_sqlite_btree.bin` | 524,288 B | 25,304 B | 21,698 B | 27,787 B | 🟢 **21,105 B** | 🟩 **-593 B (-2.73%)** | 🟢 PASS (Bit-Exact) |
+| `sealed_utf8_multilingual.bin` | 451,109 B | 5,804 B | 5,631 B | 3,608 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60% vs 7z)**| 🟢 PASS (Bit-Exact) |
+| `sealed_wasm_binary.bin` | 314,405 B | 144,540 B | 141,205 B | 158,409 B | 🟢 **129,340 B** | 🟩 **-11,865 B (-8.40%)** | 🟢 PASS (Bit-Exact) |
 | **CUMULATIVE HOLDOUTS** | **2,354,802 B** | **562,468 B** | **565,962 B** | **621,568 B** | 🟢 **445,482 B** | 🟩 **-116,986 B (-20.80% vs 7z)**| 🏆 **ALL PASS (100%)** |
 
 ### 2. Canterbury Benchmark Suite (11 streams — 2.81 MB)
@@ -192,20 +191,18 @@ To evaluate scalability on multi-megabyte streams, Orpane was benchmarked across
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| dickens | 10.19 MB | 2,831,068 B | 🟢 **2,759,408 B** | 🟩 **-71,660 B** (-2.5%) | 3.69:1 | 1.6s (6.0 MB/s) | 376ms (25.9 MB/s) | 22 MB |
-| mozilla | 51.22 MB | 13,313,683 B | 🟢 **13,301,175 B** | 🟩 **-12,508 B** (-0.1%) | 3.85:1 | 20.3s (2.4 MB/s) | 697ms (70.1 MB/s) | 699 MB |
-| mr | 9.97 MB | 2,748,446 B | 🟢 **2,320,795 B** | 🟩 **-427,651 B** (-15.56%) | 4.30:1 | 7.6s (1.3 MB/s) | 71.7ms (132.7 MB/s) | 48 MB |
-| 
-ci | 33.55 MB | 1,449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
-| ooffice | 6.15 MB | 2,424,759 B | 🟢 **2,129,038 B** | 🟩 **-295,721 B** (-12.2%) | 2.89:1 | 2.5s (2.5 MB/s) | 117ms (50.1 MB/s) | 106 MB |
-| osdb | 10.08 MB | 2,845,835 B | 🟢 **2,657,854 B** | 🟩 **-187,981 B** (-6.6%) | 3.79:1 | 2.1s (4.8 MB/s) | 278ms (34.6 MB/s) | 77 MB |
-| 
-eymont | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1%) | 5.36:1 | 1.9s (3.3 MB/s) | 222ms (28.5 MB/s) | 22 MB |
-| samba | 21.60 MB | 3,731,438 B | 🟢 **3,723,659 B** | 🟩 **-7,779 B** (-0.21%) | 5.80:1 | 10.0s (2.1 MB/s) | 229ms (89.8 MB/s) | 378 MB |
-| sao | 7.25 MB | 4,413,926 B | 🟢 **3,994,318 B** | 🟩 **-419,608 B** (-9.5%) | 1.82:1 | 2.5s (2.8 MB/s) | 109ms (63.7 MB/s) | 109 MB |
-| webster | 41.45 MB | 8,370,602 B | 🟢 **8,346,688 B** | 🟩 **-23,914 B** (-0.3%) | 4.97:1 | 28.3s (1.4 MB/s) | 367ms (107.8 MB/s) | 149 MB |
-| x-ray | 8.47 MB | 4,479,871 B | 🟢 **3,937,474 B** | 🟩 **-542,397 B** (-12.11%) | 2.15:1 | 21.8s (0.4 MB/s) | 58.0ms (139.4 MB/s) | 44 MB |
-| xml | 5.34 MB | 435,212 B | 🟢 **430,163 B** | 🟩 **-5,049 B** (-1.2%) | 12.43:1 | 6.4s (0.8 MB/s) | 9ms (579.3 MB/s) | 10 MB |
+| `dickens` | 10.19 MB | 2,831,068 B | 🟢 **2,759,408 B** | 🟩 **-71,660 B** (-2.5%) | 3.69:1 | 1.6s (6.0 MB/s) | 376ms (25.9 MB/s) | 22 MB |
+| `mozilla` | 51.22 MB | 13,313,683 B | 🟢 **13,301,175 B** | 🟩 **-12,508 B** (-0.1%) | 3.85:1 | 20.3s (2.4 MB/s) | 697ms (70.1 MB/s) | 699 MB |
+| `mr` | 9.97 MB | 2,748,446 B | 🟢 **2,320,795 B** | 🟩 **-427,651 B** (-15.56%) | 4.30:1 | 7.6s (1.3 MB/s) | 71.7ms (132.7 MB/s) | 48 MB |
+| `nci` (33.55 MB),449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
+| `ooffice` | 6.15 MB | 2,424,759 B | 🟢 **2,129,038 B** | 🟩 **-295,721 B** (-12.2%) | 2.89:1 | 2.5s (2.5 MB/s) | 117ms (50.1 MB/s) | 106 MB |
+| `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,657,854 B** | 🟩 **-187,981 B** (-6.6%) | 3.79:1 | 2.1s (4.8 MB/s) | 278ms (34.6 MB/s) | 77 MB |
+| `reymont` | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1%) | 5.36:1 | 1.9s (3.3 MB/s) | 222ms (28.5 MB/s) | 22 MB |
+| `samba` | 21.60 MB | 3,731,438 B | 🟢 **3,723,659 B** | 🟩 **-7,779 B** (-0.21%) | 5.80:1 | 10.0s (2.1 MB/s) | 229ms (89.8 MB/s) | 378 MB |
+| `sao` | 7.25 MB | 4,413,926 B | 🟢 **3,994,318 B** | 🟩 **-419,608 B** (-9.5%) | 1.82:1 | 2.5s (2.8 MB/s) | 109ms (63.7 MB/s) | 109 MB |
+| `webster` | 41.45 MB | 8,370,602 B | 🟢 **8,346,688 B** | 🟩 **-23,914 B** (-0.3%) | 4.97:1 | 28.3s (1.4 MB/s) | 367ms (107.8 MB/s) | 149 MB |
+| `x-ray` | 8.47 MB | 4,479,871 B | 🟢 **3,937,474 B** | 🟩 **-542,397 B** (-12.11%) | 2.15:1 | 21.8s (0.4 MB/s) | 58.0ms (139.4 MB/s) | 44 MB |
+| `xml` | 5.34 MB | 435,212 B | 🟢 **430,163 B** | 🟩 **-5,049 B** (-1.2%) | 12.43:1 | 6.4s (0.8 MB/s) | 9ms (579.3 MB/s) | 10 MB |
 | **Silesia Total** | **211.94 MB** | **48,360,400 B** | 🟢 **46,276,642 B** | 🟩 **-2,083,758 B (-4.31%)** | **4.58:1** | **~1.9 MB/s** | **~97.3 MB/s** | **< 699 MB** |
 
 ---
@@ -214,25 +211,24 @@ eymont | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| ib | 111 KB | 30,602 B | 🟢 **27,419 B** | 🟩 **-3,183 B** (-10.4%) | 4.06:1 | 1.36s (0.1 MB/s) | 3.1ms (34.5 MB/s) | 8 MB |
-| ook1 | 769 KB | 261,214 B | 🟢 **230,301 B** | 🟩 **-30,913 B** (-11.8%) | 3.34:1 | 1.16s (0.6 MB/s) | 25.8ms (28.4 MB/s) | 15 MB |
-| ook2 | 611 KB | 169,814 B | 🟢 **156,559 B** | 🟩 **-13,255 B** (-7.8%) | 3.90:1 | 67ms (8.7 MB/s) | 15.9ms (36.6 MB/s) | 15 MB |
-| geo | 102 KB | 53,458 B | 🟢 **48,447 B** | 🟩 **-5,011 B** (-9.37%) | 2.11:1 | 186ms (0.5 MB/s) | 1.0ms (100.8 MB/s) | 13 MB |
-| 
-ews | 377 KB | 118,949 B | 🟢 **112,707 B** | 🟩 **-6,242 B** (-5.25%) | 3.35:1 | 561ms (0.6 MB/s) | 2.5ms (142.5 MB/s) | 8 MB |
-| obj1 | 22 KB | 9,463 B | 🟢 **9,277 B** | 🟩 **-186 B** (-2.0%) | 2.32:1 | 5.0ms (4.1 MB/s) | 0.3ms (61.4 MB/s) | 2 MB |
-| obj2 | 247 KB | 61,447 B | 🟢 **61,091 B** | 🟩 **-356 B** (-0.58%) | 4.04:1 | 57ms (4.1 MB/s) | 3.5ms (67.5 MB/s) | 8 MB |
-| paper1 | 53 KB | 17,331 B | 🟢 **15,469 B** | 🟩 **-1,862 B** (-10.7%) | 3.44:1 | 50ms (1.0 MB/s) | 0.2ms (50.7 MB/s) | 8 MB |
-| paper2 | 82 KB | 27,321 B | 🟢 **24,851 B** | 🟩 **-2,470 B** (-9.0%) | 3.31:1 | 89ms (0.9 MB/s) | 0.6ms (132.4 MB/s) | 8 MB |
-| paper3 | 47 KB | 17,132 B | 🟢 **14,651 B** | 🟩 **-2,481 B** (-14.5%) | 3.18:1 | 45ms (1.0 MB/s) | 0.3ms (44.4 MB/s) | 8 MB |
-| paper4 | 13 KB | 5,469 B | 🟢 **4,292 B** | 🟩 **-1,177 B** (-21.52%) | 3.10:1 | 19ms (0.7 MB/s) | 0.1ms (12.7 MB/s) | 8 MB |
-| paper5 | 12 KB | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B** (-17.7%) | 2.93:1 | 12ms (0.9 MB/s) | 0.2ms (50.5 MB/s) | 8 MB |
-| paper6 | 38 KB | 12,564 B | 🟢 **11,144 B** | 🟩 **-1,420 B** (-11.3%) | 3.42:1 | 40ms (0.9 MB/s) | 0.3ms (106.6 MB/s) | 8 MB |
-| pic | 513 KB | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B** (-16.83%) | 15.48:1 | 18.2ms (26.8 MB/s) | 2.6ms (188.4 MB/s) | 8 MB |
-| progc | 40 KB | 12,626 B | 🟢 **11,626 B** | 🟩 **-1,000 B** (-7.9%) | 3.41:1 | 38ms (1.0 MB/s) | 0.3ms (119.0 MB/s) | 8 MB |
-| progl | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
-| progp | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
-| 	rans | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
+| `bib` | 111 KB | 30,602 B | 🟢 **27,419 B** | 🟩 **-3,183 B** (-10.4%) | 4.06:1 | 1.36s (0.1 MB/s) | 3.1ms (34.5 MB/s) | 8 MB |
+| `book1` | 769 KB | 261,214 B | 🟢 **230,301 B** | 🟩 **-30,913 B** (-11.8%) | 3.34:1 | 1.16s (0.6 MB/s) | 25.8ms (28.4 MB/s) | 15 MB |
+| `book2` | 611 KB | 169,814 B | 🟢 **156,559 B** | 🟩 **-13,255 B** (-7.8%) | 3.90:1 | 67ms (8.7 MB/s) | 15.9ms (36.6 MB/s) | 15 MB |
+| `geo` | 102 KB | 53,458 B | 🟢 **48,447 B** | 🟩 **-5,011 B** (-9.37%) | 2.11:1 | 186ms (0.5 MB/s) | 1.0ms (100.8 MB/s) | 13 MB |
+| `news` | 377 KB | 118,949 B | 🟢 **112,707 B** | 🟩 **-6,242 B** (-5.25%) | 3.35:1 | 561ms (0.6 MB/s) | 2.5ms (142.5 MB/s) | 8 MB |
+| `obj1` | 22 KB | 9,463 B | 🟢 **9,277 B** | 🟩 **-186 B** (-2.0%) | 2.32:1 | 5.0ms (4.1 MB/s) | 0.3ms (61.4 MB/s) | 2 MB |
+| `obj2` | 247 KB | 61,447 B | 🟢 **61,091 B** | 🟩 **-356 B** (-0.58%) | 4.04:1 | 57ms (4.1 MB/s) | 3.5ms (67.5 MB/s) | 8 MB |
+| `paper1` | 53 KB | 17,331 B | 🟢 **15,469 B** | 🟩 **-1,862 B** (-10.7%) | 3.44:1 | 50ms (1.0 MB/s) | 0.2ms (50.7 MB/s) | 8 MB |
+| `paper2` | 82 KB | 27,321 B | 🟢 **24,851 B** | 🟩 **-2,470 B** (-9.0%) | 3.31:1 | 89ms (0.9 MB/s) | 0.6ms (132.4 MB/s) | 8 MB |
+| `paper3` | 47 KB | 17,132 B | 🟢 **14,651 B** | 🟩 **-2,481 B** (-14.5%) | 3.18:1 | 45ms (1.0 MB/s) | 0.3ms (44.4 MB/s) | 8 MB |
+| `paper4` | 13 KB | 5,469 B | 🟢 **4,292 B** | 🟩 **-1,177 B** (-21.52%) | 3.10:1 | 19ms (0.7 MB/s) | 0.1ms (12.7 MB/s) | 8 MB |
+| `paper5` | 12 KB | 4,956 B | 🟢 **4,077 B** | 🟩 **-879 B** (-17.7%) | 2.93:1 | 12ms (0.9 MB/s) | 0.2ms (50.5 MB/s) | 8 MB |
+| `paper6` | 38 KB | 12,564 B | 🟢 **11,144 B** | 🟩 **-1,420 B** (-11.3%) | 3.42:1 | 40ms (0.9 MB/s) | 0.3ms (106.6 MB/s) | 8 MB |
+| `pic` | 513 KB | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B** (-16.83%) | 15.48:1 | 18.2ms (26.8 MB/s) | 2.6ms (188.4 MB/s) | 8 MB |
+| `progc` | 40 KB | 12,626 B | 🟢 **11,626 B** | 🟩 **-1,000 B** (-7.9%) | 3.41:1 | 38ms (1.0 MB/s) | 0.3ms (119.0 MB/s) | 8 MB |
+| `progl` | 72 KB | 14,991 B | 🟢 **14,011 B** | 🟩 **-980 B** (-6.5%) | 5.11:1 | 77ms (0.9 MB/s) | 0.2ms (68.3 MB/s) | 8 MB |
+| `progp` | 49 KB | 10,378 B | 🟢 **9,889 B** | 🟩 **-489 B** (-4.7%) | 4.99:1 | 55ms (0.9 MB/s) | 0.3ms (152.5 MB/s) | 8 MB |
+| `trans` | 94 KB | 16,699 B | 🟢 **15,383 B** | 🟩 **-1,316 B** (-7.9%) | 6.09:1 | 115ms (0.8 MB/s) | 0.6ms (89.4 MB/s) | 8 MB |
 | **Calgary Total** | **3.25 MB** | **884,474 B** | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | **4.04:1** | **~1.5 MB/s** | **~42.3 MB/s** | **< 16 MB** |
 
 ---
@@ -241,17 +237,17 @@ ews | 377 KB | 118,949 B | 🟢 **112,707 B** | 🟩 **-6,242 B** (-5.25%) | 3.3
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| lice29.txt | 152 KB | 48,586 B | 🟢 **42,886 B** | 🟩 **-5,700 B** (-11.7%) | 3.55:1 | 25ms (5.8 MB/s) | 3.6ms (40.7 MB/s) | 8 MB |
-| syoulik.txt | 125 KB | 44,667 B | 🟢 **39,499 B** | 🟩 **-5,168 B** (-11.6%) | 3.17:1 | 9ms (13.9 MB/s) | 5.0ms (23.7 MB/s) | 8 MB |
-| cp.html | 25 KB | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** (-10.6%) | 3.56:1 | 26ms (0.9 MB/s) | 0.2ms (23.5 MB/s) | 8 MB |
-| ields.c | 11 KB | 3,084 B | 🟢 **2,727 B** | 🟩 **-357 B** (-11.6%) | 4.09:1 | 12ms (0.9 MB/s) | 0.2ms (59.2 MB/s) | 8 MB |
-| grammar.lsp | 4 KB | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** (-16.9%) | 3.28:1 | 5ms (0.8 MB/s) | 0.1ms (39.2 MB/s) | 8 MB |
-| kennedy.xls | 1.03 MB | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.23%)** | 43.06:1 | 32.0ms (30.7 MB/s) | 5.3ms (187.2 MB/s) | 24 MB |
-| lcet10.txt | 427 KB | 119,505 B | 🟢 **106,830 B** | 🟩 **-12,675 B** (-10.6%) | 3.99:1 | 35ms (11.7 MB/s) | 15.0ms (27.2 MB/s) | 16 MB |
-| plrabn12.txt | 482 KB | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** (-12.7%) | 3.33:1 | 55ms (8.3 MB/s) | 14.9ms (30.9 MB/s) | 16 MB |
-| ptt5 | 513 KB | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B** (-16.83%) | 15.48:1 | 18.4ms (26.6 MB/s) | 3.6ms (135.0 MB/s) | 8 MB |
-| sum | 38 KB | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** (-1.1%) | 4.07:1 | 6ms (6.3 MB/s) | 0.6ms (36.5 MB/s) | 8 MB |
-| xargs.1 | 4 KB | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** (-22.5%) | 2.90:1 | 6ms (0.7 MB/s) | 0.1ms (4.0 MB/s) | 8 MB |
+| `alice29.txt` | 152 KB | 48,586 B | 🟢 **42,886 B** | 🟩 **-5,700 B** (-11.7%) | 3.55:1 | 25ms (5.8 MB/s) | 3.6ms (40.7 MB/s) | 8 MB |
+| `asyoulik.txt` | 125 KB | 44,667 B | 🟢 **39,499 B** | 🟩 **-5,168 B** (-11.6%) | 3.17:1 | 9ms (13.9 MB/s) | 5.0ms (23.7 MB/s) | 8 MB |
+| `cp.html` | 25 KB | 7,726 B | 🟢 **6,906 B** | 🟩 **-820 B** (-10.6%) | 3.56:1 | 26ms (0.9 MB/s) | 0.2ms (23.5 MB/s) | 8 MB |
+| ffields.c | 11 KB | 3,084 B | 🟢 **2,727 B** | 🟩 **-357 B** (-11.6%) | 4.09:1 | 12ms (0.9 MB/s) | 0.2ms (59.2 MB/s) | 8 MB |
+| `grammar.lsp` | 4 KB | 1,364 B | 🟢 **1,134 B** | 🟩 **-230 B** (-16.9%) | 3.28:1 | 5ms (0.8 MB/s) | 0.1ms (39.2 MB/s) | 8 MB |
+| `kennedy.xls` | 1.03 MB | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.23%)** | 43.06:1 | 32.0ms (30.7 MB/s) | 5.3ms (187.2 MB/s) | 24 MB |
+| `lcet10.txt` | 427 KB | 119,505 B | 🟢 **106,830 B** | 🟩 **-12,675 B** (-10.6%) | 3.99:1 | 35ms (11.7 MB/s) | 15.0ms (27.2 MB/s) | 16 MB |
+| `plrabn12.txt` | 482 KB | 165,658 B | 🟢 **144,564 B** | 🟩 **-21,094 B** (-12.7%) | 3.33:1 | 55ms (8.3 MB/s) | 14.9ms (30.9 MB/s) | 16 MB |
+| `ptt5` | 513 KB | 40,060 B | 🟢 **33,156 B** | 🟩 **-6,741 B** (-16.83%) | 15.48:1 | 18.4ms (26.6 MB/s) | 3.6ms (135.0 MB/s) | 8 MB |
+| `sum` | 38 KB | 9,513 B | 🟢 **9,407 B** | 🟩 **-106 B** (-1.1%) | 4.07:1 | 6ms (6.3 MB/s) | 0.6ms (36.5 MB/s) | 8 MB |
+| `xargs.1` | 4 KB | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B** (-22.5%) | 2.90:1 | 6ms (0.7 MB/s) | 0.1ms (4.0 MB/s) | 8 MB |
 | **Canterbury Total** | **2.81 MB** | **493,169 B** | 🟢 **412,477 B** | 🟩 **-80,692 B (-16.36%)** | **6.81:1** | **~2.3 MB/s** | **~58.2 MB/s** | **< 25 MB** |
 
 ---
@@ -260,13 +256,12 @@ ews | 377 KB | 118,949 B | 🟢 **112,707 B** | 🟩 **-6,242 B** (-5.25%) | 3.3
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| stro_sensor_telemetry | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
-| compiled_x86_1MB.bin | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
-| uniprot_protein.fasta | 512 KB | 233,286 B | 🟢 **223,494 B** | 🟩 **-9,792 B** (-4.20%) | 2.35:1 | 481ms (1.0 MB/s) | 17.3ms (29.0 MB/s) | 8 MB |
-| enwik8_real_1MB.raw | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
-| 
-eal_c_source_1MB.c | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
-| source_code_kernel | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
+| `astro_sensor_telemetry` | 512 KB | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 2.78:1 | 149.6ms (3.3 MB/s) | 13.4ms (37.2 MB/s) | 8 MB |
+| `compiled_x86_1MB.bin` | 1.00 MB | 733,479 B | 🟢 **640,190 B** | 🟩 **-93,289 B (-12.72%)** | 1.64:1 | 358ms (2.8 MB/s) | 170.5ms (5.9 MB/s) | 16 MB |
+| `uniprot_protein.fasta` | 512 KB | 233,286 B | 🟢 **223,494 B** | 🟩 **-9,792 B** (-4.20%) | 2.35:1 | 481ms (1.0 MB/s) | 17.3ms (29.0 MB/s) | 8 MB |
+| `enwik8_real_1MB.raw` | 1.00 MB | 302,752 B | 🟢 **290,864 B** | 🟩 **-11,888 B** (-3.9%) | 3.61:1 | 103ms (9.7 MB/s) | 31.6ms (31.7 MB/s) | 19 MB |
+| `real_c_source_1MB.c` | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B** (-3.07%) | 6.26:1 | 87ms (11.5 MB/s) | 30.5ms (32.8 MB/s) | 19 MB |
+| `source_code_kernel` | 512 KB | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.44%)** | 89.32:1 | 48ms (10.8 MB/s) | 5.2ms (97.1 MB/s) | 8 MB |
 | **Modern Suite Total** | **4.72 MB** | **1,759,780 B** | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | **3.11:1** | **~2.3 MB/s** | **~63.2 MB/s** | **< 20 MB** |
 
 ---
@@ -275,12 +270,12 @@ eal_c_source_1MB.c | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B*
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| unseen_sensor_floats.raw | 512 KB | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 3.23:1 | 91.4ms (5.5 MB/s) | 9.5ms (52.8 MB/s) | 8 MB |
-| unseen_c_headers.c | 512 KB | 104,529 B | 🟢 **100,512 B** | 🟩 **-4,017 B** (-3.8%) | 5.22:1 | 698.9ms (0.7 MB/s) | 4.1ms (122.6 MB/s) | 5 MB |
-| unseen_protein.fasta | 500 KB | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 636.51:1 | 51ms (9.6 MB/s) | 9.1ms (54.0 MB/s) | 4 MB |
-| unseen_telemetry.json | 512 KB | 15,533 B | 🟢 **14,295 B** | 🟩 **-1,238 B** (-7.97%) | 36.68:1 | 42ms (12.3 MB/s) | 7.2ms (69.4 MB/s) | 14 MB |
-| unseen_win_pe.bin | 196 KB | 88,881 B | 🟢 **88,376 B** | 🟩 **-505 B** (-0.6%) | 2.27:1 | 41ms (4.6 MB/s) | 5.2ms (36.8 MB/s) | 14 MB |
-| unseen_archive.tar | 154 KB | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.59%)** | 848.62:1 | 8.5ms (17.3 MB/s) | 0.56ms (260.2 MB/s) | 14 MB |
+| `unseen_sensor_floats.raw` | 512 KB | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 3.23:1 | 91.4ms (5.5 MB/s) | 9.5ms (52.8 MB/s) | 8 MB |
+| `unseen_c_headers.c` | 512 KB | 104,529 B | 🟢 **100,512 B** | 🟩 **-4,017 B** (-3.8%) | 5.22:1 | 698.9ms (0.7 MB/s) | 4.1ms (122.6 MB/s) | 5 MB |
+| `unseen_protein.fasta` | 500 KB | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 636.51:1 | 51ms (9.6 MB/s) | 9.1ms (54.0 MB/s) | 4 MB |
+| `unseen_telemetry.json` | 512 KB | 15,533 B | 🟢 **14,295 B** | 🟩 **-1,238 B** (-7.97%) | 36.68:1 | 42ms (12.3 MB/s) | 7.2ms (69.4 MB/s) | 14 MB |
+| `unseen_win_pe.bin` | 196 KB | 88,881 B | 🟢 **88,376 B** | 🟩 **-505 B** (-0.6%) | 2.27:1 | 41ms (4.6 MB/s) | 5.2ms (36.8 MB/s) | 14 MB |
+| `unseen_archive.tar` | 154 KB | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.59%)** | 848.62:1 | 8.5ms (17.3 MB/s) | 0.56ms (260.2 MB/s) | 14 MB |
 | **Holdout Suite Total** | **2.44 MB** | **533,850 B** | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | **6.66:1** | **~3.1 MB/s** | **~76.2 MB/s** | **< 20 MB** |
 
 ---
@@ -289,18 +284,18 @@ eal_c_source_1MB.c | 1.00 MB | 172,747 B | 🟢 **167,442 B** | 🟩 **-5,305 B*
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| sealed_financial_ticks.bin | 640 KB | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 6.97:1 | 449.7ms (1.4 MB/s) | 55.1ms (11.6 MB/s) | 8 MB |
-| sealed_parquet_columns.bin | 425 KB | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.72%)** | 2.13:1 | 359.3ms (1.2 MB/s) | 42.0ms (10.1 MB/s) | 12 MB |
-| sealed_sqlite_btree.bin | 524 KB | 25,304 B | 🟢 **21,105 B** | 🟩 **-4,199 B (-16.59%)** | 24.84:1 | 289.3ms (1.8 MB/s) | 2.7ms (194.1 MB/s) | 8 MB |
-| sealed_utf8_multilingual.bin| 451 KB | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60%)** | 124.54:1 | 2,095ms (0.2 MB/s) | 0.1ms (4,510 MB/s) | 6 MB |
-| sealed_wasm_binary.bin | 314 KB | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B (-10.52%)** | 2.43:1 | 485.5ms (0.6 MB/s) | 35.2ms (8.9 MB/s) | 10 MB |
+| `sealed_financial_ticks.bin` | 640 KB | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 6.97:1 | 449.7ms (1.4 MB/s) | 55.1ms (11.6 MB/s) | 8 MB |
+| `sealed_parquet_columns.bin` | 425 KB | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.72%)** | 2.13:1 | 359.3ms (1.2 MB/s) | 42.0ms (10.1 MB/s) | 12 MB |
+| `sealed_sqlite_btree.bin` | 524 KB | 25,304 B | 🟢 **21,105 B** | 🟩 **-4,199 B (-16.59%)** | 24.84:1 | 289.3ms (1.8 MB/s) | 2.7ms (194.1 MB/s) | 8 MB |
+| `sealed_utf8_multilingual.bin` | 451 KB | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60%)** | 124.54:1 | 2,095ms (0.2 MB/s) | 0.1ms (4,510 MB/s) | 6 MB |
+| `sealed_wasm_binary.bin` | 314 KB | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B (-10.52%)** | 2.43:1 | 485.5ms (0.6 MB/s) | 35.2ms (8.9 MB/s) | 10 MB |
 | **Structured Holdouts Total**| **2.35 MB** | **562,468 B** | 🟢 **445,482 B** | 🟩 **-116,986 B (-20.80%)** | **5.29:1** | **~0.6 MB/s** | **~17.4 MB/s** | **< 18 MB** |
 
 ---
 
 ## 🏆 Cumulative Grand Total (58 Streams Audit — 227.51 MB)
 
-`
+```
 ================================================================================
 GRAND TOTAL ACROSS ALL 58 BENCHMARK STREAMS:
   Uncompressed Raw Size: 227,513,809 bytes (~227.51 MB)
@@ -310,7 +305,7 @@ GRAND TOTAL ACROSS ALL 58 BENCHMARK STREAMS:
   WIN RATE:              58 / 58 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
-`
+```
 
 ---
 
@@ -318,7 +313,7 @@ GRAND TOTAL ACROSS ALL 58 BENCHMARK STREAMS:
 
 To reproduce all measurements and verify bit-exact lossless reconstruction on your own system:
 
-`ash
+```bash
 # 1. Test archive integrity against stored cryptographic checksums
 bin/orpane-dec -t 2_compressed_files/alice29.txt.orpane
 
@@ -330,4 +325,4 @@ bin/orpane-dec -b 2_compressed_files/alice29.txt.orpane -n 100
 
 # 4. Inspect container framing and metadata headers
 bin/orpane-dec -l 2_compressed_files/alice29.txt.orpane
-`
+```
