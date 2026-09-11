@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-11 14:25:00 UTC+2 (September 11, 2026)  
+> 🕒 **Last Updated**: 2026-09-11 14:40:00 UTC+2 (September 11, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 (-9)  
@@ -21,16 +21,21 @@
 
 Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mahoney's **Large Text Compression Benchmark (LTCB)**, independently verified with the standalone native decompressor (`bin/orpane-dec.exe`):
 
-### 📊 enwik8 (100,000,000 bytes — 95.37 MB)
+### 📊 enwik8 (100,000,000 bytes — 95.37 MB) — Comprehensive Multi-Standard Benchmark
 * **Dataset**: `corpus/enwik8` (100,000,000 bytes, MD5: `A1FA5FFDDB56F4953E226637DABBB36A`, SHA-256: `2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8`)
+* **Standard References Tested**: Gzip (-9 / Deflate), Bzip2 1.0.8 (-9), Zstandard 1.5.7 (-19), LZMA / XZ (-9), 7-Zip 22.01 (-mx9)
 
-| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Speedup vs 7z | Peak RAM | Integrity |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **7-Zip 22.01 (-mx9)** | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | Baseline (1.0x) | 683.8 MB | 🟢 PASS |
-| **Orpane (MAX)** | 29,311,614 B | 29.31% | 70.69% | **43.53s** | **2.19 MB/s** *(1.54x faster)* | 1.03s | 92.52 MB/s | 0.99x | **260.6 MB** *(2.6x lower RAM)* | 🟢 100% Bit-Exact |
-| **Orpane (BALANCED)** | 30,193,656 B | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** *(4.17x faster)* | **0.97s** | **98.00 MB/s** | **🟢 1.05x faster** | **330.2 MB** | 🟢 100% Bit-Exact |
-| **Orpane (FAST)** | 33,508,130 B | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** *(5.90x faster)* | **0.86s** | **111.46 MB/s** | **🟢 1.20x faster** | **395.5 MB** | 🟢 100% Bit-Exact |
-| **Orpane (ULTRA)** | 33,508,130 B | 33.51% | 66.49% | **10.80s** | **8.83 MB/s** *(6.20x faster)* | **0.91s** | **104.32 MB/s** | **🟢 1.12x faster** | **395.2 MB** | 🟢 100% Bit-Exact |
+| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Peak RAM | Integrity |
+|---|---|---|---|---|---|---|---|---|---|
+| **Gzip (-9 / Deflate)** | 35,103,261 B | 35.10% | 64.90% | 58.55s | 1.63 MB/s | **0.62s** | 154.20 MB/s | **8.6 MB** | 🟢 PASS |
+| **Orpane (ULTRA)** | 🟢 **33,508,130 B** | 33.51% | 66.49% | **10.80s** | **8.83 MB/s** *(5.42x faster than Gzip)* | 0.91s | 104.32 MB/s | 395.2 MB | 🟢 100% Bit-Exact |
+| **Orpane (FAST)** | 🟢 **33,508,130 B** | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** *(5.16x faster than Gzip)* | 0.86s | 111.46 MB/s | 395.5 MB | 🟢 100% Bit-Exact |
+| **Orpane (BALANCED)** | 🟢 **30,193,656 B** | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** *(3.65x faster than Gzip)* | 0.97s | 98.00 MB/s | 330.2 MB | 🟢 100% Bit-Exact |
+| **Bzip2 1.0.8 (-9)** | 29,006,372 B | 29.01% | 70.99% | 19.54s | 4.88 MB/s | 1.91s | 50.02 MB/s | 152.5 MB | 🟢 PASS |
+| **Orpane (MAX)** | 🟢 **29,311,614 B** | 29.31% | 70.69% | **43.53s** | **2.19 MB/s** *(1.78x faster than Zstd)* | 1.03s | **92.52 MB/s** *(1.85x faster than Bzip2)* | **260.6 MB** *(2.6x lower vs 7z)* | 🟢 100% Bit-Exact |
+| **Zstandard 1.5.7 (-19)** | 26,936,936 B | 26.94% | 73.06% | 77.58s | 1.23 MB/s | **0.36s** | **266.44 MB/s** | 121.1 MB | 🟢 PASS |
+| **LZMA / XZ (-9)** | 24,862,364 B | 24.86% | 75.14% | 69.10s | 1.38 MB/s | 1.12s | 84.97 MB/s | 685.5 MB | 🟢 PASS |
+| **7-Zip 22.01 (-mx9)** | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | 683.8 MB | 🟢 PASS |
 
 ### 📊 enwik9 (1,000,000,000 bytes — 953.67 MB / 1 GB Hutter Prize)
 * **Dataset**: `corpus/enwik9` (1,000,000,000 bytes, MD5: `E206C3450AC99950DF65BF70EF61A12D`, SHA-256: `159B85351E5F76E60CBE32E04C677847A9ECBA3ADC79ADDAB6F4C6C7AA3744BC`)

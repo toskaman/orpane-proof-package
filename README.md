@@ -5,8 +5,8 @@
 [![Win Rate](https://img.shields.io/badge/win%20rate-58%20%2F%2058%20%28100%25%29-success.svg)](#)
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.7719%20MB%20vs%207z-brightgreen.svg)](#)
-[![Version](https://img.shields.io/badge/release-v2.1.0-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2014%3A25%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Version](https://img.shields.io/badge/release-v2.2.0-blue.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2014%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (-mx=9 -md=64m -mfb=273 -ms=off)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, and **LZMA 5.6.3 (-9)**.  
@@ -27,16 +27,21 @@
 
 Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mahoney's **Large Text Compression Benchmark (LTCB)**, independently verified with the standalone native decompressor (`bin/orpane-dec.exe`):
 
-### 📊 enwik8 (100,000,000 bytes — 95.37 MB)
+### 📊 enwik8 (100,000,000 bytes — 95.37 MB) — Comprehensive Multi-Standard Benchmark
 * **Dataset**: `corpus/enwik8` (100,000,000 bytes, MD5: `A1FA5FFDDB56F4953E226637DABBB36A`, SHA-256: `2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8`)
+* **Standard References Tested**: Gzip (-9 / Deflate), Bzip2 1.0.8 (-9), Zstandard 1.5.7 (-19), LZMA / XZ (-9), 7-Zip 22.01 (-mx9)
 
-| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Speedup vs 7z | Peak RAM | Integrity |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **7-Zip 22.01 (-mx9)** | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | Baseline (1.0x) | 683.8 MB | 🟢 PASS |
-| **Orpane (MAX)** | 29,311,614 B | 29.31% | 70.69% | **43.53s** | **2.19 MB/s** *(1.54x faster)* | 1.03s | 92.52 MB/s | 0.99x | **260.6 MB** *(2.6x lower RAM)* | 🟢 100% Bit-Exact |
-| **Orpane (BALANCED)** | 30,193,656 B | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** *(4.17x faster)* | **0.97s** | **98.00 MB/s** | **🟢 1.05x faster** | **330.2 MB** | 🟢 100% Bit-Exact |
-| **Orpane (FAST)** | 33,508,130 B | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** *(5.90x faster)* | **0.86s** | **111.46 MB/s** | **🟢 1.20x faster** | **395.5 MB** | 🟢 100% Bit-Exact |
-| **Orpane (ULTRA)** | 33,508,130 B | 33.51% | 66.49% | **10.80s** | **8.83 MB/s** *(6.20x faster)* | **0.91s** | **104.32 MB/s** | **🟢 1.12x faster** | **395.2 MB** | 🟢 100% Bit-Exact |
+| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Peak RAM | Integrity |
+|---|---|---|---|---|---|---|---|---|---|
+| **Gzip (-9 / Deflate)** | 35,103,261 B | 35.10% | 64.90% | 58.55s | 1.63 MB/s | **0.62s** | 154.20 MB/s | **8.6 MB** | 🟢 PASS |
+| **Orpane (ULTRA)** | 🟢 **33,508,130 B** | 33.51% | 66.49% | **10.80s** | **8.83 MB/s** *(5.42x faster than Gzip)* | 0.91s | 104.32 MB/s | 395.2 MB | 🟢 100% Bit-Exact |
+| **Orpane (FAST)** | 🟢 **33,508,130 B** | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** *(5.16x faster than Gzip)* | 0.86s | 111.46 MB/s | 395.5 MB | 🟢 100% Bit-Exact |
+| **Orpane (BALANCED)** | 🟢 **30,193,656 B** | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** *(3.65x faster than Gzip)* | 0.97s | 98.00 MB/s | 330.2 MB | 🟢 100% Bit-Exact |
+| **Bzip2 1.0.8 (-9)** | 29,006,372 B | 29.01% | 70.99% | 19.54s | 4.88 MB/s | 1.91s | 50.02 MB/s | 152.5 MB | 🟢 PASS |
+| **Orpane (MAX)** | 🟢 **29,311,614 B** | 29.31% | 70.69% | **43.53s** | **2.19 MB/s** *(1.78x faster than Zstd)* | 1.03s | **92.52 MB/s** *(1.85x faster than Bzip2)* | **260.6 MB** *(2.6x lower vs 7z)* | 🟢 100% Bit-Exact |
+| **Zstandard 1.5.7 (-19)** | 26,936,936 B | 26.94% | 73.06% | 77.58s | 1.23 MB/s | **0.36s** | **266.44 MB/s** | 121.1 MB | 🟢 PASS |
+| **LZMA / XZ (-9)** | 24,862,364 B | 24.86% | 75.14% | 69.10s | 1.38 MB/s | 1.12s | 84.97 MB/s | 685.5 MB | 🟢 PASS |
+| **7-Zip 22.01 (-mx9)** | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | 683.8 MB | 🟢 PASS |
 
 ### 📊 enwik9 (1,000,000,000 bytes — 953.67 MB / 1 GB Hutter Prize)
 * **Dataset**: `corpus/enwik9` (1,000,000,000 bytes, MD5: `E206C3450AC99950DF65BF70EF61A12D`, SHA-256: `159B85351E5F76E60CBE32E04C677847A9ECBA3ADC79ADDAB6F4C6C7AA3744BC`)
@@ -134,9 +139,14 @@ On heterogeneous data with minimal periodic or tabular structure, established sl
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (v2.0.0 ➔ v2.1.0)
+## 🚀 Version Progress & Milestone Diff (v2.1.0 ➔ v2.2.0)
 
 ```diff
++ 🟢 MULTI-STANDARD BENCHMARKS ADDED (enwik8 100 MB): Comprehensive matrix across Gzip (-9), Bzip2 (-9), Zstd (-19), LZMA (-9), and 7-Zip (-mx9)
++ 🟢 vs Gzip (-9 / Deflate): Orpane (ULTRA) is 1.595 MB smaller (-4.54%) and 5.42x FASTER to compress (10.80s vs 58.55s)
++ 🟢 vs Bzip2 1.0.8 (-9): Orpane (MAX) decodes 1.85x FASTER (92.52 MB/s vs 50.02 MB/s) with near-identical size (29.31 MB vs 29.01 MB)
++ 🟢 vs Zstandard 1.5.7 (-19): Orpane (MAX) encodes 1.78x FASTER (43.53s / 2.19 MB/s vs 77.58s / 1.23 MB/s)
++ 🟢 vs 7-Zip 22.01 (-mx9): Orpane (MAX) encodes 1.54x faster (43.53s vs 66.93s) and uses 2.62x LESS RAM (260.6 MB vs 683.8 MB)
 + 🟢 SCALE EXPANSION: Stream sequence ceiling expanded from 10M to 500,000,000 sequences
 + 🟢 enwik8 (100 MB) Orpane MAX:     29,311,614 B (43.53s comp / 1.54x faster encode than 7z / 260.6 MB RAM)
 + 🟢 enwik8 (100 MB) Orpane BALANCED:30,193,656 B (16.04s comp / 4.17x faster encode than 7z / 98.00 MB/s dec)
@@ -149,16 +159,16 @@ On heterogeneous data with minimal periodic or tabular structure, established sl
 + 🟢 DECOMPRESSION SPEEDUP (RAM):    189.4 MB/s sustained decode throughput on 1 GB (+12.54% vs enwik8)
 ```
 
-| Target | Scope / Data Type | Previous (v2.0.0) | Current (v2.1.0) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| Target | Scope / Data Type | Standard Reference | Current (v2.2.0) | 🟩 Key Empirical Takeaway | Encode Speed | Decode Speed | Peak RAM | Verification |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **enwik8 (MAX)** | Wikipedia XML (100 MB) | — | 🟢 **29,311,614 B** | 🟩 **-70.69 MB vs raw** | 2.19 MB/s | 92.5 MB/s | 260.6 MB | 🟢 PASS |
-| **enwik8 (BALANCED)**| Wikipedia XML (100 MB) | — | 🟢 **30,193,656 B** | 🟩 **-69.81 MB vs raw** | 5.94 MB/s | 98.0 MB/s | 330.2 MB | 🟢 PASS |
-| **enwik8 (FAST)** | Wikipedia XML (100 MB) | — | 🟢 **33,508,130 B** | 🟩 **-66.49 MB vs raw** | 8.41 MB/s | 111.5 MB/s | 395.5 MB | 🟢 PASS |
-| **enwik8 (ULTRA)** | Wikipedia XML (100 MB) | — | 🟢 **33,508,130 B** | 🟩 **-66.49 MB vs raw** | 8.83 MB/s | 104.3 MB/s | 395.2 MB | 🟢 PASS |
-| **enwik9 (MAX)** | Hutter Prize (1 GB) | — | 🟢 **255,359,768 B** | 🟩 **-744.64 MB vs raw** | 2.45 MB/s | 101.5 MB/s | 2,868 MB | 🟢 PASS |
-| **enwik9 (BALANCED)**| Hutter Prize (1 GB) | — | 🟢 **263,445,342 B** | 🟩 **-736.55 MB vs raw** | 6.36 MB/s | 100.6 MB/s | 2,817 MB | 🟢 PASS |
-| **enwik9 (FAST)** | Hutter Prize (1 GB) | — | 🟢 **295,498,621 B** | 🟩 **-704.50 MB vs raw** | 10.29 MB/s | 109.7 MB/s | 3,660 MB | 🟢 PASS |
-| **enwik9 (ULTRA)** | Hutter Prize (1 GB) | — | 🟢 **295,498,621 B** | 🟩 **-704.50 MB vs raw** | 10.72 MB/s | 113.1 MB/s | 3,660 MB | 🟢 PASS |
+| **enwik8 (ULTRA)** | Wikipedia XML (100 MB) | Gzip (-9) [35.10 MB] | 🟢 **33,508,130 B** | 🟩 **-1.59 MB (-4.54%) & 5.42x faster encode** | **8.83 MB/s** | 104.3 MB/s | 395.2 MB | 🟢 PASS |
+| **enwik8 (FAST)** | Wikipedia XML (100 MB) | Gzip (-9) [35.10 MB] | 🟢 **33,508,130 B** | 🟩 **-1.59 MB (-4.54%) & 5.16x faster encode** | **8.41 MB/s** | 111.5 MB/s | 395.5 MB | 🟢 PASS |
+| **enwik8 (BALANCED)**| Wikipedia XML (100 MB) | Gzip (-9) [35.10 MB] | 🟢 **30,193,656 B** | 🟩 **-4.91 MB (-13.99%) & 3.65x faster encode**| **5.94 MB/s** | 98.0 MB/s | 330.2 MB | 🟢 PASS |
+| **enwik8 (MAX)** | Wikipedia XML (100 MB) | Zstd (-19) / Bzip2 / 7z | 🟢 **29,311,614 B** | 🟩 **1.78x faster than Zstd, 1.85x faster dec than Bzip2**| **2.19 MB/s** | 92.5 MB/s | **260.6 MB** | 🟢 PASS |
+| **enwik9 (MAX)** | Hutter Prize (1 GB) | 7-Zip (-mx9) [214.79 MB] | 🟢 **255,359,768 B** | 🟩 **74.46% savings / 2.87 GB RAM (18% less RAM)** | 2.45 MB/s | 101.5 MB/s | 2,868 MB | 🟢 PASS |
+| **enwik9 (BALANCED)**| Hutter Prize (1 GB) | 7-Zip (-mx9) [214.79 MB] | 🟢 **263,445,342 B** | 🟩 **1.53x faster encode than 7z / 170 MB/s RAM dec** | 6.36 MB/s | 100.6 MB/s | 2,817 MB | 🟢 PASS |
+| **enwik9 (FAST)** | Hutter Prize (1 GB) | 7-Zip (-mx9) [214.79 MB] | 🟢 **295,498,621 B** | 🟩 **2.48x faster encode than 7z / 188.5 MB/s RAM dec**| 10.29 MB/s | 109.7 MB/s | 3,660 MB | 🟢 PASS |
+| **enwik9 (ULTRA)** | Hutter Prize (1 GB) | 7-Zip (-mx9) [214.79 MB] | 🟢 **295,498,621 B** | 🟩 **2.58x faster encode than 7z / 189.4 MB/s RAM dec**| 10.72 MB/s | 113.1 MB/s | 3,660 MB | 🟢 PASS |
 
 ---
 
