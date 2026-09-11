@@ -435,7 +435,7 @@ impl SequenceCoder {
 
         let (num_seqs, mut off) = decode_leb128(payload, 0)?;
         let num_seqs = num_seqs as usize;
-        if num_seqs > 10_000_000 {
+        if num_seqs > 500_000_000 {
             return Err("Excessive sequence count in stream".into());
         }
         if off >= payload.len() {

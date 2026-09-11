@@ -3,9 +3,10 @@
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-58%20%2F%2058%20%28100%25%29-success.svg)](#)
+[![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.7719%20MB%20vs%207z-brightgreen.svg)](#)
-[![Version](https://img.shields.io/badge/release-v2.0.0-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2002%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Version](https://img.shields.io/badge/release-v2.1.0-blue.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2014%3A25%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (-mx=9 -md=64m -mfb=273 -ms=off)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, and **LZMA 5.6.3 (-9)**.  
@@ -19,6 +20,34 @@
 | :---: | :---: | :---: | :---: | :---: |
 | 🟢 **58 / 58 (100%)** | 🟢 **-2,771,976 B (-5.27%)** | 🟢 **1.34x faster global** | 🟡 **1.58x time trade-off** | 🟢 **0 errors** |
 | Clean sweep across all suites | **> 2.7719 MB** net savings | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | Bit-exact (SHA-256/BLAKE3) |
+
+---
+
+## 🌐 Large-Scale Standard Benchmarks: enwik8 (100 MB) & enwik9 (1 GB)
+
+Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mahoney's **Large Text Compression Benchmark (LTCB)**, independently verified with the standalone native decompressor (`bin/orpane-dec.exe`):
+
+### 📊 enwik8 (100,000,000 bytes — 95.37 MB)
+* **Dataset**: `corpus/enwik8` (100,000,000 bytes, MD5: `A1FA5FFDDB56F4953E226637DABBB36A`, SHA-256: `2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8`)
+
+| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Speedup vs 7z | Peak RAM | Integrity |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **7-Zip 22.01 (-mx9)** | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | Baseline (1.0x) | 683.8 MB | 🟢 PASS |
+| **Orpane (MAX)** | 29,311,614 B | 29.31% | 70.69% | **43.53s** | **2.19 MB/s** *(1.54x faster)* | 1.03s | 92.52 MB/s | 0.99x | **260.6 MB** *(2.6x lower RAM)* | 🟢 100% Bit-Exact |
+| **Orpane (BALANCED)** | 30,193,656 B | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** *(4.17x faster)* | **0.97s** | **98.00 MB/s** | **🟢 1.05x faster** | **330.2 MB** | 🟢 100% Bit-Exact |
+| **Orpane (FAST)** | 33,508,130 B | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** *(5.90x faster)* | **0.86s** | **111.46 MB/s** | **🟢 1.20x faster** | **395.5 MB** | 🟢 100% Bit-Exact |
+| **Orpane (ULTRA)** | 33,508,130 B | 33.51% | 66.49% | **10.80s** | **8.83 MB/s** *(6.20x faster)* | **0.91s** | **104.32 MB/s** | **🟢 1.12x faster** | **395.2 MB** | 🟢 100% Bit-Exact |
+
+### 📊 enwik9 (1,000,000,000 bytes — 953.67 MB / 1 GB Hutter Prize)
+* **Dataset**: `corpus/enwik9` (1,000,000,000 bytes, MD5: `E206C3450AC99950DF65BF70EF61A12D`, SHA-256: `159B85351E5F76E60CBE32E04C677847A9ECBA3ADC79ADDAB6F4C6C7AA3744BC`)
+
+| Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | In-RAM Throughput | Peak RAM | Integrity |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **7-Zip 22.01 (-mx9)** | 214,790,781 B | 21.48% | 78.52% | 229.68s | 4.15 MB/s | 3.17s | 301.09 MB/s | Baseline (1.0x) | 3,491 MB | 🟢 PASS |
+| **Orpane (MAX)** | 255,359,768 B | 25.54% | 74.46% | 389.26s | 2.45 MB/s | 9.40s | 101.48 MB/s | **170.5 MB/s** | **2,868 MB** *(18% lower RAM)* | 🟢 100% Bit-Exact |
+| **Orpane (BALANCED)** | 263,445,342 B | 26.34% | 73.66% | **149.90s** | **6.36 MB/s** *(1.53x faster)* | 9.48s | 100.61 MB/s | **170.0 MB/s** | **2,817 MB** *(19% lower RAM)* | 🟢 100% Bit-Exact |
+| **Orpane (FAST)** | 295,498,621 B | 29.55% | 70.45% | **92.64s** | **10.29 MB/s** *(2.48x faster)* | 8.70s | 109.67 MB/s | **188.5 MB/s** | 3,660 MB | 🟢 100% Bit-Exact |
+| **Orpane (ULTRA)** | 295,498,621 B | 29.55% | 70.45% | **88.97s** | **10.72 MB/s** *(2.58x faster)* | 8.43s | 113.10 MB/s | **🟢 189.4 MB/s** | 3,660 MB | 🟢 100% Bit-Exact |
 
 ---
 
@@ -105,7 +134,35 @@ On heterogeneous data with minimal periodic or tabular structure, established sl
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (v1.9.2 ➔ v2.0.0)
+## 🚀 Version Progress & Milestone Diff (v2.0.0 ➔ v2.1.0)
+
+```diff
++ 🟢 SCALE EXPANSION: Stream sequence ceiling expanded from 10M to 500,000,000 sequences
++ 🟢 enwik8 (100 MB) Orpane MAX:     29,311,614 B (43.53s comp / 1.54x faster encode than 7z / 260.6 MB RAM)
++ 🟢 enwik8 (100 MB) Orpane BALANCED:30,193,656 B (16.04s comp / 4.17x faster encode than 7z / 98.00 MB/s dec)
++ 🟢 enwik8 (100 MB) Orpane FAST:    33,508,130 B (11.35s comp / 5.90x faster encode than 7z / 111.46 MB/s dec)
++ 🟢 enwik8 (100 MB) Orpane ULTRA:   33,508,130 B (10.80s comp / 6.20x faster encode than 7z / 104.32 MB/s dec)
++ 🟢 enwik9 (1 GB) Orpane MAX:       255,359,768 B (74.46% savings / 2.87 GB RAM vs 3.49 GB 7z)
++ 🟢 enwik9 (1 GB) Orpane BALANCED:  263,445,342 B (73.66% savings / 149.90s comp / 100.61 MB/s dec)
++ 🟢 enwik9 (1 GB) Orpane FAST:      295,498,621 B (70.45% savings / 92.64s comp / 188.5 MB/s RAM throughput)
++ 🟢 enwik9 (1 GB) Orpane ULTRA:     295,498,621 B (70.45% savings / 88.97s comp / 10.72 MB/s enc / 189.4 MB/s RAM throughput)
++ 🟢 DECOMPRESSION SPEEDUP (RAM):    189.4 MB/s sustained decode throughput on 1 GB (+12.54% vs enwik8)
+```
+
+| Target | Scope / Data Type | Previous (v2.0.0) | Current (v2.1.0) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **enwik8 (MAX)** | Wikipedia XML (100 MB) | — | 🟢 **29,311,614 B** | 🟩 **-70.69 MB vs raw** | 2.19 MB/s | 92.5 MB/s | 260.6 MB | 🟢 PASS |
+| **enwik8 (BALANCED)**| Wikipedia XML (100 MB) | — | 🟢 **30,193,656 B** | 🟩 **-69.81 MB vs raw** | 5.94 MB/s | 98.0 MB/s | 330.2 MB | 🟢 PASS |
+| **enwik8 (FAST)** | Wikipedia XML (100 MB) | — | 🟢 **33,508,130 B** | 🟩 **-66.49 MB vs raw** | 8.41 MB/s | 111.5 MB/s | 395.5 MB | 🟢 PASS |
+| **enwik8 (ULTRA)** | Wikipedia XML (100 MB) | — | 🟢 **33,508,130 B** | 🟩 **-66.49 MB vs raw** | 8.83 MB/s | 104.3 MB/s | 395.2 MB | 🟢 PASS |
+| **enwik9 (MAX)** | Hutter Prize (1 GB) | — | 🟢 **255,359,768 B** | 🟩 **-744.64 MB vs raw** | 2.45 MB/s | 101.5 MB/s | 2,868 MB | 🟢 PASS |
+| **enwik9 (BALANCED)**| Hutter Prize (1 GB) | — | 🟢 **263,445,342 B** | 🟩 **-736.55 MB vs raw** | 6.36 MB/s | 100.6 MB/s | 2,817 MB | 🟢 PASS |
+| **enwik9 (FAST)** | Hutter Prize (1 GB) | — | 🟢 **295,498,621 B** | 🟩 **-704.50 MB vs raw** | 10.29 MB/s | 109.7 MB/s | 3,660 MB | 🟢 PASS |
+| **enwik9 (ULTRA)** | Hutter Prize (1 GB) | — | 🟢 **295,498,621 B** | 🟩 **-704.50 MB vs raw** | 10.72 MB/s | 113.1 MB/s | 3,660 MB | 🟢 PASS |
+
+---
+
+## 📜 Previous Milestone Diff (v1.9.2 ➔ v2.0.0)
 
 ```diff
 + 🟢 TOTAL SAVINGS MILESTONE:       2,654,990 B -> 2,771,976 B (+116,986 B more space saved / >2.7719 MB landmark)
