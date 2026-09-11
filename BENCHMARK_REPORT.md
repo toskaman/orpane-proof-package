@@ -17,23 +17,39 @@
 
 ---
 
-### 🟢 Version-over-Version Progress (v2.2.0 ➔ v2.3.0)
+## 🚀 Version Progress & Milestone Diff (v2.2.0 ➔ v2.3.0)
 
 ```diff
-+ Benchmark Streams Verified:   58 streams ➔ 60 streams (+2 streams, +3.45% evaluation coverage)
-+ Net Space Saved vs 7-Zip:     2,771,976 B ➔ 2,820,551 B (+48,575 B net gain, +1.75% space saved)
-+ Structured Holdouts Savings:  116,986 B ➔ 165,561 B (+48,575 B, +41.52% holdout gain)
-+ Win Rate vs 7-Zip 26.02:      58/58 (100%) ➔ 60/60 (100% clean sweep undefeated)
-+ Hardware Cluster Integration: PC1 (Ryzen 7 5700X) + PC2 (Core i5-12600H) distributed exploration
++ Evaluation Scope Expanded:     58 streams ➔ 60 streams (+2 frontier modalities, +3.45% coverage)
++ Net Space Saved vs 7-Zip:      2,771,976 B ➔ 2,820,551 B (+48,575 B net gain, +1.75% space saved)
++ Structured Holdouts Savings:   116,986 B ➔ 165,561 B (+48,575 B, +41.52% holdout gain)
++ Multi-Standard Pareto Lead:    Orpane MAX outperforms Gzip, Bzip2, Zstandard, LZMA, and 7-Zip across tested suites
++ Undefeated Win Rate:           58/58 (100%) ➔ 60/60 (100% clean sweep across all suites)
++ Hardware Cluster Architecture: PC1 (Ryzen 7 5700X) + PC2 (Core i5-12600H) distributed exploration
 ```
+
+### 📊 Comparative Net Space Savings vs All Industry Reference Codecs
+
+| Reference Codec & Max Preset | Evaluated Scope | Reference Total Size | Orpane (MAX) Size | 🟩 Orpane Net Space Saved | 🟢 Relative Gain vs Codec |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Gzip (-9 / Deflate)** | Standard Corpora + enwik8 | 104,470,121 B | **80,006,203 B** | 🟩 **-24,463,918 B** | 🟢 **-23.42% space** *(Orpane wins)* |
+| **Bzip2 1.0.8 (-9 / BWT)** | Standard Corpora + enwik8 | 84,922,352 B | **80,006,203 B** | 🟩 **-4,916,149 B** | 🟢 **-5.79% space** *(Orpane wins)* |
+| **Zstandard 1.5.7 (-19 / -22)**| Standard Corpora + Holdouts| 55,517,488 B | **48,258,046 B** | 🟩 **-7,259,442 B** | 🟢 **-13.08% space** *(Orpane wins)* |
+| **Brotli 1.2.0 (-11)** | Calgary & Structured Holdouts | 1,879,805 B | **1,570,909 B** | 🟩 **-308,896 B** | 🟢 **-16.43% space** *(Orpane wins)* |
+| **LZMA 5.6.3 (-9 / XZ)** | Standard Corpora Subtotal | 50,173,472 B | **47,493,469 B** | 🟩 **-2,680,003 B** | 🟢 **-5.34% space** *(Orpane wins)* |
+| **7-Zip 26.02 (-mx9)** | **Grand Total (All 60 Streams)**| **52,963,793 B** | 🟢 **50,143,242 B** | 🟩 **-2,820,551 B** | 🟢 **-5.33% space** *(60/60 clean sweep)* |
+
+### 📈 Version-over-Version Metric Comparison (v2.2.0 ➔ v2.3.0)
 
 | Evaluated Metric | Previous Milestone (v2.2.0) | Current Milestone (v2.3.0) | 🟩 Absolute Delta | 🟢 Relative Gain (%) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Total Test Streams** | 58 streams | **60 streams** | `+2 streams` | 🟢 **+3.45%** |
-| **Net Saved vs 7-Zip (-mx9)** | 2,771,976 B | **2,820,551 B** | `+48,575 B` | 🟢 **+1.75%** |
-| **Structured Holdout Savings**| 116,986 B | **165,561 B** | `+48,575 B` | 🟢 **+41.52%** |
+| **Total Test Streams** | 58 streams | **60 streams** | `+2 streams` | 🟢 **+3.45% coverage** |
+| **Net Saved vs 7-Zip (-mx9)** | 2,771,976 B | **2,820,551 B** | `+48,575 B` | 🟢 **+1.75% space saved** |
+| **Structured Holdout Savings**| 116,986 B | **165,561 B** | `+48,575 B` | 🟢 **+41.52% holdout gain** |
+| **Frontier Float32 Tensor Delta**| Not in suite | **-46,327 B vs 7z** | `-46,327 B` | 🟢 **-13.27% on 3D F32** |
+| **Frontier SQLite WAL Delta** | Not in suite | **-2,248 B vs 7z** | `-2,248 B` | 🟢 **-10.96% on WAL pages** |
 | **Clean Sweep Win Rate** | 58 / 58 (100%) | **60 / 60 (100%)** | `2 / 2 won` | 🟢 **100% Undefeated** |
-| **Bit-Exact Reversibility** | 100% PASS | **100% PASS** | `0 errors` | 🟢 **Cryptographic (BLAKE3/SHA256)** |
+| **Bit-Exact Reversibility** | 100% PASS | **100% PASS** | `0 errors` | 🟢 **SHA-256 & BLAKE3** |
 
 ---
 
@@ -192,32 +208,6 @@ Orpane achieves its highest compression density and greatest margin over standar
 | **Private Holdouts** | 0.56 s | 0.87 s | 4.2 MB/s vs 2.8 MB/s | 195.2 ms | 🟢 **33.7 ms** | 11.9 MB/s vs 🟢 **72.4 MB/s** | 🟢 **6.08x faster** |
 | **Structured Holdouts** | 0.47 s | 3.68 s | 5.0 MB/s vs 0.6 MB/s | 29.9 ms | 🟢 **135.1 ms** | 78.8 MB/s vs 🟢 **17.4 MB/s** | Density-Optimized |
 | **GLOBAL TOTAL** | **79.09 s** | **125.46 s** | **2.9 MB/s vs 1.8 MB/s** | **3.44 s** | 🟢 **2.57 s** | **66.1 MB/s vs 🟢 88.5 MB/s** | 🟢 **1.34x faster (+22.4 MB/s)** |
-
----
-
-## 🚀 Version Progress & Milestone Diff (v1.9.2 ➔ v2.0.0)
-
-```diff
-+ 🟢 TOTAL SAVINGS MILESTONE:       2,654,990 B -> 2,771,976 B (+116,986 B more space saved / >2.7719 MB landmark)
-+ 🟢 Parquet Columnar Records:      254,984 B -> 199,614 B (-55,370 B vs 7z / -21.72% / 2.13x)
-+ 🟢 SQLite B-Tree Database Pages:  25,304 B -> 21,105 B (-4,199 B vs 7z / -16.59% / 24.84x)
-+ 🟢 WebAssembly Bytecode Modules:  144,540 B -> 129,340 B (-15,200 B vs 7z / -10.52% / 2.43x)
-+ 🟢 Multilingual UTF-8 Stream:     5,804 B -> 3,622 B (-2,182 B vs 7z / -37.60% / 124.54x)
-+ 🟢 Financial High-Frequency Ticks:131,836 B -> 91,801 B (-40,035 B vs 7z / -30.37% / 6.97x)
-+ 🟢 Holdouts Subtotal:             562,468 B -> 445,482 B (-116,986 B vs 7z / -20.80% net savings)
-+ 🟢 Global Archive Total:          49,376,683 B -> 49,822,165 B across 227.51 MB (58/58 clean sweep)
-```
-
-| Target | Scope / Data Type | Previous (v1.9.2) | Current (v2.0.0) | 🟩 Net Delta | Encode Speed | Decode Speed | Peak RAM | Verification |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **sealed_parquet_columns** | Columnar records (425 KB) | 301,894 B | 🟢 **199,614 B** | 🟩 **-102,280 B** (-33.88%) | 1.2 MB/s | 10.1 MB/s | 12 MB | 🟢 PASS |
-| **sealed_sqlite_btree** | SQLite pages (524 KB) | 37,845 B | 🟢 **21,105 B** | 🟩 **-16,740 B** (-44.23%) | 1.8 MB/s | 194.1 MB/s | 8 MB | 🟢 PASS |
-| **sealed_wasm_binary** | WASM bytecode (314 KB) | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B** (-10.52%) | 0.6 MB/s | 8.9 MB/s | 10 MB | 🟢 PASS |
-| **sealed_financial_ticks** | Monotonic finance (640 KB)| 93,487 B | 🟢 **91,801 B** | 🟩 **-1,686 B** (-1.80%) | 1.4 MB/s | 11.6 MB/s | 8 MB | 🟢 PASS |
-| **sealed_utf8_multilingual**| Mixed scripts (451 KB) | 5,428 B | 🟢 **3,622 B** | 🟩 **-1,806 B** (-33.27%) | 0.2 MB/s | 4,510 MB/s | 6 MB | 🟢 PASS |
-| **Structured Holdouts Total** | 5 Files (2.35 MB) | 583,194 B | 🟢 **445,482 B** | 🟩 **-137,712 B** (-23.61%) | ~0.6 MB/s | ~17.4 MB/s | < 18 MB | 🏆 5/5 PASS |
-| **Global Archive Total** | 58 Streams (227.51 MB) | 49,376,683 B | 🟢 **49,822,165 B** | 🟩 **+445,482 B** (+5 files) | ~1.8 MB/s | ~88.5 MB/s | < 699 MB | 🟢 58/58 PASS |
-| **Cumulative Savings vs 7z** | Margin vs 7-Zip (52.59 MB) | 2,654,990 B | 🟢 **2,771,976 B** | 🟩 **+116,986 B** (+4.406%) | — | — | — | 🟢 **>2.7719 MB** |
 
 ---
 
@@ -441,7 +431,7 @@ GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
 
 ## 🙏 Community Acknowledgments & Special Thanks
 
-A heartfelt thank you to the data compression experts and community members at **[encode.su](https://encode.su/threads/4549-ANN-Orpane-Experimental-asymmetric-lossless-compressor-in-Rust-(benchmarks-vs-7-Zi)** (thread `#4549: [ANN] Orpane: Experimental asymmetric lossless compressor in Rust (benchmarks vs 7-Zip)`) for their rigorous testing, technical feedback, and invaluable insights.
+A heartfelt thank you to the data compression experts and community members at **[encode.su](https://encode.su/threads/4549-ANN-Orpane-Experimental-asymmetric-lossless-compressor-in-Rust-(benchmarks-vs-7-Zi)** (thread `#4549: [ANN] Orpane: Experimental asymmetric lossless compressor in Rust (benchmarks vs 7-Zip)`), with special appreciation to **Gotty**, **Gonzalo**, **Sebastian**, **tansy**, and **mitiko** for their rigorous testing, technical feedback, and invaluable insights.
 
-In particular, the recommendation to systematically test against the full spectrum of industry reference standards — **Gzip (-9)**, **Bzip2 (-9)**, **Zstandard (-19/-22)**, and **LZMA (-9)** alongside **7-Zip (-mx9)** — has greatly enriched our empirical evaluation methodology and helped clarify Orpane's operational trade-offs across different data profiles.
+In particular, the recommendation to systematically test against the full spectrum of industry reference standards — **Gzip (-9)**, **Bzip2 (-9)**, **Zstandard (-19/-22)**, **Brotli (-11)**, and **LZMA (-9)** alongside **7-Zip (-mx9)** — has greatly enriched our empirical evaluation methodology and helped clarify Orpane's operational trade-offs across different data profiles.
 
