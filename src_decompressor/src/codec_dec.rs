@@ -183,6 +183,10 @@ impl RansCoder {
             }
         }
 
+        if state != RANS_L {
+            return Err(format!("rANS final state mismatch: 0x{:08X} != expected 0x{:08X} (stream corrupted)", state, RANS_L));
+        }
+
         Ok(out)
     }
 }
@@ -411,6 +415,12 @@ impl Rans8Coder {
             stream_pos[k] = sp;
         }
 
+        for (i, &st) in states.iter().enumerate() {
+            if st != RANS_L {
+                return Err(format!("rANS8 final state mismatch on lane {}: 0x{:08X} != expected 0x{:08X} (stream corrupted)", i, st, RANS_L));
+            }
+        }
+
         Ok(out)
     }
 }
@@ -440,8 +450,9 @@ impl SequenceCoder {
 
         let (lit_comp_len, new_off) = decode_leb128(payload, off)?; off = new_off;
         let lit_comp_len = lit_comp_len as usize;
-        if off + lit_comp_len > payload.len() { return Err("Truncated lit_lens".into()); }
-        let lit_slice = &payload[off..off + lit_comp_len]; off += lit_comp_len;
+        let lit_end = off.checked_add(lit_comp_len).ok_or("Overflow in lit_comp_len bounds check")?;
+        if lit_end > payload.len() { return Err("Truncated lit_lens".into()); }
+        let lit_slice = &payload[off..lit_end]; off = lit_end;
         let lit_lens = if lit_mode == 1 {
             RansCoder::decode(lit_slice, num_seqs)?
         } else {
@@ -453,8 +464,9 @@ impl SequenceCoder {
 
         let (match_comp_len, new_off) = decode_leb128(payload, off)?; off = new_off;
         let match_comp_len = match_comp_len as usize;
-        if off + match_comp_len > payload.len() { return Err("Truncated match_lens".into()); }
-        let match_slice = &payload[off..off + match_comp_len]; off += match_comp_len;
+        let match_end = off.checked_add(match_comp_len).ok_or("Overflow in match_comp_len bounds check")?;
+        if match_end > payload.len() { return Err("Truncated match_lens".into()); }
+        let match_slice = &payload[off..match_end]; off = match_end;
         let match_lens = if match_mode == 1 {
             RansCoder::decode(match_slice, num_seqs)?
         } else {
@@ -466,8 +478,9 @@ impl SequenceCoder {
 
         let (off_comp_len, new_off) = decode_leb128(payload, off)?; off = new_off;
         let off_comp_len = off_comp_len as usize;
-        if off + off_comp_len > payload.len() { return Err("Truncated offset_codes".into()); }
-        let off_slice = &payload[off..off + off_comp_len]; off += off_comp_len;
+        let off_end = off.checked_add(off_comp_len).ok_or("Overflow in off_comp_len bounds check")?;
+        if off_end > payload.len() { return Err("Truncated offset_codes".into()); }
+        let off_slice = &payload[off..off_end]; off = off_end;
 
         let num_matches = match_lens[..num_seqs].iter().filter(|&&m| m > 0).count();
         let offset_codes = if offset_mode == 1 {
@@ -481,14 +494,16 @@ impl SequenceCoder {
 
         let (extra_leb_len, new_off) = decode_leb128(payload, off)?; off = new_off;
         let extra_leb_len = extra_leb_len as usize;
-        if off + extra_leb_len > payload.len() { return Err("Truncated extra_leb".into()); }
-        let extra_leb = &payload[off..off + extra_leb_len]; off += extra_leb_len;
+        let extra_leb_end = off.checked_add(extra_leb_len).ok_or("Overflow in extra_leb_len bounds check")?;
+        if extra_leb_end > payload.len() { return Err("Truncated extra_leb".into()); }
+        let extra_leb = &payload[off..extra_leb_end]; off = extra_leb_end;
         let mut extra_leb_pos = 0usize;
 
         let (extra_bits_len, new_off) = decode_leb128(payload, off)?; off = new_off;
         let extra_bits_len = extra_bits_len as usize;
-        if off + extra_bits_len > payload.len() { return Err("Truncated extra_bits".into()); }
-        let extra_bits = &payload[off..off + extra_bits_len];
+        let extra_bits_end = off.checked_add(extra_bits_len).ok_or("Overflow in extra_bits_len bounds check")?;
+        if extra_bits_end > payload.len() { return Err("Truncated extra_bits".into()); }
+        let extra_bits = &payload[off..extra_bits_end];
         let mut bit_reader = BitReader::new(extra_bits);
 
         let mut sequences = Vec::with_capacity(num_seqs);
@@ -502,7 +517,8 @@ impl SequenceCoder {
             } else {
                 let (extra, new_pos) = decode_leb128(extra_leb, extra_leb_pos)?;
                 extra_leb_pos = new_pos;
-                254 + extra as u32
+                let extra_u32 = u32::try_from(extra).map_err(|_| "Sequence lit_len escape exceeds u32")?;
+                254u32.checked_add(extra_u32).ok_or("Sequence lit_len addition overflow")?
             };
 
             let s_mat = match_lens[i];
@@ -518,7 +534,8 @@ impl SequenceCoder {
                 } else {
                     let (extra, new_pos) = decode_leb128(extra_leb, extra_leb_pos)?;
                     extra_leb_pos = new_pos;
-                    254 + 3 + extra as u32
+                    let extra_u32 = u32::try_from(extra).map_err(|_| "Sequence match_len escape exceeds u32")?;
+                    257u32.checked_add(extra_u32).ok_or("Sequence match_len addition overflow")?
                 };
 
                 if off_code_idx >= offset_codes.len() {
