@@ -50,6 +50,77 @@ Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mah
 
 ---
 
+## 💻 Terminal Verification: Standard Corpora (`$ wc -c * | sort -nr`)
+
+Clean, empirical output across standard reference corpora comparing against industry reference codecs:
+
+```bash
+# Silesia Corpus (211.94 MB)
+$ wc -c silesia.* | sort -nr
+ 211938580 silesia.raw
+  67575953 silesia.tar.gz    (gzip -9)
+  54506769 silesia.tar.bz2   (bzip2 -9)
+  52891946 silesia.tar.zst   (zstd -19)
+  48795480 silesia.tar.xz    (lzma -9)
+  48360400 silesia.tar.7z    (7-Zip -mx9)
+  46276642 silesia.tar.orp   (Orpane MAX)
+
+# Calgary Corpus (3.25 MB)
+$ wc -c calgary.* | sort -nr
+   3251493 calgary.raw
+   1061884 calgary.tar.gz    (gzip -9)
+    920862 calgary.tar.zst   (zstd -22)
+    885716 calgary.tar.xz    (lzma -9)
+    884474 calgary.tar.7z    (7-Zip -mx9)
+    866501 calgary.tar.bz2   (bzip2 -9)
+    856672 calgary.tar.br    (brotli -q11)
+    804350 calgary.tar.orp   (Orpane MAX)
+
+# Canterbury Corpus (2.81 MB)
+$ wc -c canterbury.* | sort -nr
+   2810784 canterbury.raw
+    729023 canterbury.tar.gz (gzip -9)
+    542710 canterbury.tar.bz2(bzip2 -9)
+    516237 canterbury.tar.zst(zstd -22)
+    493169 canterbury.tar.7z (7-Zip -mx9)
+    492276 canterbury.tar.xz (lzma -9)
+    412477 canterbury.tar.orp(Orpane MAX)
+
+# enwik8 (100 MB Wikipedia XML)
+$ wc -c enwik8.* | sort -nr
+ 100000000 enwik8.raw
+  35103261 enwik8.gz         (gzip -9)
+  33508130 enwik8.orp.ultra  (Orpane ULTRA)
+  33508130 enwik8.orp.fast   (Orpane FAST)
+  30193656 enwik8.orp.bal    (Orpane BALANCED)
+  29311614 enwik8.orp.max    (Orpane MAX)
+  29006372 enwik8.bz2        (bzip2 -9)
+  26936936 enwik8.zst        (zstd -19)
+  24862435 enwik8.7z         (7-Zip -mx9)
+  24862364 enwik8.xz         (lzma -9)
+
+# enwik8 (1 MB Slice)
+$ wc -c enwik8_1MB.* | sort -nr
+   1048576 enwik8_1MB.raw
+    371247 enwik8_1MB.gz     (gzip -9)
+    312661 enwik8_1MB.zst    (zstd -19)
+    302764 enwik8_1MB.xz     (lzma -9)
+    302408 enwik8_1MB.7z     (7-Zip -mx9)
+    294143 enwik8_1MB.bz2    (bzip2 -9)
+    290562 enwik8_1MB.orp    (Orpane MAX)
+
+# enwik9 (1 GB Hutter Prize)
+$ wc -c enwik9.* | sort -nr
+1000000000 enwik9.raw
+ 295498621 enwik9.orp.ultra  (Orpane ULTRA)
+ 295498621 enwik9.orp.fast   (Orpane FAST)
+ 263445342 enwik9.orp.bal    (Orpane BALANCED)
+ 255359768 enwik9.orp.max    (Orpane MAX)
+ 214790781 enwik9.7z         (7-Zip -mx9)
+```
+
+---
+
 ## 🟢 Strengths & 🟡 Empirical Trade-Offs
 
 ### Where Orpane Excels
