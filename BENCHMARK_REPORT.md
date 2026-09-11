@@ -396,20 +396,21 @@ Orpane is systematically evaluated against the five primary reference compressio
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `sealed_sensor_tensor_f32.bin` | 512 KB | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 1.73:1 | 382.4ms (1.4 MB/s) | 18.2ms (28.8 MB/s) | 12 MB |
-| `sealed_sqlite_wal_pages.bin` | 483 KB | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 27.06:1 | 210.5ms (2.3 MB/s) | 2.1ms (235.4 MB/s) | 8 MB |
+| `sealed_sqlite_wal_pages.bin` | 483 KB | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 28.18:1 | 188.2ms (2.6 MB/s) | 2.0ms (247.2 MB/s) | 8 MB |
 | `sealed_financial_ticks.bin` | 640 KB | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 6.97:1 | 449.7ms (1.4 MB/s) | 55.1ms (11.6 MB/s) | 8 MB |
 | `sealed_parquet_columns.bin` | 425 KB | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.72%)** | 2.13:1 | 359.3ms (1.2 MB/s) | 42.0ms (10.1 MB/s) | 12 MB |
 | `sealed_sqlite_btree.bin` | 524 KB | 25,304 B | 🟢 **21,105 B** | 🟩 **-4,199 B (-16.59%)** | 24.84:1 | 289.3ms (1.8 MB/s) | 2.7ms (194.1 MB/s) | 8 MB |
 | `sealed_utf8_multilingual.bin` | 451 KB | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60%)** | 124.54:1 | 2,095ms (0.2 MB/s) | 0.1ms (4,510 MB/s) | 6 MB |
 | `sealed_wasm_binary.bin` | 314 KB | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B (-10.52%)** | 2.43:1 | 485.5ms (0.6 MB/s) | 35.2ms (8.9 MB/s) | 10 MB |
-| **Structured Holdouts Total**| **3.32 MB** | **932,120 B** | 🟢 **766,559 B** | 🟩 **-165,561 B (-17.76%)** | **4.54:1** | **~0.8 MB/s** | **~24.6 MB/s** | **< 18 MB** |
+| **Structured Holdouts Total**| **3.32 MB** | **932,120 B** | 🟢 **765,832 B** | 🟩 **-166,288 B (-17.84%)** | **4.55:1** | **~0.8 MB/s** | **~24.7 MB/s** | **< 18 MB** |
 
-#### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities (WAL & Float32 Tensors)
+#### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities (WAL, Tensors & Columnar)
 
 | Modality / File | Raw Size | Gzip (-9) | Bzip2 (-9) | Zstd (-22) | Brotli (-11) | 7-Zip (-mx9) | Orpane (MAX) | 🟩 Orpane vs Best Reference | Bit-Exact Integrity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `sealed_arrow_mixed_batch.bin` (Arrow Batch) | 460,000 B | 299,791 B | 305,955 B | 278,638 B | 257,503 B | 262,240 B | 🟢 **204,899 B** | 🟩 **-52,604 B (-20.43%)** | 🟢 100% PASS (BLAKE3) |
 | `sealed_sensor_tensor_f32.bin` (3D Seismic F32) | 524,288 B | 443,544 B | 436,900 B | 441,282 B | 405,187 B | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 🟢 100% PASS (BLAKE3) |
-| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 🟢 100% PASS (BLAKE3) |
+| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 🟢 100% PASS (BLAKE3) |
 
 ---
 
@@ -420,8 +421,8 @@ Orpane is systematically evaluated against the five primary reference compressio
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
   7-Zip 26.02 (-mx9):    52,963,793 bytes
-  Orpane-MAX (.orpane):  50,143,242 bytes
-  NET BYTES SAVED:       2,820,551 bytes (>2.8205 MB net space savings)
+  Orpane-MAX (.orpane):  50,142,515 bytes
+  NET BYTES SAVED:       2,821,278 bytes (>2.8212 MB net space savings)
   WIN RATE:              60 / 60 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================

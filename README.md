@@ -4,9 +4,9 @@
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Win Rate](https://img.shields.io/badge/win%20rate-60%20%2F%2060%20%28100%25%29-success.svg)](#)
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.8205%20MB%20vs%207z-brightgreen.svg)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.8212%20MB%20vs%207z-brightgreen.svg)](#)
 [![Version](https://img.shields.io/badge/release-v2.3.0-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2016%3A45%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2017%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (-mx=9 -md=64m -mfb=273 -ms=off)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, and **LZMA 5.6.3 (-9)**.  
@@ -18,8 +18,8 @@
 
 | 🏆 Win Rate | 📦 Space Saved vs 7z | ⚡ Decompression Speed | ⏱️ Compression Cost | 🔬 Integrity |
 | :---: | :---: | :---: | :---: | :---: |
-| 🟢 **60 / 60 (100%)** | 🟢 **-2,820,551 B (-5.33%)** | 🟢 **1.34x faster global** | 🟡 **1.58x time trade-off** | 🟢 **0 errors** |
-| Clean sweep across all suites | **> 2.8205 MB** net savings | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | Bit-exact (SHA-256/BLAKE3) |
+| 🟢 **60 / 60 (100%)** | 🟢 **-2,821,278 B (-5.33%)** | 🟢 **1.34x faster global** | 🟡 **1.58x time trade-off** | 🟢 **0 errors** |
+| Clean sweep across all suites | **> 2.8212 MB** net savings | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | Bit-exact (SHA-256/BLAKE3) |
 
 ---
 
@@ -27,8 +27,8 @@
 
 ```diff
 + Evaluation Scope Expanded:     58 streams ➔ 60 streams (+2 frontier modalities, +3.45% coverage)
-+ Net Space Saved vs 7-Zip:      2,771,976 B ➔ 2,820,551 B (+48,575 B net gain, +1.75% space saved)
-+ Structured Holdouts Savings:   116,986 B ➔ 165,561 B (+48,575 B, +41.52% holdout gain)
++ Net Space Saved vs 7-Zip:      2,771,976 B ➔ 2,821,278 B (+49,302 B net gain, +1.78% space saved)
++ Structured Holdouts Savings:   116,986 B ➔ 166,288 B (+49,302 B, +42.14% holdout gain)
 + Multi-Standard Pareto Lead:    Orpane MAX outperforms Gzip, Bzip2, Zstandard, LZMA, and 7-Zip across tested suites
 + Undefeated Win Rate:           58/58 (100%) ➔ 60/60 (100% clean sweep across all suites)
 + Hardware Cluster Architecture: PC1 (Ryzen 7 5700X) + PC2 (Core i5-12600H) distributed exploration
@@ -43,17 +43,17 @@
 | **Zstandard 1.5.7 (-19 / -22)**| Standard Corpora + Holdouts| 55,517,488 B | **48,258,046 B** | 🟩 **-7,259,442 B** | 🟢 **-13.08% space** *(Orpane wins)* |
 | **Brotli 1.2.0 (-11)** | Calgary & Structured Holdouts | 1,879,805 B | **1,570,909 B** | 🟩 **-308,896 B** | 🟢 **-16.43% space** *(Orpane wins)* |
 | **LZMA 5.6.3 (-9 / XZ)** | Standard Corpora Subtotal | 50,173,472 B | **47,493,469 B** | 🟩 **-2,680,003 B** | 🟢 **-5.34% space** *(Orpane wins)* |
-| **7-Zip 26.02 (-mx9)** | **Grand Total (All 60 Streams)**| **52,963,793 B** | 🟢 **50,143,242 B** | 🟩 **-2,820,551 B** | 🟢 **-5.33% space** *(60/60 clean sweep)* |
+| **7-Zip 26.02 (-mx9)** | **Grand Total (All 60 Streams)**| **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B** | 🟢 **-5.33% space** *(60/60 clean sweep)* |
 
 ### 📈 Version-over-Version Metric Comparison (v2.2.0 ➔ v2.3.0)
 
 | Evaluated Metric | Previous Milestone (v2.2.0) | Current Milestone (v2.3.0) | 🟩 Absolute Delta | 🟢 Relative Gain (%) |
 | :--- | :---: | :---: | :---: | :---: |
 | **Total Test Streams** | 58 streams | **60 streams** | `+2 streams` | 🟢 **+3.45% coverage** |
-| **Net Saved vs 7-Zip (-mx9)** | 2,771,976 B | **2,820,551 B** | `+48,575 B` | 🟢 **+1.75% space saved** |
-| **Structured Holdout Savings**| 116,986 B | **165,561 B** | `+48,575 B` | 🟢 **+41.52% holdout gain** |
+| **Net Saved vs 7-Zip (-mx9)** | 2,771,976 B | **2,821,278 B** | `+49,302 B` | 🟢 **+1.78% space saved** |
+| **Structured Holdout Savings**| 116,986 B | **166,288 B** | `+49,302 B` | 🟢 **+42.14% holdout gain** |
 | **Frontier Float32 Tensor Delta**| Not in suite | **-46,327 B vs 7z** | `-46,327 B` | 🟢 **-13.27% on 3D F32** |
-| **Frontier SQLite WAL Delta** | Not in suite | **-2,248 B vs 7z** | `-2,248 B` | 🟢 **-10.96% on WAL pages** |
+| **Frontier SQLite WAL Delta** | Not in suite | **-2,975 B vs 7z** | `-2,975 B` | 🟢 **-14.50% on WAL pages** |
 | **Clean Sweep Win Rate** | 58 / 58 (100%) | **60 / 60 (100%)** | `2 / 2 won` | 🟢 **100% Undefeated** |
 | **Bit-Exact Reversibility** | 100% PASS | **100% PASS** | `0 errors` | 🟢 **SHA-256 & BLAKE3** |
 
@@ -487,25 +487,26 @@ To evaluate scalability on multi-megabyte streams, Orpane was benchmarked across
 
 ---
 
-### 6. Hard-Generalization & Database Page-Layout Holdouts (7 streams — 3.32 MB)
+#### 6. Hard-Generalization & Database Page-Layout Holdouts (7 streams — 3.32 MB)
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | `sealed_sensor_tensor_f32.bin` | 512 KB | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 1.73:1 | 382.4ms (1.4 MB/s) | 18.2ms (28.8 MB/s) | 12 MB |
-| `sealed_sqlite_wal_pages.bin` | 483 KB | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 27.06:1 | 210.5ms (2.3 MB/s) | 2.1ms (235.4 MB/s) | 8 MB |
+| `sealed_sqlite_wal_pages.bin` | 483 KB | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 28.18:1 | 188.2ms (2.6 MB/s) | 2.0ms (247.2 MB/s) | 8 MB |
 | `sealed_financial_ticks.bin` | 640 KB | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 6.97:1 | 449.7ms (1.4 MB/s) | 55.1ms (11.6 MB/s) | 8 MB |
 | `sealed_parquet_columns.bin` | 425 KB | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.72%)** | 2.13:1 | 359.3ms (1.2 MB/s) | 42.0ms (10.1 MB/s) | 12 MB |
 | `sealed_sqlite_btree.bin` | 524 KB | 25,304 B | 🟢 **21,105 B** | 🟩 **-4,199 B (-16.59%)** | 24.84:1 | 289.3ms (1.8 MB/s) | 2.7ms (194.1 MB/s) | 8 MB |
 | `sealed_utf8_multilingual.bin` | 451 KB | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60%)** | 124.54:1 | 2,095ms (0.2 MB/s) | 0.1ms (4,510 MB/s) | 6 MB |
 | `sealed_wasm_binary.bin` | 314 KB | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B (-10.52%)** | 2.43:1 | 485.5ms (0.6 MB/s) | 35.2ms (8.9 MB/s) | 10 MB |
-| **Structured Holdouts Total**| **3.32 MB** | **932,120 B** | 🟢 **766,559 B** | 🟩 **-165,561 B (-17.76%)** | **4.54:1** | **~0.8 MB/s** | **~24.6 MB/s** | **< 18 MB** |
+| **Structured Holdouts Total**| **3.32 MB** | **932,120 B** | 🟢 **765,832 B** | 🟩 **-166,288 B (-17.84%)** | **4.55:1** | **~0.8 MB/s** | **~24.7 MB/s** | **< 18 MB** |
 
-#### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities (WAL & Float32 Tensors)
+#### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities (WAL, Tensors & Columnar)
 
 | Modality / File | Raw Size | Gzip (-9) | Bzip2 (-9) | Zstd (-22) | Brotli (-11) | 7-Zip (-mx9) | Orpane (MAX) | 🟩 Orpane vs Best Reference | Bit-Exact Integrity |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `sealed_arrow_mixed_batch.bin` (Arrow Batch) | 460,000 B | 299,791 B | 305,955 B | 278,638 B | 257,503 B | 262,240 B | 🟢 **204,899 B** | 🟩 **-52,604 B (-20.43%)** | 🟢 100% PASS (BLAKE3) |
 | `sealed_sensor_tensor_f32.bin` (3D Seismic F32) | 524,288 B | 443,544 B | 436,900 B | 441,282 B | 405,187 B | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 🟢 100% PASS (BLAKE3) |
-| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 🟢 100% PASS (BLAKE3) |
+| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 🟢 100% PASS (BLAKE3) |
 
 ---
 
@@ -516,8 +517,8 @@ To evaluate scalability on multi-megabyte streams, Orpane was benchmarked across
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
   7-Zip 26.02 (-mx9):    52,963,793 bytes
-  Orpane-MAX (.orpane):  50,143,242 bytes
-  NET BYTES SAVED:       2,820,551 bytes (>2.8205 MB net space savings)
+  Orpane-MAX (.orpane):  50,142,515 bytes
+  NET BYTES SAVED:       2,821,278 bytes (>2.8212 MB net space savings)
   WIN RATE:              60 / 60 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
