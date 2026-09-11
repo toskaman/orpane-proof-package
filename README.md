@@ -60,92 +60,82 @@ Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mah
 
 Clean, empirical output across standard reference corpora comparing against industry reference codecs:
 
+> **Note on Methodology**: All reference compressors are evaluated at their maximal compression presets (`gzip -9`, `bzip2 -9`, `zstd -19/-22`, `7-Zip -mx9`, `Orpane MAX`). 7-Zip (`.7z`) and XZ (`.xz`) implement the identical underlying LZMA/LZMA2 algorithm; `-mf-` is enforced on 7-Zip to prevent automatic filter divergence.
+
 ```bash
 # Silesia Corpus (211.94 MB)
 $ wc -c silesia.* | sort -nr
  211938580 silesia.raw
-  67575953 silesia.tar.gz    (gzip -9)
-  54506769 silesia.tar.bz2   (bzip2 -9)
-  52891946 silesia.tar.zst   (zstd -19)
-  48795480 silesia.tar.xz    (lzma -9)
-  48360400 silesia.tar.7z    (7-Zip -mx9)
-  46276642 silesia.tar.orp   (Orpane MAX)
+  67575953 silesia.tar.gz
+  54506769 silesia.tar.bz2
+  52891946 silesia.tar.zst
+  48360400 silesia.tar.7z
+  46276642 silesia.tar.orp
 
 # Calgary Corpus (3.25 MB)
 $ wc -c calgary.* | sort -nr
    3251493 calgary.raw
-   1061884 calgary.tar.gz    (gzip -9)
-    920862 calgary.tar.zst   (zstd -22)
-    885716 calgary.tar.xz    (lzma -9)
-    884474 calgary.tar.7z    (7-Zip -mx9)
-    866501 calgary.tar.bz2   (bzip2 -9)
-    856672 calgary.tar.br    (brotli -q11)
-    804350 calgary.tar.orp   (Orpane MAX)
+   1061884 calgary.tar.gz
+    920862 calgary.tar.zst
+    884474 calgary.tar.7z
+    866501 calgary.tar.bz2
+    856672 calgary.tar.br
+    804350 calgary.tar.orp
 
 # Canterbury Corpus (2.81 MB)
 $ wc -c canterbury.* | sort -nr
    2810784 canterbury.raw
-    729023 canterbury.tar.gz (gzip -9)
-    542710 canterbury.tar.bz2(bzip2 -9)
-    516237 canterbury.tar.zst(zstd -22)
-    493169 canterbury.tar.7z (7-Zip -mx9)
-    492276 canterbury.tar.xz (lzma -9)
-    412477 canterbury.tar.orp(Orpane MAX)
+    729023 canterbury.tar.gz
+    542710 canterbury.tar.bz2
+    516237 canterbury.tar.zst
+    493169 canterbury.tar.7z
+    412477 canterbury.tar.orp
 
 # enwik8 (100 MB Wikipedia XML)
 $ wc -c enwik8.* | sort -nr
  100000000 enwik8.raw
-  35103261 enwik8.gz         (gzip -9)
-  33508130 enwik8.orp.ultra  (Orpane ULTRA)
-  33508130 enwik8.orp.fast   (Orpane FAST)
-  30193656 enwik8.orp.bal    (Orpane BALANCED)
-  29311614 enwik8.orp.max    (Orpane MAX)
-  29006372 enwik8.bz2        (bzip2 -9)
-  26936936 enwik8.zst        (zstd -19)
-  24862435 enwik8.7z         (7-Zip -mx9)
-  24862364 enwik8.xz         (lzma -9)
-
-# enwik8 (1 MB Slice)
-$ wc -c enwik8_1MB.* | sort -nr
-   1048576 enwik8_1MB.raw
-    371247 enwik8_1MB.gz     (gzip -9)
-    312661 enwik8_1MB.zst    (zstd -19)
-    302764 enwik8_1MB.xz     (lzma -9)
-    302408 enwik8_1MB.7z     (7-Zip -mx9)
-    294143 enwik8_1MB.bz2    (bzip2 -9)
-    290562 enwik8_1MB.orp    (Orpane MAX)
+  35103261 enwik8.gz
+  33508130 enwik8.orp.ultra
+  33508130 enwik8.orp.fast
+  30193656 enwik8.orp.bal
+  29311614 enwik8.orp.max
+  29006372 enwik8.bz2
+  26936936 enwik8.zst
+  24862435 enwik8.7z
 
 # enwik9 (1 GB Hutter Prize)
 $ wc -c enwik9.* | sort -nr
 1000000000 enwik9.raw
- 295498621 enwik9.orp.ultra  (Orpane ULTRA)
- 295498621 enwik9.orp.fast   (Orpane FAST)
- 263445342 enwik9.orp.bal    (Orpane BALANCED)
- 255359768 enwik9.orp.max    (Orpane MAX)
- 214790781 enwik9.7z         (7-Zip -mx9)
+ 295498621 enwik9.orp.ultra
+ 295498621 enwik9.orp.fast
+ 263445342 enwik9.orp.bal
+ 255359768 enwik9.orp.max
+ 214790781 enwik9.7z
 ```
 
 ### 📋 Per-File Distribution Across Silesia
 
+*Note: All codecs evaluated at maximal compression. 7-Zip represents the LZMA/LZMA2 family with `-mf-` to prevent executable filter divergence.*
+
 ```
-+----------+-------------+-------------+-------------+-------------+-------------+-------------+--------------+
-| File     | Raw Size    | gzip -9     | bzip2 -9    | zstd -19    | lzma -9     | 7-Zip -mx9  | Orpane (MAX) |
-+----------+-------------+-------------+-------------+-------------+-------------+-------------+--------------+
-| dickens  |  10,192,446 |   3,859,120 |   2,799,520 |   2,849,941 |   2,830,604 |   2,831,068 |    2,759,408 |
-| mozilla  |  51,220,480 |  19,031,985 |  17,914,392 |  15,065,760 |  13,374,160 |  13,313,683 |   13,301,175 |
-| mr       |   9,970,564 |   3,656,182 |   2,441,280 |   3,107,144 |   2,750,272 |   2,748,446 |    2,320,795 |
-| nci      |  33,553,445 |   2,998,536 |   1,812,734 |   1,664,984 |   1,738,884 |   1,449,349 |    1,440,072 |
-| ooffice  |   6,152,192 |   3,078,285 |   2,862,526 |   2,595,003 |   2,426,816 |   2,424,759 |    2,129,038 |
-| osdb     |  10,085,684 |   3,667,520 |   2,802,792 |   3,100,173 |   2,849,908 |   2,845,835 |    2,657,854 |
-| reymont  |   6,627,202 |   1,826,415 |   1,246,230 |   1,348,458 |   1,317,152 |   1,316,211 |    1,236,098 |
-| samba    |  21,606,400 |   5,406,364 |   4,549,759 |   3,897,788 |   3,763,616 |   3,731,438 |    3,723,659 |
-| sao      |   7,251,944 |   5,318,098 |   4,940,524 |   5,000,572 |   4,415,072 |   4,413,926 |    3,994,318 |
-| webster  |  41,458,703 |  12,114,330 |   8,644,714 |   8,679,359 |   8,385,868 |   8,370,602 |    8,346,688 |
-| x-ray    |   8,474,240 |   5,957,219 |   4,051,112 |   5,129,823 |   4,489,868 |   4,479,871 |    3,937,474 |
-| xml      |   5,345,280 |     661,899 |     441,186 |     452,941 |     453,260 |     435,212 |      430,163 |
-+----------+-------------+-------------+-------------+-------------+-------------+-------------+--------------+
-| Total    | 211,938,580 |  67,575,953 |  54,506,769 |  52,891,946 |  48,795,480 |  48,360,400 |   46,276,642 |
-+----------+-------------+-------------+-------------+-------------+-------------+-------------+--------------+
++----------+-------------+-------------+-------------+-------------+-------------+--------------+
+| File     | Raw Size    | gzip        | bzip2       | zstd        | 7-Zip       | Orpane       |
++----------+-------------+-------------+-------------+-------------+-------------+--------------+
+| dickens  |  10,192,446 |   3,859,120 |   2,799,520 |   2,849,941 |   2,831,068 |    2,759,408 |
+| mozilla  |  51,220,480 |  19,031,985 |  17,914,392 |  15,065,760 |  13,313,683 |   13,301,175 |
+| mr       |   9,970,564 |   3,656,182 |   2,441,280 |   3,107,144 |   2,748,446 |    2,320,795 |
+| nci      |  33,553,445 |   2,998,536 |   1,812,734 |   1,664,984 |   1,449,349 |    1,440,072 |
+| ooffice  |   6,152,192 |   3,078,285 |   2,862,526 |   2,595,003 |   2,424,759 |    2,129,038 |
+| osdb     |  10,085,684 |   3,667,520 |   2,802,792 |   3,100,173 |   2,845,835 |    2,657,854 |
+| reymont  |   6,627,202 |   1,826,415 |   1,246,230 |   1,348,458 |   1,316,211 |    1,236,098 |
+| samba    |  21,606,400 |   5,406,364 |   4,549,759 |   3,897,788 |   3,731,438 |    3,723,659 |
+| sao      |   7,251,944 |   5,318,098 |   4,940,524 |   5,000,572 |   4,413,926 |    3,994,318 |
+| webster  |  41,458,703 |  12,114,330 |   8,644,714 |   8,679,359 |   8,370,602 |    8,346,688 |
+| x-ray    |   8,474,240 |   5,957,219 |   4,051,112 |   5,129,823 |   4,479,871 |    3,937,474 |
+| xml      |   5,345,280 |     661,899 |     441,186 |     452,941 |     435,212 |      430,163 |
++----------+-------------+-------------+-------------+-------------+-------------+--------------+
+| Total    | 211,938,580 |  67,575,953 |  54,506,769 |  52,891,946 |  48,360,400 |   46,276,642 |
++----------+-------------+-------------+-------------+-------------+-------------+--------------+
 ```
 
 ---
