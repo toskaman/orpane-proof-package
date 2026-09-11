@@ -2,11 +2,11 @@
 
 [![Integrity](https://img.shields.io/badge/verification-100%25%20Bit--Exact-brightgreen.svg)](#)
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
-[![Win Rate](https://img.shields.io/badge/win%20rate-58%20%2F%2058%20%28100%25%29-success.svg)](#)
+[![Win Rate](https://img.shields.io/badge/win%20rate-60%20%2F%2060%20%28100%25%29-success.svg)](#)
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.7719%20MB%20vs%207z-brightgreen.svg)](#)
-[![Version](https://img.shields.io/badge/release-v2.2.0-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2014%3A40%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.8205%20MB%20vs%207z-brightgreen.svg)](#)
+[![Version](https://img.shields.io/badge/release-v2.3.0-blue.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--11%2016%3A45%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane (MAX)** directly against **7-Zip 26.02 on maximum compression (-mx=9 -md=64m -mfb=273 -ms=off)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, and **LZMA 5.6.3 (-9)**.  
@@ -18,8 +18,28 @@
 
 | 🏆 Win Rate | 📦 Space Saved vs 7z | ⚡ Decompression Speed | ⏱️ Compression Cost | 🔬 Integrity |
 | :---: | :---: | :---: | :---: | :---: |
-| 🟢 **58 / 58 (100%)** | 🟢 **-2,771,976 B (-5.27%)** | 🟢 **1.34x faster global** | 🟡 **1.58x time trade-off** | 🟢 **0 errors** |
-| Clean sweep across all suites | **> 2.7719 MB** net savings | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | Bit-exact (SHA-256/BLAKE3) |
+| 🟢 **60 / 60 (100%)** | 🟢 **-2,820,551 B (-5.33%)** | 🟢 **1.34x faster global** | 🟡 **1.58x time trade-off** | 🟢 **0 errors** |
+| Clean sweep across all suites | **> 2.8205 MB** net savings | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | Bit-exact (SHA-256/BLAKE3) |
+
+---
+
+### 🟢 Version-over-Version Progress (v2.2.0 ➔ v2.3.0)
+
+```diff
++ Benchmark Streams Verified:   58 streams ➔ 60 streams (+2 streams, +3.45% evaluation coverage)
++ Net Space Saved vs 7-Zip:     2,771,976 B ➔ 2,820,551 B (+48,575 B net gain, +1.75% space saved)
++ Structured Holdouts Savings:  116,986 B ➔ 165,561 B (+48,575 B, +41.52% holdout gain)
++ Win Rate vs 7-Zip 26.02:      58/58 (100%) ➔ 60/60 (100% clean sweep undefeated)
++ Hardware Cluster Integration: PC1 (Ryzen 7 5700X) + PC2 (Core i5-12600H) distributed exploration
+```
+
+| Evaluated Metric | Previous Milestone (v2.2.0) | Current Milestone (v2.3.0) | 🟩 Absolute Delta | 🟢 Relative Gain (%) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Total Test Streams** | 58 streams | **60 streams** | `+2 streams` | 🟢 **+3.45%** |
+| **Net Saved vs 7-Zip (-mx9)** | 2,771,976 B | **2,820,551 B** | `+48,575 B` | 🟢 **+1.75%** |
+| **Structured Holdout Savings**| 116,986 B | **165,561 B** | `+48,575 B` | 🟢 **+41.52%** |
+| **Clean Sweep Win Rate** | 58 / 58 (100%) | **60 / 60 (100%)** | `2 / 2 won` | 🟢 **100% Undefeated** |
+| **Bit-Exact Reversibility** | 100% PASS | **100% PASS** | `0 errors` | 🟢 **Cryptographic (BLAKE3/SHA256)** |
 
 ---
 
@@ -391,7 +411,7 @@ To evaluate scalability on multi-megabyte streams, Orpane was benchmarked across
 | `dickens` | 10.19 MB | 2,831,068 B | 🟢 **2,759,408 B** | 🟩 **-71,660 B** (-2.5%) | 3.69:1 | 1.6s (6.0 MB/s) | 376ms (25.9 MB/s) | 22 MB |
 | `mozilla` | 51.22 MB | 13,313,683 B | 🟢 **13,301,175 B** | 🟩 **-12,508 B** (-0.1%) | 3.85:1 | 20.3s (2.4 MB/s) | 697ms (70.1 MB/s) | 699 MB |
 | `mr` | 9.97 MB | 2,748,446 B | 🟢 **2,320,795 B** | 🟩 **-427,651 B** (-15.56%) | 4.30:1 | 7.6s (1.3 MB/s) | 71.7ms (132.7 MB/s) | 48 MB |
-| `nci` (33.55 MB),449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
+| `nci` | 33.55 MB | 1,449,349 B | 🟢 **1,440,072 B** | 🟩 **-9,277 B** (-0.6%) | 23.30:1 | 17.3s (1.8 MB/s) | 103ms (310.7 MB/s) | 372 MB |
 | `ooffice` | 6.15 MB | 2,424,759 B | 🟢 **2,129,038 B** | 🟩 **-295,721 B** (-12.2%) | 2.89:1 | 2.5s (2.5 MB/s) | 117ms (50.1 MB/s) | 106 MB |
 | `osdb` | 10.08 MB | 2,845,835 B | 🟢 **2,657,854 B** | 🟩 **-187,981 B** (-6.6%) | 3.79:1 | 2.1s (4.8 MB/s) | 278ms (34.6 MB/s) | 77 MB |
 | `reymont` | 6.62 MB | 1,316,211 B | 🟢 **1,236,098 B** | 🟩 **-80,113 B** (-6.1%) | 5.36:1 | 1.9s (3.3 MB/s) | 222ms (28.5 MB/s) | 22 MB |
@@ -477,29 +497,38 @@ To evaluate scalability on multi-megabyte streams, Orpane was benchmarked across
 
 ---
 
-### 6. Hard-Generalization & Database Page-Layout Holdouts (5 streams — 2.35 MB)
+### 6. Hard-Generalization & Database Page-Layout Holdouts (7 streams — 3.32 MB)
 
 | File | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Savings vs 7z | Ratio | Encode Speed | Decode Speed | Peak RAM |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `sealed_sensor_tensor_f32.bin` | 512 KB | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 1.73:1 | 382.4ms (1.4 MB/s) | 18.2ms (28.8 MB/s) | 12 MB |
+| `sealed_sqlite_wal_pages.bin` | 483 KB | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 27.06:1 | 210.5ms (2.3 MB/s) | 2.1ms (235.4 MB/s) | 8 MB |
 | `sealed_financial_ticks.bin` | 640 KB | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.37%)** | 6.97:1 | 449.7ms (1.4 MB/s) | 55.1ms (11.6 MB/s) | 8 MB |
 | `sealed_parquet_columns.bin` | 425 KB | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.72%)** | 2.13:1 | 359.3ms (1.2 MB/s) | 42.0ms (10.1 MB/s) | 12 MB |
 | `sealed_sqlite_btree.bin` | 524 KB | 25,304 B | 🟢 **21,105 B** | 🟩 **-4,199 B (-16.59%)** | 24.84:1 | 289.3ms (1.8 MB/s) | 2.7ms (194.1 MB/s) | 8 MB |
 | `sealed_utf8_multilingual.bin` | 451 KB | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.60%)** | 124.54:1 | 2,095ms (0.2 MB/s) | 0.1ms (4,510 MB/s) | 6 MB |
 | `sealed_wasm_binary.bin` | 314 KB | 144,540 B | 🟢 **129,340 B** | 🟩 **-15,200 B (-10.52%)** | 2.43:1 | 485.5ms (0.6 MB/s) | 35.2ms (8.9 MB/s) | 10 MB |
-| **Structured Holdouts Total**| **2.35 MB** | **562,468 B** | 🟢 **445,482 B** | 🟩 **-116,986 B (-20.80%)** | **5.29:1** | **~0.6 MB/s** | **~17.4 MB/s** | **< 18 MB** |
+| **Structured Holdouts Total**| **3.32 MB** | **932,120 B** | 🟢 **766,559 B** | 🟩 **-165,561 B (-17.76%)** | **4.54:1** | **~0.8 MB/s** | **~24.6 MB/s** | **< 18 MB** |
+
+#### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities (WAL & Float32 Tensors)
+
+| Modality / File | Raw Size | Gzip (-9) | Bzip2 (-9) | Zstd (-22) | Brotli (-11) | 7-Zip (-mx9) | Orpane (MAX) | 🟩 Orpane vs Best Reference | Bit-Exact Integrity |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `sealed_sensor_tensor_f32.bin` (3D Seismic F32) | 524,288 B | 443,544 B | 436,900 B | 441,282 B | 405,187 B | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 🟢 100% PASS (BLAKE3) |
+| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **18,272 B** | 🟩 **-2,248 B (-10.96%)** | 🟢 100% PASS (BLAKE3) |
 
 ---
 
-## 🏆 Cumulative Grand Total (58 Streams Audit — 227.51 MB)
+## 🏆 Cumulative Grand Total (60 Streams Audit — 228.53 MB)
 
 ```
 ================================================================================
-GRAND TOTAL ACROSS ALL 58 BENCHMARK STREAMS:
-  Uncompressed Raw Size: 227,513,809 bytes (~227.51 MB)
-  7-Zip 26.02 (-mx9):    52,594,141 bytes
-  Orpane-MAX (.orpane):  49,822,165 bytes
-  NET BYTES SAVED:       2,771,976 bytes (>2.7719 MB net space savings)
-  WIN RATE:              58 / 58 files won (100.0% clean sweep vs 7-Zip)
+GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
+  Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
+  7-Zip 26.02 (-mx9):    52,963,793 bytes
+  Orpane-MAX (.orpane):  50,143,242 bytes
+  NET BYTES SAVED:       2,820,551 bytes (>2.8205 MB net space savings)
+  WIN RATE:              60 / 60 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
 ```
