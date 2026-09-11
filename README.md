@@ -166,6 +166,52 @@ On heterogeneous data with minimal periodic or tabular structure, established sl
 | LZMA 5.6.3 (-9) | 885,716 B | 3.671:1 | 🟩 **-81,366 B (-9.19%)** |
 | Zstandard 1.5.7 (-l22) | 920,862 B | 3.531:1 | 🟩 **-116,512 B (-12.65%)** |
 
+### 4. Silesia Benchmark Suite (12 streams — 211.94 MB)
+
+| Codec / Engine | Compressed Size | Compression Ratio | 🟩 Orpane Advantage vs Codec |
+| :--- | :---: | :---: | :---: |
+| 🟢 **Orpane (MAX)** | 🟢 **46,276,642 B** | 🟢 **4.580:1** | 🏆 **Champion across all 12 streams** |
+| 7-Zip 26.02 (-mx9) | 48,360,400 B | 4.382:1 | 🟩 **-2,083,758 B (-4.31%)** |
+| LZMA 5.6.3 (-9) | 48,795,480 B | 4.343:1 | 🟩 **-2,518,838 B (-5.16%)** |
+| Zstandard 1.5.7 (-l19) | 52,891,946 B | 4.007:1 | 🟩 **-6,615,304 B (-12.51%)** |
+| Bzip2 (-9) | 54,506,769 B | 3.888:1 | 🟩 **-8,230,127 B (-15.10%)** |
+| Gzip (-9) | 67,575,953 B | 3.136:1 | 🟩 **-21,299,311 B (-31.52%)** |
+
+### 5. Quick-Reference Terminal Totals (`$ wc -c * | sort -nr`)
+
+```text
+# Silesia Corpus (211.94 MB)
+$ wc -c silesia.* | sort -nr
+ 211938580 silesia.raw
+  67575953 silesia.tar.gz    (gzip -9)
+  54506769 silesia.tar.bz2   (bzip2 -9)
+  52891946 silesia.tar.zst   (zstd -19)
+  48795480 silesia.tar.xz    (lzma -9)
+  48360400 silesia.tar.7z    (7-Zip -mx9)
+  46276642 silesia.tar.orp   (Orpane MAX)
+
+# Calgary Corpus (3.25 MB)
+$ wc -c calgary.* | sort -nr
+   3251493 calgary.raw
+   1061884 calgary.tar.gz    (gzip -9)
+    920862 calgary.tar.zst   (zstd -22)
+    885716 calgary.tar.xz    (lzma -9)
+    884474 calgary.tar.7z    (7-Zip -mx9)
+    866501 calgary.tar.bz2   (bzip2 -9)
+    856672 calgary.tar.br    (brotli -q11)
+    804350 calgary.tar.orp   (Orpane MAX)
+
+# Canterbury Corpus (2.81 MB)
+$ wc -c canterbury.* | sort -nr
+   2810784 canterbury.raw
+    729023 canterbury.tar.gz (gzip -9)
+    542710 canterbury.tar.bz2(bzip2 -9)
+    516237 canterbury.tar.zst(zstd -22)
+    493169 canterbury.tar.7z (7-Zip -mx9)
+    492276 canterbury.tar.xz (lzma -9)
+    412477 canterbury.tar.orp(Orpane MAX)
+```
+
 ---
 
 ## 📈 Large-File Streaming & Bounded-Memory Scaling (Campaign E)
