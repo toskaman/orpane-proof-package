@@ -523,3 +523,12 @@ bin/orpane-dec -b 2_compressed_files/alice29.txt.orpane -n 100
 # 4. Inspect container framing and metadata headers
 bin/orpane-dec -l 2_compressed_files/alice29.txt.orpane
 ```
+
+---
+
+## 🙏 Community Acknowledgments & Special Thanks
+
+A heartfelt thank you to the data compression experts and community members at **[encode.su](https://encode.su/threads/4549-ANN-Orpane-Experimental-asymmetric-lossless-compressor-in-Rust-(benchmarks-vs-7-Zi)** (thread `#4549: [ANN] Orpane: Experimental asymmetric lossless compressor in Rust (benchmarks vs 7-Zip)`) for their rigorous testing, technical feedback, and invaluable insights.
+
+In particular, the recommendation to systematically test against the full spectrum of industry reference standards — **Gzip (-9)**, **Bzip2 (-9)**, **Zstandard (-19/-22)**, and **LZMA (-9)** alongside **7-Zip (-mx9)** — has greatly enriched our empirical evaluation methodology and helped clarify Orpane's operational trade-offs across different data profiles.
+
