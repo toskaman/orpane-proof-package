@@ -20,6 +20,7 @@ const MAGIC_STANDARD: &[u8; 8] = b"ARCDISC1";
 const MAGIC_NANO: &[u8; 4] = b"AN1\x00";
 const MAGIC_SLIM: &[u8; 4] = b"AS3\x00";
 const MAGIC_MICRO: &[u8; 4] = b"AM4\x00";
+const MAGIC_OPAQUE: &[u8; 4] = b"OP5\x00";
 
 #[derive(Deserialize, Debug, Default)]
 struct ArchiveMeta {
@@ -50,8 +51,34 @@ struct UnpackedArchive<'a> {
     intermediate_size: usize,
     coder: String,
     transforms: Vec<TransformDesc>,
-    payload: &'a [u8],
+    payload: std::borrow::Cow<'a, [u8]>,
     expected_blake3: Option<[u8; 32]>,
+}
+
+#[inline]
+fn splitmix64(state: &mut u64) -> u64 {
+    *state = state.wrapping_add(0x9E3779B97F4A7C15);
+    let mut z = *state;
+    z = (z ^ (z >> 30)).wrapping_mul(0xBF58476D1CE4E5B9);
+    z = (z ^ (z >> 27)).wrapping_mul(0x94D049BB133111EB);
+    z ^ (z >> 31)
+}
+
+fn whiten_stream(data: &mut [u8], mut seed: u64) {
+    if seed == 0 {
+        seed = 0x517CC1B727220A95;
+    }
+    let mut i = 0;
+    let n = data.len();
+    while i < n {
+        let mask = splitmix64(&mut seed);
+        let mask_bytes = mask.to_le_bytes();
+        let chunk = (n - i).min(8);
+        for j in 0..chunk {
+            data[i + j] ^= mask_bytes[j];
+        }
+        i += 8;
+    }
 }
 
 fn decode_leb128(buf: &[u8], mut pos: usize) -> Result<(u64, usize), String> {
@@ -88,6 +115,90 @@ fn read_leb_chunk<'a>(buf: &'a [u8], pos: usize) -> Result<(&'a [u8], usize), St
 fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
     if data.len() < 8 {
         return Err("Archive too small: truncated container header".into());
+    }
+
+    // 0. Opaque Profile V5 (MAGIC: OP5\0 - Masked Binary Container)
+    if data.starts_with(MAGIC_OPAQUE) {
+        if data.len() < 16 {
+            return Err("Truncated opaque archive header".into());
+        }
+        let version = data[4];
+        if version != 5 {
+            return Err(format!("Unsupported opaque profile version: {}", version));
+        }
+        let flags = data[5];
+        let coder_id = flags & 0x0F;
+        let (orig_sz, mut off) = decode_leb128(data, 6)?;
+        if off + 8 > data.len() {
+            return Err("Truncated header: missing XXH3-64 checksum".into());
+        }
+        let xxh_stored = &data[off..off + 8];
+        off += 8;
+
+        let seed = u64::from_le_bytes(xxh_stored.try_into().unwrap());
+        let mut unmasked = data[off..].to_vec();
+        whiten_stream(&mut unmasked, seed);
+
+        let computed_xxh = XxHash3_64::oneshot(&unmasked).to_be_bytes();
+        if computed_xxh != xxh_stored {
+            return Err("XXH3-64 integrity check failed (corrupted opaque archive)".into());
+        }
+
+        let mut chunk_off = 0;
+        let (meta_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let (trans_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let (_dict_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let (_model_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let (_inst_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let (payload_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+
+        if chunk_off != unmasked.len() {
+            return Err("Trailing garbage inside unmasked payload".into());
+        }
+
+        let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
+        let fallback_coder = match coder_id {
+            0 => "store",
+            1 => "lzma",
+            2 => "brotli",
+            3 => "bz2",
+            4 => "zstd",
+            5 => "lz4",
+            8 => "orpane_lz",
+            9 => "orpane_cm",
+            _ => "lzma",
+        }.to_string();
+        let coder = meta.c.or(meta.entropy_coder).unwrap_or(fallback_coder);
+        let intermediate_len = meta.l.or(meta.intermediate_len).unwrap_or(orig_sz as usize);
+
+        let expected_blake3 = meta.h.or(meta.blake3).and_then(|h_hex| {
+            if h_hex.len() == 64 {
+                let mut b = [0u8; 32];
+                if hex::decode_to_slice(&h_hex, &mut b).is_ok() {
+                    Some(b)
+                } else {
+                    None
+                }
+            } else {
+                None
+            }
+        });
+
+        let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
+            serde_json::from_slice(trans_bytes).unwrap_or_default()
+        } else {
+            Vec::new()
+        };
+
+        return Ok(UnpackedArchive {
+            profile: "OPAQUE (v5)",
+            original_size: orig_sz as usize,
+            intermediate_size: intermediate_len,
+            coder,
+            transforms,
+            payload: std::borrow::Cow::Owned(payload_bytes.to_vec()),
+            expected_blake3,
+        });
     }
 
     // 1. Slim Profile V3 (MAGIC: AS3\0)
@@ -151,7 +262,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             intermediate_size: intermediate_len,
             coder,
             transforms,
-            payload: payload_bytes,
+            payload: std::borrow::Cow::Borrowed(payload_bytes),
             expected_blake3,
         });
     }
@@ -189,7 +300,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             intermediate_size: intermediate_len,
             coder,
             transforms,
-            payload: payload_bytes,
+            payload: std::borrow::Cow::Borrowed(payload_bytes),
             expected_blake3: Some(blake_hash),
         });
     }
@@ -267,7 +378,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             intermediate_size: intermediate_len,
             coder: coder_name,
             transforms,
-            payload,
+            payload: std::borrow::Cow::Borrowed(payload),
             expected_blake3,
         });
     }
@@ -317,7 +428,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             intermediate_size: intermediate_len,
             coder,
             transforms,
-            payload: payload_bytes,
+            payload: std::borrow::Cow::Borrowed(payload_bytes),
             expected_blake3: Some(blake_hash),
         });
     }
@@ -762,7 +873,7 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
         return Err("Security: Declared stream size exceeds maximum safety limit (16 GB)".into());
     }
 
-    let mut stream = entropy_stage_decode(&unpacked.coder, unpacked.payload, unpacked.intermediate_size)?;
+    let mut stream = entropy_stage_decode(&unpacked.coder, &unpacked.payload, unpacked.intermediate_size)?;
 
     for t in unpacked.transforms.iter().rev() {
         match t.name.as_str() {
