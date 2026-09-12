@@ -86,13 +86,15 @@ Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mah
 | **Orpane (FAST)** | 295,498,621 B | 29.55% | 70.45% | **92.64s** | **10.29 MB/s** *(2.48x faster)* | 8.70s | 109.67 MB/s | **188.5 MB/s** | 3,660 MB | 🟢 100% Bit-Exact |
 | **Orpane (ULTRA)** | 295,498,621 B | 29.55% | 70.45% | **88.97s** | **10.72 MB/s** *(2.58x faster)* | 8.43s | 113.10 MB/s | **🟢 189.4 MB/s** | 3,660 MB | 🟢 100% Bit-Exact |
 
+> *Comparative Reference: Would be nice to see nanozip -cO -m2048m numbers.*
+
 ---
 
 ## 💻 Terminal Verification: Standard Corpora (`$ wc -c * | sort -nr`)
 
 Clean, empirical output across standard reference corpora comparing against industry reference codecs:
 
-> **Note on Methodology**: All reference compressors are evaluated at their maximal compression presets (`gzip -9`, `bzip2 -9`, `zstd -19/-22`, `7-Zip -mx9`, `Orpane MAX`). 7-Zip (`.7z`) and XZ (`.xz`) implement the identical underlying LZMA/LZMA2 algorithm; `-mf-` is enforced on 7-Zip to prevent automatic filter divergence.
+> **Note on Methodology**: All reference compressors are evaluated at their maximal compression presets (`gzip -9`, `bzip2 -9`, `zstd -19/-22`, `7-Zip -mx9`, `Orpane MAX`). 7-Zip (`.7z`) and XZ (`.xz`) implement the identical underlying LZMA/LZMA2 algorithm; `-mf-` is enforced on 7-Zip to prevent automatic filter divergence. Would be nice to see nanozip -cO -m2048m numbers.
 
 ```bash
 # Silesia Corpus (211.94 MB)
