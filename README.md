@@ -70,10 +70,10 @@ To evaluate Orpane across its entire operational envelope rather than an isolate
 ## 🚀 Version Progress & Milestone Diff (v2.3.0 ➔ v2.3.1)
 
 ```diff
-+ 16 MB Proxy Window:       1,438,393 B ➔ 1,338,992 B (-99,401 B, -6.91% size reduction, 0.6384 bpc, 329.1 MB/s)
++ 16 MB Proxy Window:       1,338,992 B ➔ 1,320,885 B (-18,107 B, -1.35% size reduction, 0.6298 bpc, 109.4 MB/s)
 + 32 MB Proxy Window:       2,940,353 B ➔ 2,878,554 B (-61,799 B, -2.10% size reduction, 0.6863 bpc, 91.9 MB/s)
 + 64 MB Proxy Window:       6,417,176 B ➔ 6,343,223 B (-73,953 B, -1.15% size reduction, 0.7562 bpc, 85.1 MB/s)
-+ Cumulative Slice Gains:   -235,153 bytes net reduction across evaluation slices cycle-over-cycle
++ Cumulative Slice Gains:   -253,260 bytes net reduction across evaluation slices
 + Distributed Satellite:   Autonomous exploration on PC2 (Intel Core i5-12600H, 16 threads)
 + Benchmarking Rigor:       Partitioned into distinct algorithmic families (Dictionary vs Context/BWT)
 + RAM Footprint Column:     Explicit Peak RAM (MB) documented for all reference codecs and presets
@@ -126,7 +126,7 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 
 | Evaluation Window | Raw Input Size | Baseline Compressed | Orpane Record | Compression Ratio | Bit Density (bpc) | Decode Speed | Net Gain vs Baseline | Integrity |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,338,992 B** | **12.5297x** | **0.6384 bpc** | 329.08 MB/s | 🟩 **-247,757 B (-15.61%)** | 🟢 100% Bit-Exact |
+| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,320,885 B** | **12.7015x** | **0.6298 bpc** | 109.40 MB/s | 🟩 **-265,864 B (-16.76%)** | 🟢 100% Bit-Exact |
 | **32 MB Slice** | 33,554,432 B | 8,629,088 B | 🟢 **2,878,554 B** | **11.6567x** | **0.6863 bpc** | 91.88 MB/s | 🟩 **-5,750,534 B (-66.64%)** | 🟢 100% Bit-Exact |
 | **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,343,223 B** | **10.5796x** | **0.7562 bpc** | 85.11 MB/s | 🟩 **-99,870 B (-1.55%)** | 🟢 100% Bit-Exact |
 
