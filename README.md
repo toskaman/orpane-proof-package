@@ -6,7 +6,7 @@
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.8212%20MB%20vs%207z-brightgreen.svg)](#)
 [![Version](https://img.shields.io/badge/release-v2.3.1-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--12%2018%3A00%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--12%2019%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane** across multiple operating presets (FAST, BALANCED, MAX) directly against standard industry reference codecs: **7-Zip 26.02 / LZMA2 (-mx9)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.  

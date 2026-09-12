@@ -1,6 +1,6 @@
 //! Orpane Standalone Decompressor & Cryptographic Verifier (orpane-dec)
 //! Independent, high-assurance bit-exact decompressor.
-//! Strictly pure decompression verification pipeline.
+//! Pure container-format verification and stream reconstruction pipeline.
 use std::fs;
 use std::io::{self, Write};
 use std::path::PathBuf;

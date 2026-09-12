@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-12 18:00:00 UTC+2 (September 12, 2026)  
+> 🕒 **Last Updated**: 2026-09-12 19:55:00 UTC+2 (September 12, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 1.0.8 (-9), Gzip (-9), NanoZip 0.08a (-cO -m2048m)  
