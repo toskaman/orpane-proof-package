@@ -41,7 +41,7 @@ Comparative evaluation across all standard reference codecs on identical corpora
 
 ## 🚀 Version Progress & Milestone Diff (v2.2.0 ➔ v2.3.0)
 
-`diff
+```diff
 + Evaluation Scope Expanded:     58 streams ➔ 60 streams (+2 frontier modalities, +3.45% coverage)
 + Net Space Saved vs 7-Zip:      2,771,976 B ➔ 2,821,278 B (+49,302 B net gain, +1.78% space saved)
 + Structured Holdouts Savings:   116,986 B ➔ 166,288 B (+49,302 B, +42.14% holdout gain)
@@ -49,7 +49,7 @@ Comparative evaluation across all standard reference codecs on identical corpora
 + Undefeated Win Rate:           58/58 (100%) ➔ 60/60 (100% clean sweep across all suites)
 + Frontier Modalities Qualified: Arrow Columnar (-20.4%), Seismic F32 (-13.3%), SQLite WAL (-14.5%)
 + Hardware Cluster Architecture: PC1 (Ryzen 7 5700X) + PC2 (Core i5-12600H) distributed exploration
-`
+```
 
 ---
 
@@ -59,7 +59,7 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 ### 📊 enwik8 (100,000,000 bytes - 95.37 MB)
 
-* **Dataset**: corpus/enwik8 (SHA-256: 2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8)
+* **Dataset**: `corpus/enwik8` (SHA-256: `2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8`)
 
 | Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Peak RAM | Integrity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -76,7 +76,7 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 ### 📊 enwik9 (1,000,000,000 bytes - 953.67 MB / 1 GB Hutter Prize)
 
-* **Dataset**: corpus/enwik9 (SHA-256: 159B85351E5F76E60CBE32E04C677847A9ECBA3ADC79ADDAB6F4C6C7AA3744BC)
+* **Dataset**: `corpus/enwik9` (SHA-256: `159B85351E5F76E60CBE32E04C677847A9ECBA3ADC79ADDAB6F4C6C7AA3744BC`)
 
 | Compressor / Mode | Compressed Size | Ratio | Space Savings | Comp Time (s) | Encode Speed | Dec Time (s) | Decode Speed | Peak RAM | Integrity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -97,7 +97,7 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 | **32 MB Slice** | 33,554,432 B | 8,629,088 B | 🟢 **2,940,353 B** | **11.4117x** | **0.7010 bpc** | 100.68 MB/s | 🟩 **-5,688,735 B (-65.92%)** | 🟢 100% Bit-Exact |
 | **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,417,176 B** | **10.4577x** | **0.7650 bpc** | 92.99 MB/s | 🟩 **-25,917 B (-0.40%)** | 🟢 100% Bit-Exact |
 
-> **Density Benchmark Context**: All 3 evaluation slices exceed the current LTCB World Record density threshold (**0.7760 bpc** / x2-cmix-transformer), outperforming standard codecs (Gzip-9 ~3.1 bpc, Bzip2-9 ~2.4 bpc, Zstd-22 ~2.3 bpc, 7-Zip -mx9 ~1.718 bpc, NanoZip ~1.233 bpc). All slices verified 100% bit-exact byte-for-byte.
+> **Density Benchmark Context**: All 3 evaluation slices exceed the current LTCB World Record density threshold (**0.7760 bpc** / `fx2-cmix-transformer`), outperforming standard codecs (Gzip-9 ~3.1 bpc, Bzip2-9 ~2.4 bpc, Zstd-22 ~2.3 bpc, 7-Zip -mx9 ~1.718 bpc, NanoZip ~1.233 bpc). All slices verified 100% bit-exact byte-for-byte.
 
 ---
 
@@ -149,16 +149,16 @@ Orpane achieves its largest empirical compression gains on **structured, scienti
 
 | # | Benchmark Stream | Data Domain | 7-Zip Size | Orpane Size | 🟩 Net Savings vs 7z | ⚡ Decode Speed |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: |
-| 🥇 | unseen_protein.fasta | Protein sequences | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 54.0 MB/s |
-| 🥈 | unseen_archive.tar | Sparse archive | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.6%)** | 260.2 MB/s |
-| 🥉 | kennedy.xls | Structured spreadsheet | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.2%)** | 187.2 MB/s |
-| 4 | unseen_sensor_floats.raw | Floating-point telemetry | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 52.8 MB/s |
-| 5 | stro_sensor_telemetry | Sensor array telemetry | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 37.2 MB/s |
-| 6 | sealed_utf8_multilingual.bin | Multilingual text stream | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.6%)** | 4,510 MB/s |
-| 7 | sealed_financial_ticks.bin | High-frequency finance | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.4%)** | 11.6 MB/s |
-| 8 | source_code_kernel | Operating system C kernel | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.4%)** | 97.1 MB/s |
-| 9 | xargs.1 | Formatted man page | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B (-22.5%)** | 4.0 MB/s |
-| 10 | sealed_parquet_columns.bin | Parquet columnar records | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.7%)** | 10.1 MB/s |
+| 🥇 | `unseen_protein.fasta` | Protein sequences | 2,208 B | 🟢 **805 B** | 🟩 **-1,403 B (-63.5%)** | 54.0 MB/s |
+| 🥈 | `unseen_archive.tar` | Sparse archive | 417 B | 🟢 **181 B** | 🟩 **-236 B (-56.6%)** | 260.2 MB/s |
+| 🥉 | `kennedy.xls` | Structured spreadsheet | 51,128 B | 🟢 **23,912 B** | 🟩 **-27,216 B (-53.2%)** | 187.2 MB/s |
+| 4 | `unseen_sensor_floats.raw` | Floating-point telemetry | 322,282 B | 🟢 **162,348 B** | 🟩 **-159,934 B (-49.6%)** | 52.8 MB/s |
+| 5 | `astro_sensor_telemetry` | Sensor array telemetry | 309,643 B | 🟢 **188,700 B** | 🟩 **-120,943 B (-39.1%)** | 37.2 MB/s |
+| 6 | `sealed_utf8_multilingual.bin` | Multilingual text stream | 5,804 B | 🟢 **3,622 B** | 🟩 **-2,182 B (-37.6%)** | 4,510 MB/s |
+| 7 | `sealed_financial_ticks.bin` | High-frequency finance | 131,836 B | 🟢 **91,801 B** | 🟩 **-40,035 B (-30.4%)** | 11.6 MB/s |
+| 8 | `source_code_kernel` | Operating system C kernel | 7,873 B | 🟢 **5,870 B** | 🟩 **-2,003 B (-25.4%)** | 97.1 MB/s |
+| 9 | `xargs.1` | Formatted man page | 1,878 B | 🟢 **1,456 B** | 🟩 **-422 B (-22.5%)** | 4.0 MB/s |
+| 10 | `sealed_parquet_columns.bin` | Parquet columnar records | 254,984 B | 🟢 **199,614 B** | 🟩 **-55,370 B (-21.7%)** | 10.1 MB/s |
 
 ### 🔬 Multi-Standard Reference Benchmark on Frontier Modalities
 
@@ -166,9 +166,9 @@ Head-to-head empirical evaluation across five industry reference standards on fr
 
 | Modality / Benchmark Stream | Raw Size | Gzip (-9) | Bzip2 (-9) | Zstd (-22) | Brotli (-11) | 7-Zip (-mx9) | Orpane (MAX) | 🟩 Net vs Best Ref | Verification |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| sealed_arrow_mixed_batch.bin (Arrow Batch) | 460,000 B | 299,791 B | 305,955 B | 278,638 B | 257,503 B | 262,240 B | 🟢 **204,899 B** | 🟩 **-52,604 B (-20.43%)** | 🟢 100% Bit-Exact |
-| sealed_sensor_tensor_f32.bin (3D Seismic F32) | 524,288 B | 443,544 B | 436,900 B | 441,282 B | 405,187 B | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 🟢 100% Bit-Exact |
-| sealed_sqlite_wal_pages.bin (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 🟢 100% Bit-Exact |
+| `sealed_arrow_mixed_batch.bin` (Arrow Batch) | 460,000 B | 299,791 B | 305,955 B | 278,638 B | 257,503 B | 262,240 B | 🟢 **204,899 B** | 🟩 **-52,604 B (-20.43%)** | 🟢 100% Bit-Exact |
+| `sealed_sensor_tensor_f32.bin` (3D Seismic F32) | 524,288 B | 443,544 B | 436,900 B | 441,282 B | 405,187 B | 349,132 B | 🟢 **302,805 B** | 🟩 **-46,327 B (-13.27%)** | 🟢 100% Bit-Exact |
+| `sealed_sqlite_wal_pages.bin` (SQLite WAL Frames) | 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 🟢 100% Bit-Exact |
 
 ---
 
@@ -180,13 +180,13 @@ To maintain full empirical transparency, here is where Orpane operates with tigh
    Orpane prioritizes maximal compression density, spending compute cycles to optimize bitstream representation. Compressing the full 228.5 MB suite takes **125.5s** for Orpane vs **79.1s** for 7-Zip mx9 (~1.58x encode time trade-off).
 
 2. **Large Heterogeneous Tarballs**:
-   On mixed, high-entropy tarballs with minimal periodic structure (e.g. mozilla at 51.2 MB, samba at 21.6 MB), standard sliding-window matchers are already well-optimized. Orpane wins every stream, but margins are tighter (-0.09% on mozilla, -0.21% on samba).
+   On mixed, high-entropy tarballs with minimal periodic structure (e.g. `mozilla` at 51.2 MB, `samba` at 21.6 MB), standard sliding-window matchers are already well-optimized. Orpane wins every stream, but margins are tighter (-0.09% on mozilla, -0.21% on samba).
 
 ---
 
 ## 🏆 Cumulative Grand Total (60 Streams Audit - 228.53 MB)
 
-`
+```text
 ================================================================================
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
@@ -196,15 +196,13 @@ GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   WIN RATE:              60 / 60 files won (100.0% clean sweep vs 7-Zip)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
-`
+```
 
 ---
 
 ## 🔬 Standalone Native Verifier (orpane-dec)
 
-All measurements and archives can be independently verified on any system with the standalone decompressor (in/orpane-dec.exe):
-
-`ash
+```bash
 # 1. Test archive integrity against stored cryptographic checksums
 bin/orpane-dec -t 2_compressed_files/alice29.txt.orpane
 
@@ -216,7 +214,7 @@ bin/orpane-dec -b 2_compressed_files/alice29.txt.orpane -n 100
 
 # 4. Inspect container framing and metadata headers
 bin/orpane-dec -l 2_compressed_files/alice29.txt.orpane
-`
+```
 
 ---
 
