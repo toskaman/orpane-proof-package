@@ -45,6 +45,8 @@
 | **LZMA 5.6.3 (-9 / XZ)** | Standard Corpora Subtotal | 50,173,472 B | **47,493,469 B** | 🟩 **-2,680,003 B** | 🟢 **-5.34% space** *(Orpane wins)* |
 | **7-Zip 26.02 (-mx9)** | **Grand Total (All 60 Streams)**| **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B** | 🟢 **-5.33% space** *(60/60 clean sweep)* |
 
+> *Note: Reference codecs evaluated on max presets (Gzip -9, Bzip2 -9, Zstd -22, Brotli -11, 7-Zip -mx9, Orpane MAX). Would be nice to see nanozip -cO -m2048m numbers.*
+
 ### 📈 Version-over-Version Metric Comparison (v2.2.0 ➔ v2.3.0)
 
 | Evaluated Metric | Previous Milestone (v2.2.0) | Current Milestone (v2.3.0) | 🟩 Absolute Delta | 🟢 Relative Gain (%) |
@@ -96,7 +98,7 @@ Authentic English Wikipedia text datasets from the **Hutter Prize** and Matt Mah
 
 Clean, empirical output across standard reference corpora comparing against industry reference codecs:
 
-> **Note on Methodology**: All reference compressors are evaluated at their maximal compression presets (`gzip -9`, `bzip2 -9`, `zstd -19/-22`, `7-Zip -mx9`, `Orpane MAX`). 7-Zip (`.7z`) and XZ (`.xz`) implement the identical underlying LZMA/LZMA2 algorithm; `-mf-` is enforced on 7-Zip to prevent automatic filter divergence.
+> **Note on Methodology**: All reference compressors are evaluated at their maximal compression presets (`gzip -9`, `bzip2 -9`, `zstd -19/-22`, `7-Zip -mx9`, `Orpane MAX`). 7-Zip (`.7z`) and XZ (`.xz`) implement the identical underlying LZMA/LZMA2 algorithm; `-mf-` is enforced on 7-Zip to prevent automatic filter divergence. Would be nice to see nanozip -cO -m2048m numbers.
 
 ```bash
 # Silesia Corpus (211.94 MB)
