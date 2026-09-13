@@ -6,7 +6,7 @@
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.8212%20MB%20vs%207z-brightgreen.svg)](#)
 [![Version](https://img.shields.io/badge/release-v2.3.1-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--12%2019%3A55%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--13%2023%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane** across multiple operating presets (FAST, BALANCED, MAX) directly against standard industry reference codecs: **7-Zip 26.02 / LZMA2 (-mx9)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.  
@@ -71,7 +71,7 @@ To evaluate Orpane across its entire operational envelope rather than an isolate
 
 ```diff
 + 16 MB Proxy Window:       1,338,992 B ➔ 1,320,885 B (-18,107 B, -1.35% size reduction, 0.6298 bpc, 109.4 MB/s)
-+ 32 MB Proxy Window:       2,940,353 B ➔ 2,878,554 B (-61,799 B, -2.10% size reduction, 0.6863 bpc, 91.9 MB/s)
++ 32 MB Proxy Window:       2,878,554 B ➔ 2,790,790 B (-87,764 B, -3.05% size reduction, 0.6654 bpc, 100.01 MB/s)
 + 64 MB Proxy Window:       6,417,176 B ➔ 6,343,223 B (-73,953 B, -1.15% size reduction, 0.7562 bpc, 85.1 MB/s)
 + Cumulative Slice Gains:   -253,260 bytes net reduction across evaluation slices
 + Distributed Satellite:   Autonomous exploration on PC2 (Intel Core i5-12600H, 16 threads)
@@ -127,7 +127,7 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 | Evaluation Window | Raw Input Size | Baseline Compressed | Orpane Record | Compression Ratio | Bit Density (bpc) | Decode Speed | Net Gain vs Baseline | Integrity |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,320,885 B** | **12.7015x** | **0.6298 bpc** | 109.40 MB/s | 🟩 **-265,864 B (-16.76%)** | 🟢 100% Bit-Exact |
-| **32 MB Slice** | 33,554,432 B | 8,629,088 B | 🟢 **2,878,554 B** | **11.6567x** | **0.6863 bpc** | 91.88 MB/s | 🟩 **-5,750,534 B (-66.64%)** | 🟢 100% Bit-Exact |
+| **32 MB Slice** | 33,554,432 B | 8,662,985 B | 🟢 **2,790,790 B** | **12.0233x** | **0.6654 bpc** | 100.01 MB/s | 🟩 **-5,872,195 B (-67.78%)** | 🟢 100% Bit-Exact |
 | **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,343,223 B** | **10.5796x** | **0.7562 bpc** | 85.11 MB/s | 🟩 **-99,870 B (-1.55%)** | 🟢 100% Bit-Exact |
 
 > **Density Context**: All three calibrated proxy windows exceed the LTCB target density threshold (**0.7760 bpc**), demonstrating high local density across Wikipedia XML text segments. All archives verified 100% bit-exact byte-for-byte.
