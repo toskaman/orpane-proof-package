@@ -5,8 +5,8 @@
 [![Evaluated Streams](https://img.shields.io/badge/evaluated%20streams-60%20%2F%2060%20%28100%25%29-success.svg)](#)
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.8212%20MB%20vs%207z-brightgreen.svg)](#)
-[![Version](https://img.shields.io/badge/release-v2.3.1-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--13%2023%3A15%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Version](https://img.shields.io/badge/release-v2.3.2-blue.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--14%2013%3A25%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane** across multiple operating presets (FAST, BALANCED, MAX) directly against standard industry reference codecs: **7-Zip 26.02 / LZMA2 (-mx9)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.  
@@ -67,16 +67,16 @@ To evaluate Orpane across its entire operational envelope rather than an isolate
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (v2.3.0 ➔ v2.3.1)
+## 🚀 Version Progress & Milestone Diff (v2.3.1 ➔ v2.3.2)
 
 ```diff
-+ 16 MB Proxy Window:       1,338,992 B ➔ 1,320,885 B (-18,107 B, -1.35% size reduction, 0.6298 bpc, 109.4 MB/s)
-+ 32 MB Proxy Window:       2,878,554 B ➔ 2,790,790 B (-87,764 B, -3.05% size reduction, 0.6654 bpc, 100.01 MB/s)
-+ 64 MB Proxy Window:       6,417,176 B ➔ 6,343,223 B (-73,953 B, -1.15% size reduction, 0.7562 bpc, 85.1 MB/s)
-+ Cumulative Slice Gains:   -253,260 bytes net reduction across evaluation slices
-+ Distributed Satellite:   Autonomous exploration on PC2 (Intel Core i5-12600H, 16 threads)
-+ Benchmarking Rigor:       Partitioned into distinct algorithmic families (Dictionary vs Context/BWT)
-+ RAM Footprint Column:     Explicit Peak RAM (MB) documented for all reference codecs and presets
++ 16 MB Proxy Window:       1,320,885 B ➔ 1,299,856 B (-21,029 B, -1.59% gain, 0.6198 bpc, 112.5 MB/s)
++ Sub-1.30 MB Milestone:    First historical breach of the 1.30 MB threshold on 16 MB LTCB window
++ Systematic Benchmark:     Full re-evaluation on 47 reference files (Calgary, Canterbury, Silesia, Sealed V3)
++ 40 Champions Promoted:    40 new historical records beaten across Calgary, Canterbury, Silesia, Sealed V3
++ Net Space Saved vs 7z:    -2,706,535 bytes saved on 47 benchmark files (-5.30% average size reduction)
++ Modern Fused Kernels:     Integrated float32 split-stream fused encoder/decoder and zero-copy transpose
++ Distributed Cluster PC2:  Active 16-thread continuous exploration node synchronized with Master (PC1)
 + Invariant Verification:   100% bit-exact reversible byte-for-byte across all suites (BLAKE3)
 ```
 
@@ -126,7 +126,7 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 
 | Evaluation Window | Raw Input Size | Baseline Compressed | Orpane Record | Compression Ratio | Bit Density (bpc) | Decode Speed | Net Gain vs Baseline | Integrity |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,320,885 B** | **12.7015x** | **0.6298 bpc** | 109.40 MB/s | 🟩 **-265,864 B (-16.76%)** | 🟢 100% Bit-Exact |
+| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,299,856 B** | **12.9070x** | **0.6198 bpc** | 112.50 MB/s | 🟩 **-286,893 B (-18.08%)** | 🟢 100% Bit-Exact |
 | **32 MB Slice** | 33,554,432 B | 8,662,985 B | 🟢 **2,790,790 B** | **12.0233x** | **0.6654 bpc** | 100.01 MB/s | 🟩 **-5,872,195 B (-67.78%)** | 🟢 100% Bit-Exact |
 | **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,343,223 B** | **10.5796x** | **0.7562 bpc** | 85.11 MB/s | 🟩 **-99,870 B (-1.55%)** | 🟢 100% Bit-Exact |
 

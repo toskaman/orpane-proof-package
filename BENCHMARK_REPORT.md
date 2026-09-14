@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-13 23:15:00 UTC+2 (September 13, 2026)  
+> 🕒 **Last Updated**: 2026-09-14 13:25:00 UTC+2 (September 14, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 1.0.8 (-9), Gzip (-9), NanoZip 0.08a (-cO -m2048m)  
@@ -9,14 +9,14 @@
 ---
 
 ```diff
-+ 32 MB LTCB Slice Champion:      2,878,554 B ➔ 2,790,790 B (-87,764 B, -3.05% gain, 0.6654 bpc, 100.01 MB/s)
-+ Multi-Standards Comparison:     Crushes Gzip (-9) by -77.3%, Bzip2 (-9) by -71.3%, 7z/LZMA2 by -67.8% on 32MB
-+ Benchmarking Rigor:             Partitioned into distinct algorithmic families (Dictionary vs Context/BWT)
-+ RAM Footprint Transparency:     Explicit Peak RAM (MB) column included for all codecs and presets
-+ Multi-Tier Pareto Envelope:     Systematic reporting across ULTRA, FAST, BALANCED, and MAX modes
-+ Net Space Saved vs 7-Zip mx9:   2,821,278 B saved across 228.53 MB (-5.33% average size reduction)
-+ Memory Efficiency on enwik8:    Orpane MAX uses 260.6 MB RAM (vs 683.8 MB for 7-Zip, vs 2048 MB for NanoZip)
-+ Verified Invariants:            100% bit-exact reversible byte-for-byte across all suites (BLAKE3)
++ 16 MB LTCB Slice Champion:      1,320,885 B ➔ 1,299,856 B (-21,029 B, -1.59% gain, 0.6198 bpc, 112.50 MB/s)
++ Sub-1.30 MB Milestone:         First historical breach of the 1.30 MB mark on 16 MB LTCB window
++ Systematic Benchmark:          Full re-evaluation on 47 reference files (Calgary, Canterbury, Silesia, Sealed V3)
++ 40 Champions Promoted:         40 new historical records beaten across Calgary, Canterbury, Silesia, Sealed V3
++ Net Space Saved vs 7z:         -2,706,535 bytes saved on 47 benchmark files (-5.30% average size reduction)
++ Modern Fused Kernels:          Integrated float32 split-stream fused encoder/decoder and zero-copy transpose
++ Distributed Cluster PC2:       Active 16-thread continuous exploration node synchronized with Master (PC1)
++ Verified Invariants:           100% bit-exact reversible byte-for-byte across all suites (BLAKE3)
 ```
 
 ---
@@ -97,9 +97,9 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 | Evaluation Window | Raw Input Size | Baseline Compressed | Orpane Record | Compression Ratio | Bit Density (bpc) | Decode Speed | Net Gain vs Baseline | Integrity |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,438,393 B** | **11.6639x** | **0.6859 bpc** | 94.25 MB/s | 🟩 **-148,356 B (-9.35%)** | 🟢 100% Bit-Exact |
+| **16 MB Slice** | 16,777,216 B | 1,586,749 B | 🟢 **1,299,856 B** | **12.9070x** | **0.6198 bpc** | 112.50 MB/s | 🟩 **-286,893 B (-18.08%)** | 🟢 100% Bit-Exact |
 | **32 MB Slice** | 33,554,432 B | 8,662,985 B | 🟢 **2,790,790 B** | **12.0233x** | **0.6654 bpc** | 100.01 MB/s | 🟩 **-5,872,195 B (-67.78%)** | 🟢 100% Bit-Exact |
-| **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,417,176 B** | **10.4577x** | **0.7650 bpc** | 92.99 MB/s | 🟩 **-25,917 B (-0.40%)** | 🟢 100% Bit-Exact |
+| **64 MB Slice** | 67,108,864 B | 6,443,093 B | 🟢 **6,343,223 B** | **10.5796x** | **0.7562 bpc** | 85.11 MB/s | 🟩 **-99,870 B (-1.55%)** | 🟢 100% Bit-Exact |
 
 ---
 
