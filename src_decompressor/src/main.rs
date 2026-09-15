@@ -1,6 +1,7 @@
 //! Orpane Standalone Decompressor & Cryptographic Verifier (orpane-dec)
 //! Independent, high-assurance bit-exact decompressor.
 //! Pure container-format verification and stream reconstruction pipeline.
+mod transform_metadata;
 use std::fs;
 use std::io::{self, Write};
 use std::path::PathBuf;
@@ -185,7 +186,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         });
 
         let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
-            serde_json::from_slice(trans_bytes).unwrap_or_default()
+            transform_metadata::parse(trans_bytes)?
         } else {
             Vec::new()
         };
@@ -228,8 +229,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
 
         // Verify XXH3-64 checksum (Audit Fix I4: full framing chunks or legacy payload)
         let computed_chunks_xxh = XxHash3_64::oneshot(&data[chunks_start..]).to_be_bytes();
-        let computed_payload_xxh = XxHash3_64::oneshot(payload_bytes).to_be_bytes();
-        if computed_chunks_xxh != xxh_stored && computed_payload_xxh != xxh_stored {
+        if computed_chunks_xxh != xxh_stored && XxHash3_64::oneshot(payload_bytes).to_be_bytes() != xxh_stored {
             return Err("XXH3-64 integrity check failed (corrupted slim archive)".into());
         }
 
@@ -251,7 +251,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         });
 
         let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
-            serde_json::from_slice(trans_bytes).unwrap_or_default()
+            transform_metadata::parse(trans_bytes)?
         } else {
             Vec::new()
         };
@@ -289,7 +289,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let intermediate_len = meta.l.or(meta.intermediate_len).unwrap_or(orig_sz as usize);
 
         let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
-            serde_json::from_slice(trans_bytes).unwrap_or_default()
+            transform_metadata::parse(trans_bytes)?
         } else {
             Vec::new()
         };
@@ -341,7 +341,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let mut transforms = Vec::new();
         if has_transforms {
             let (t_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
-            transforms = serde_json::from_slice(t_bytes).unwrap_or_default();
+            transforms = transform_metadata::parse(t_bytes)?;
         }
 
         let mut intermediate_len = orig_sz as usize;
@@ -366,9 +366,8 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
 
         // Audit Fix I2 & I4: Validate XXH32 against full framing or legacy payload
         let computed_framing_xxh = XxHash32::oneshot(0, &data[framing_start..]).to_be_bytes();
-        let computed_payload_xxh = XxHash32::oneshot(0, payload).to_be_bytes();
 
-        if computed_framing_xxh != stored_xxh && computed_payload_xxh != stored_xxh {
+        if computed_framing_xxh != stored_xxh && XxHash32::oneshot(0, payload).to_be_bytes() != stored_xxh {
             return Err("XXH32 integrity check failed (corrupted micro archive)".into());
         }
 
@@ -417,7 +416,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let intermediate_len = meta.l.or(meta.intermediate_len).unwrap_or(orig_sz);
 
         let transforms: Vec<TransformDesc> = if !trans_bytes.is_empty() {
-            serde_json::from_slice(trans_bytes).unwrap_or_default()
+            transform_metadata::parse(trans_bytes)?
         } else {
             Vec::new()
         };
@@ -596,14 +595,13 @@ fn kernel_stage_dict(data: &[u8], dict_entries: &[Vec<u8>], escape_byte: u8) -> 
     Ok(out)
 }
 
-fn kernel_stage_delta(data: &[u8], order: usize, stride: usize) -> Result<Vec<u8>, String> {
+fn kernel_stage_delta(out: &mut [u8], order: usize, stride: usize) -> Result<(), String> {
     if stride == 0 {
         return Err("Delta transform requires positive stride".into());
     }
     if order == 0 || order > 2 {
         return Err(format!("Delta unsupported order: {} (expected 1 or 2)", order));
     }
-    let mut out = data.to_vec();
     let n = out.len();
     for _ in 0..order {
         if n > stride {
@@ -612,21 +610,20 @@ fn kernel_stage_delta(data: &[u8], order: usize, stride: usize) -> Result<Vec<u8
             }
         }
     }
-    Ok(out)
+    Ok(())
 }
 
-fn kernel_stage_xor(data: &[u8], stride: usize) -> Result<Vec<u8>, String> {
+fn kernel_stage_xor(out: &mut [u8], stride: usize) -> Result<(), String> {
     if stride == 0 {
         return Err("XOR transform requires positive stride".into());
     }
-    let mut out = data.to_vec();
     let n = out.len();
     if n > stride {
         for i in stride..n {
             out[i] ^= out[i - stride];
         }
     }
-    Ok(out)
+    Ok(())
 }
 
 fn kernel_stage_bcj(data: &[u8]) -> Vec<u8> {
@@ -899,11 +896,11 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
             "delta" | "stage_3" => {
                 let order = t.params.get("order").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
                 let stride = t.params.get("stride").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
-                stream = kernel_stage_delta(&stream, order, stride)?;
+                kernel_stage_delta(&mut stream, order, stride)?;
             }
             "xor" | "stage_4" => {
                 let stride = t.params.get("stride").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
-                stream = kernel_stage_xor(&stream, stride)?;
+                kernel_stage_xor(&mut stream, stride)?;
             }
             "bcj" | "stage_5" => {
                 stream = kernel_stage_bcj(&stream);

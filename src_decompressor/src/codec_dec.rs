@@ -688,7 +688,7 @@ pub fn decompress_orpane_lz(payload: &[u8], orig_len: usize) -> Result<Vec<u8>, 
             } else {
                 let mut copied = 0;
                 while copied < match_len {
-                    let chunk = (match_len - copied).min(offset);
+                    let chunk = (match_len - copied).min(offset + copied);
                     out.copy_within(match_src..match_src + chunk, out_pos + copied);
                     copied += chunk;
                 }
