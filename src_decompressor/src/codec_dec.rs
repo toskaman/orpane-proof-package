@@ -36,55 +36,52 @@ pub struct Sequence {
 pub struct BitReader<'a> {
     data: &'a [u8],
     pos: usize,
-    cur_byte: u8,
-    bits_left: u8,
+    bit_buf: u64,
+    bits_in_buf: u32,
 }
 
 impl<'a> BitReader<'a> {
+    #[inline(always)]
     pub fn new(data: &'a [u8]) -> Self {
-        Self {
+        let mut reader = Self {
             data,
             pos: 0,
-            cur_byte: 0,
-            bits_left: 0,
+            bit_buf: 0,
+            bits_in_buf: 0,
+        };
+        reader.refill();
+        reader
+    }
+
+    #[inline(always)]
+    fn refill(&mut self) {
+        while self.bits_in_buf <= 56 && self.pos < self.data.len() {
+            self.bit_buf |= (self.data[self.pos] as u64) << self.bits_in_buf;
+            self.pos += 1;
+            self.bits_in_buf += 8;
         }
     }
 
-    pub fn read_bits(&mut self, mut num_bits: usize) -> Result<u32, String> {
+    #[inline(always)]
+    pub fn read_bits(&mut self, num_bits: usize) -> Result<u32, String> {
         if num_bits == 0 {
             return Ok(0);
         }
-        let mut result = 0u32;
-        let mut shift = 0usize;
-
-        while num_bits > 0 {
-            if self.bits_left == 0 {
-                if self.pos >= self.data.len() {
-                    return Err("Unexpected EOF in bit reader".into());
-                }
-                self.cur_byte = self.data[self.pos];
-                self.pos += 1;
-                self.bits_left = 8;
+        if self.bits_in_buf < num_bits as u32 {
+            self.refill();
+            if self.bits_in_buf < num_bits as u32 {
+                return Err("Unexpected EOF in bit reader".into());
             }
-
-            let take = self.bits_left.min(num_bits as u8);
-            let mask = (1u32 << take) - 1;
-            let bits = (self.cur_byte as u32) & mask;
-            if shift < 32 {
-                result |= bits << shift;
-            }
-
-            if take >= 8 {
-                self.cur_byte = 0;
-            } else {
-                self.cur_byte >>= take;
-            }
-            self.bits_left -= take;
-            shift += take as usize;
-            num_bits -= take as usize;
         }
-
-        Ok(result)
+        let mask = if num_bits >= 32 {
+            0xFFFF_FFFFu64
+        } else {
+            (1u64 << num_bits) - 1
+        };
+        let val = (self.bit_buf & mask) as u32;
+        self.bit_buf >>= num_bits;
+        self.bits_in_buf -= num_bits as u32;
+        Ok(val)
     }
 }
 
