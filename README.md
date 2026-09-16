@@ -4,9 +4,9 @@
 [![Baseline](https://img.shields.io/badge/baseline-7--Zip%2026.02%20%28--mx9%29-orange.svg)](#)
 [![Evaluated Streams](https://img.shields.io/badge/evaluated%20streams-60%20%2F%2060%20%28100%25%29-success.svg)](#)
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
-[![Net Savings](https://img.shields.io/badge/saved-2.8212%20MB%20vs%207z-brightgreen.svg)](#)
-[![Version](https://img.shields.io/badge/release-v2.3.2-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--14%2013%3A25%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Net Savings](https://img.shields.io/badge/saved-2.9857%20MB%20vs%207z-brightgreen.svg)](#)
+[![Version](https://img.shields.io/badge/release-v2.3.3-blue.svg)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--16%2012%3A00%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every benchmark compares **Orpane** across multiple operating presets (FAST, BALANCED, MAX) directly against standard industry reference codecs: **7-Zip 26.02 / LZMA2 (-mx9)**, **Brotli 1.2.0 (-11)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.  
@@ -18,8 +18,8 @@
 
 | 📊 Evaluated Streams | 📦 Net Space vs 7z mx9 | ⚡ Decompression Speed | ⏱️ Compression Trade-off | 🔬 Verification Integrity |
 | :---: | :---: | :---: | :---: | :---: |
-| 🟢 **60 / 60 evaluated** | 🟢 **-2,821,278 B (-5.33%)** | 🟢 **1.34x faster global** | 🟡 **1.58x encode trade-off** | 🟢 **0 errors** |
-| Multi-suite evaluation (228.5 MB) | **> 2.8212 MB** net space saved | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | 100% bit-exact (BLAKE3) |
+| 🟢 **60 / 60 evaluated** | 🟢 **-2,985,696 B (-5.64%)** | 🟢 **1.34x faster global** | 🟡 **1.58x encode trade-off** | 🟢 **0 errors** |
+| Multi-suite evaluation (228.5 MB) | **> 2.9857 MB** net space saved | **88.5 MB/s** (up to 10.6x) | 125.5s vs 79.1s (global) | 100% bit-exact (BLAKE3) |
 
 ---
 
@@ -36,9 +36,9 @@ Sliding-window matchers, dictionary coders, and finite-state entropy codecs desi
 | **Zstandard 1.5.7 (-19 / -22)** | LZ + FSE (Ultra-deep) | **~120-512 MB** | Standard Corpora + Holdouts | 55,517,488 B | **48,258,046 B** | 🟩 **-7,259,442 B** | 🟢 **-13.08% space** | 🟢 Orpane wins |
 | **Brotli 1.2.0 (-11)** | Static Dict + LZ77 | **~160-320 MB** | Calgary & Structured Holdouts | 1,879,805 B | **1,570,909 B** | 🟩 **-308,896 B** | 🟢 **-16.43% space** | 🟢 Orpane wins |
 | **LZMA 5.6.3 (-9 / XZ)** | Range Coder + LZ | **~685 MB** | Standard Corpora Subtotal | 50,173,472 B | **47,493,469 B** | 🟩 **-2,680,003 B** | 🟢 **-5.34% space** | 🟢 Orpane wins |
-| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B** | 🟢 **-5.33% space** | 🟢 **60 / 60 measured** |
+| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **49,978,097 B** | 🟩 **-2,985,696 B** | 🟢 **-5.64% space** | 🟢 **60 / 60 measured** |
 
-*Objective Analysis (Family A)*: Across all 60 standard streams, Orpane (MAX) yields higher compression density than reference dictionary engines (-5.33% net space vs 7-Zip 26.02 -mx9). At comparable memory footprints (~260 MB on enwik8), Orpane maintains an average decode speed of 88.5 MB/s (1.34x faster than 7-Zip).
+*Objective Analysis (Family A)*: Across all 60 standard streams, Orpane (MAX) yields higher compression density than reference dictionary engines (-5.64% net space vs 7-Zip 26.02 -mx9). At comparable memory footprints (~260 MB on enwik8), Orpane maintains an average decode speed of 88.5 MB/s (1.34x faster than 7-Zip).
 
 ---
 
@@ -136,7 +136,7 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,821,278 bytes (-5.33%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
+> 📦 **Space Savings**: 🟢 **-2,985,696 bytes (-5.64%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
 > 📊 **Evaluated Scope**: 🟢 **60 / 60 files evaluated (100.0% coverage across all suites)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.34x faster decode globally** (~88.5 MB/s vs 66.1 MB/s), reaching up to **10.6x faster** on structured data  
 > ⏱️ **Compression Cost**: **1.58x time trade-off** (125.5s vs 79.1s) to reach maximal Pareto density  
@@ -145,13 +145,13 @@ Calibrated proxy windows evaluated across the distributed cluster (PC1 + PC2):
 
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Evaluation Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,276,642 B** | 🟩 **-2,083,758 B (-4.31%)** | 92.7 ➔ 🟢 **97.3 MB/s (+5.0%)** | 75.3s ➔ 110.1s (1.46x) | 🟢 12 / 12 measured |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x)** | 1.1s ➔ 2.2s (2.04x) | 🟢 18 / 18 measured |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,477 B** | 🟩 **-80,692 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x)** | 0.8s ➔ 1.2s (1.43x) | 🟢 11 / 11 measured |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x)** | 0.8s ➔ 2.1s (2.43x) | 🟢 6 / 6 measured |
-| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x)** | 0.6s ➔ 0.9s (1.56x) | 🟢 6 / 6 measured |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,114,671 B** | 🟩 **-2,245,729 B (-4.64%)** | 92.7 ➔ 🟢 **97.3 MB/s (+5.0%)** | 75.3s ➔ 110.1s (1.46x) | 🟢 12 / 12 measured |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **803,483 B** | 🟩 **-80,991 B (-9.16%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x)** | 1.1s ➔ 2.2s (2.04x) | 🟢 18 / 18 measured |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,102 B** | 🟩 **-81,067 B (-16.44%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x)** | 0.8s ➔ 1.2s (1.43x) | 🟢 11 / 11 measured |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,515,416 B** | 🟩 **-244,364 B (-13.89%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x)** | 0.8s ➔ 2.1s (2.43x) | 🟢 6 / 6 measured |
+| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **366,443 B** | 🟩 **-167,407 B (-31.36%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x)** | 0.6s ➔ 0.9s (1.56x) | 🟢 6 / 6 measured |
 | **Structured Holdouts** | 7 | 3.32 MB | 932,120 B | 🟢 **765,832 B** | 🟩 **-166,288 B (-17.84%)** | 78.8 ➔ 🟢 **24.7 MB/s** | 0.8s ➔ 4.4s (5.50x) | 🟢 7 / 7 measured |
-| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B (-5.33%)** | **66.1 ➔ 🟢 88.5 MB/s (1.34x)** | **79.1s ➔ 125.5s (1.58x)** | 🟢 **60 / 60 evaluated** |
+| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **49,978,097 B** | 🟩 **-2,985,696 B (-5.64%)** | **66.1 ➔ 🟢 88.5 MB/s (1.34x)** | **79.1s ➔ 125.5s (1.58x)** | 🟢 **60 / 60 evaluated** |
 
 ---
 
@@ -211,9 +211,9 @@ To maintain full scientific objectivity, here are the documented trade-offs of t
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
   7-Zip 26.02 (-mx9):    52,963,793 bytes
-  Orpane-MAX (.orpane):  50,142,515 bytes
-  NET BYTES SAVED:       2,821,278 bytes (>2.8212 MB net space savings)
-  RELATIVE GAIN:         -5.33% average compressed size reduction vs 7-Zip
+  Orpane-MAX (.orpane):  49,978,097 bytes
+  NET BYTES SAVED:       2,985,696 bytes (>2.9857 MB net space savings)
+  RELATIVE GAIN:         -5.64% average compressed size reduction vs 7-Zip
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
 ```

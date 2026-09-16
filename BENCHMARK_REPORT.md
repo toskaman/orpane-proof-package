@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-14 13:25:00 UTC+2 (September 14, 2026)  
+> 🕒 **Last Updated**: 2026-09-16 12:00:00 UTC+2 (September 16, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 1.0.8 (-9), Gzip (-9), NanoZip 0.08a (-cO -m2048m)  
@@ -9,14 +9,15 @@
 ---
 
 ```diff
-+ 16 MB LTCB Slice Champion:      1,320,885 B ➔ 1,299,856 B (-21,029 B, -1.59% gain, 0.6198 bpc, 112.50 MB/s)
-+ Sub-1.30 MB Milestone:         First historical breach of the 1.30 MB mark on 16 MB LTCB window
-+ Systematic Benchmark:          Full re-evaluation on 47 reference files (Calgary, Canterbury, Silesia, Sealed V3)
-+ 40 Champions Promoted:         40 new historical records beaten across Calgary, Canterbury, Silesia, Sealed V3
-+ Net Space Saved vs 7z:         -2,706,535 bytes saved on 47 benchmark files (-5.30% average size reduction)
-+ Modern Fused Kernels:          Integrated float32 split-stream fused encoder/decoder and zero-copy transpose
-+ Distributed Cluster PC2:       Active 16-thread continuous exploration node synchronized with Master (PC1)
-+ Verified Invariants:           100% bit-exact reversible byte-for-byte across all suites (BLAKE3)
++ 15 Promoted Champions:         15 new historical all-time records beaten across Silesia, Calgary, Canterbury, and Frontier Holdouts
++ 50 MB Barrier Broken:          Grand total across 60 benchmark streams drops below 50 MB: 50,142,515 B ➔ 49,978,097 B (-164,418 B)
++ Net Space Saved vs 7z:         -2,821,278 B ➔ -2,985,696 B (>2.9857 MB net space saved, -5.64% reduction)
++ Silesia Champion Gains:        nci (-103,572 B / 23.15x), osdb (-49,222 B / 3.60x), webster (-7,426 B / 5.18x), xml (-746 B), progl (-547 B), progp (-458 B)
++ Canterbury Records:            fields.c (-230 B / 4.09x), lcet10 (-75 B / 3.96x), alice29 (-68 B / 3.52x), grammar.lsp (-2 B)
++ Calgary Records:               paper1 (-417 B / 3.44x), paper5 (-316 B / 2.85x), trans (-134 B / 6.04x)
++ Modern & Holdouts:             source_code_kernel (-1,144 B / 81.83x, +17.86% ratio), synthetic_audio (-61 B / 971.23x, +45.19% ratio)
++ Autonomous Lab Overnight:      624,355 verified bit-exact experiments logged; PC1 + PC2 distributed exploration 100% active
++ Verified Invariants:           100% bit-exact reversible byte-for-byte across all suites (BLAKE3 & SHA-256)
 ```
 
 ---
@@ -31,7 +32,7 @@
 | **Zstandard 1.5.7 (-19 / -22)** | LZ + FSE (Ultra-deep) | **~120-512 MB** | Standard Corpora + Holdouts | 55,517,488 B | **48,258,046 B** | 🟩 **-7,259,442 B** | 🟢 **-13.08% space** | 🟢 Orpane wins |
 | **Brotli 1.2.0 (-11)** | Static Dict + LZ77 | **~160-320 MB** | Calgary & Structured Holdouts | 1,879,805 B | **1,570,909 B** | 🟩 **-308,896 B** | 🟢 **-16.43% space** | 🟢 Orpane wins |
 | **LZMA 5.6.3 (-9 / XZ)** | Range Coder + LZ | **~685 MB** | Standard Corpora Subtotal | 50,173,472 B | **47,493,469 B** | 🟩 **-2,680,003 B** | 🟢 **-5.34% space** | 🟢 Orpane wins |
-| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B** | 🟢 **-5.33% space** | 🟢 **60 / 60 measured** |
+| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **49,978,097 B** | 🟩 **-2,985,696 B** | 🟢 **-5.64% space** | 🟢 **60 / 60 measured** |
 
 ---
 
