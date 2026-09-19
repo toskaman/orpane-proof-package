@@ -14,6 +14,9 @@ fn decode_leb128(buf: &[u8], mut pos: usize) -> Result<(u64, usize), String> {
     while pos < buf.len() {
         let b = buf[pos];
         pos += 1;
+        if shift >= 63 && (b & 0xFE) != 0 {
+            return Err("LEB128 overflow".into());
+        }
         val |= ((b & 0x7F) as u64) << shift;
         if (b & 0x80) == 0 {
             return Ok((val, pos));
@@ -261,9 +264,9 @@ impl Rans8Coder {
             return Err("Truncated stream lengths in rANS8".into());
         }
         let mut stream_lens = [0usize; 8];
-        for k in 0..8 {
+        for slen_slot in &mut stream_lens {
             let slen = u32::from_le_bytes(payload[pos..pos + 4].try_into().unwrap()) as usize;
-            stream_lens[k] = slen;
+            *slen_slot = slen;
             pos += 4;
         }
 

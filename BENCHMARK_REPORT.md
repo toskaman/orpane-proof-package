@@ -103,7 +103,7 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-2,821,278 bytes (-5.33%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
+> 📦 **Space Savings**: 🟢 **-2,986,648 bytes (-5.64%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
 > 📊 **Evaluated Scope**: 🟢 **60 / 60 files evaluated (100.0% coverage across all suites)**  
 > ⚡ **Decompression Speedup**: 🟢 **1.34x faster decode globally** (~88.5 MB/s vs 66.1 MB/s), reaching up to **10.6x faster** on structured data  
 > ⏱️ **Compression Cost**: **1.58x time trade-off** (125.5s vs 79.1s) to reach maximal Pareto density  
@@ -112,13 +112,13 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Evaluation Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,276,642 B** | 🟩 **-2,083,758 B (-4.31%)** | 92.7 ➔ 🟢 **97.3 MB/s (+5.0%)** | 75.3s ➔ 110.1s (1.46x) | 🟢 12 / 12 measured |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **804,350 B** | 🟩 **-80,124 B (-9.06%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x)** | 1.1s ➔ 2.2s (2.04x) | 🟢 18 / 18 measured |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,477 B** | 🟩 **-80,692 B (-16.36%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x)** | 0.8s ➔ 1.2s (1.43x) | 🟢 11 / 11 measured |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,516,560 B** | 🟩 **-243,220 B (-13.82%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x)** | 0.8s ➔ 2.1s (2.43x) | 🟢 6 / 6 measured |
-| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **366,504 B** | 🟩 **-167,346 B (-31.35%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x)** | 0.6s ➔ 0.9s (1.56x) | 🟢 6 / 6 measured |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **46,114,671 B** | 🟩 **-2,245,729 B (-4.64%)** | 92.7 ➔ 🟢 **97.3 MB/s (+5.0%)** | 75.3s ➔ 110.1s (1.46x) | 🟢 12 / 12 measured |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **802,531 B** | 🟩 **-81,943 B (-9.26%)** | 6.1 ➔ 🟢 **42.3 MB/s (6.9x)** | 1.1s ➔ 2.2s (2.04x) | 🟢 18 / 18 measured |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **412,102 B** | 🟩 **-81,067 B (-16.44%)** | 8.6 ➔ 🟢 **58.2 MB/s (6.8x)** | 0.8s ➔ 1.2s (1.43x) | 🟢 11 / 11 measured |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,515,416 B** | 🟩 **-244,364 B (-13.89%)** | 20.7 ➔ 🟢 **63.2 MB/s (3.1x)** | 0.8s ➔ 2.1s (2.43x) | 🟢 6 / 6 measured |
+| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **366,443 B** | 🟩 **-167,407 B (-31.36%)** | 11.9 ➔ 🟢 **72.4 MB/s (6.1x)** | 0.6s ➔ 0.9s (1.56x) | 🟢 6 / 6 measured |
 | **Structured Holdouts** | 7 | 3.32 MB | 932,120 B | 🟢 **765,832 B** | 🟩 **-166,288 B (-17.84%)** | 78.8 ➔ 🟢 **24.7 MB/s** | 0.8s ➔ 4.4s (5.50x) | 🟢 7 / 7 measured |
-| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **50,142,515 B** | 🟩 **-2,821,278 B (-5.33%)** | **66.1 ➔ 🟢 88.5 MB/s (1.34x)** | **79.1s ➔ 125.5s (1.58x)** | 🟢 **60 / 60 evaluated** |
+| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **49,977,145 B** | 🟩 **-2,986,648 B (-5.64%)** | **66.1 ➔ 🟢 88.5 MB/s (1.34x)** | **79.1s ➔ 125.5s (1.58x)** | 🟢 **60 / 60 evaluated** |
 
 ---
 

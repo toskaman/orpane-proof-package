@@ -72,13 +72,19 @@ pub struct AdaptiveProbabilityMap {
     table: Vec<[u16; 33]>,
 }
 
+impl Default for AdaptiveProbabilityMap {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl AdaptiveProbabilityMap {
     pub fn new() -> Self {
         let mut table = vec![[0u16; 33]; APM_CONTEXTS];
-        for ctx in 0..APM_CONTEXTS {
-            for bin in 0..=32 {
+        for ctx_row in &mut table {
+            for (bin, p_slot) in ctx_row.iter_mut().enumerate() {
                 let p = ((bin as u32 * 4096 / 32) as u16).clamp(1, 4094);
-                table[ctx][bin] = p;
+                *p_slot = p;
             }
         }
         Self { table }
@@ -212,6 +218,12 @@ pub struct MatchModel {
     match_len: usize,
 }
 
+impl Default for MatchModel {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl MatchModel {
     pub fn new() -> Self {
         Self {
@@ -275,6 +287,12 @@ impl MatchModel {
 pub struct IndirectContextModel {
     last_symbol: Vec<u8>,
     sse_counts: Vec<[u16; 2]>,
+}
+
+impl Default for IndirectContextModel {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl IndirectContextModel {

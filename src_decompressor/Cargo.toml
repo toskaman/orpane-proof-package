@@ -5,6 +5,8 @@ edition = "2021"
 authors = ["toskaman"]
 description = "Orpane Universal Standalone Decompressor and Verifier"
 
+[workspace]
+
 [dependencies]
 brotli = "7.0"
 bzip2-rs = "0.1.2"

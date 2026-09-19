@@ -21,6 +21,80 @@ pub enum Opcode {
 pub struct ReversibleVm;
 
 impl ReversibleVm {
+    /// Parse textual AC-IR program emitted by compressor
+    pub fn parse_program(source: &str) -> Result<Vec<Opcode>, String> {
+        let mut opcodes = Vec::new();
+        for raw_line in source.replace(';', "\n").lines() {
+            let line = raw_line.trim();
+            if line.is_empty() || line.starts_with('#') || line.starts_with("//") || line.starts_with("AC-IR") || line.starts_with("RBL") {
+                continue;
+            }
+            let tokens: Vec<&str> = line.split_whitespace().collect();
+            if tokens.is_empty() {
+                continue;
+            }
+            let name = tokens[0].to_uppercase();
+            match name.as_str() {
+                "ADD" => {
+                    let k = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Add(k));
+                }
+                "SUB" => {
+                    let k = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Add((256u32.wrapping_sub(k as u32) % 256) as u8));
+                }
+                "XOR" => {
+                    let k = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Xor(k));
+                }
+                "MUL" => {
+                    let mut k = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(1);
+                    if k.is_multiple_of(2) { k |= 1; }
+                    opcodes.push(Opcode::Mul(k));
+                }
+                "ROL" => {
+                    let s = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Rol(s % 8));
+                }
+                "ROR" => {
+                    let s = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Rol((8 - (s % 8)) % 8));
+                }
+                "PREDICT" => {
+                    let stride = tokens.get(1).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    let a = tokens.get(2).and_then(|s| s.parse::<i32>().ok()).unwrap_or(1);
+                    let b = tokens.get(3).and_then(|s| s.parse::<i32>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::Predict { stride, a, b });
+                }
+                "SHUFFLE" => {
+                    let stride = tokens.get(1).and_then(|s| s.parse::<usize>().ok()).unwrap_or(2).max(1);
+                    opcodes.push(Opcode::Shuffle(stride));
+                }
+                "BIT_PLANE" => opcodes.push(Opcode::BitPlane),
+                "PACK_NIBBLES" => opcodes.push(Opcode::PackNibbles),
+                "DELTA" => {
+                    let stride = tokens.get(1).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    let order = tokens.get(2).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    opcodes.push(Opcode::Delta { stride, order });
+                }
+                "DELTA_MOD" => {
+                    let stride = tokens.get(1).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    opcodes.push(Opcode::Delta { stride, order: 1 });
+                }
+                "DELTA_2D" => {
+                    let sx = tokens.get(1).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    let sy = tokens.get(2).and_then(|s| s.parse::<usize>().ok()).unwrap_or(1).max(1);
+                    opcodes.push(Opcode::Delta2D { sx, sy });
+                }
+                "RUN_MASK" => {
+                    let mask = tokens.get(1).and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+                    opcodes.push(Opcode::RunMask(mask));
+                }
+                _ => return Err(format!("Unknown opcode: {}", name)),
+            }
+        }
+        Ok(opcodes)
+    }
     /// Modular inverse modulo 256 for odd integers
     #[inline(always)]
     pub fn mod_inv_256(a: u8) -> u8 {
@@ -46,7 +120,7 @@ impl ReversibleVm {
             Opcode::Add(arg) => data.iter().map(|&b| b.wrapping_sub(*arg)).collect(),
             Opcode::Xor(arg) => data.iter().map(|&b| b ^ *arg).collect(),
             Opcode::Mul(arg) => {
-                let m = if *arg % 2 == 1 { *arg } else { arg.wrapping_add(1) };
+                let m = if !arg.is_multiple_of(2) { *arg } else { arg.wrapping_add(1) };
                 let inv = Self::mod_inv_256(m);
                 data.iter().map(|&b| b.wrapping_mul(inv)).collect()
             }
@@ -178,5 +252,25 @@ impl ReversibleVm {
                 out
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_vm_dec_parse_and_inverse() {
+        let text = "AC-IR 1.0; ADD 42; SUB 10; XOR 137; MUL 53; ROL 3; ROR 2; DELTA 2 1; DELTA_MOD 3; BIT_PLANE; PACK_NIBBLES; DELTA_2D 4 8; RUN_MASK 170; // comment\n# comment2";
+        let program = ReversibleVm::parse_program(text).unwrap();
+        assert_eq!(program.len(), 12);
+        let sample = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+        let out = ReversibleVm::execute_inverse(&sample, &program);
+        assert_eq!(out.len(), sample.len());
+    }
+
+    #[test]
+    fn test_vm_dec_invalid() {
+        assert!(ReversibleVm::parse_program("INVALID_OP 99").is_err());
     }
 }

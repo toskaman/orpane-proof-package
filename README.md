@@ -230,7 +230,7 @@ bin/orpane-dec -t 2_compressed_files/alice29.txt.orpane
 bin/orpane-dec -d 2_compressed_files/alice29.txt.orpane -o alice29_out.txt
 
 # 3. Benchmark in-memory decode throughput (100 iterations)
-bin/orpane-dec -b 2_compressed_files/alice29.txt.orpane -n 100
+bin/orpane-dec -b 100 2_compressed_files/alice29.txt.orpane
 
 # 4. Inspect container framing and metadata headers
 bin/orpane-dec -l 2_compressed_files/alice29.txt.orpane

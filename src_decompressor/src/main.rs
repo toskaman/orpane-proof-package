@@ -103,7 +103,7 @@ fn decode_leb128(buf: &[u8], mut pos: usize) -> Result<(u64, usize), String> {
     Err("Truncated LEB128 buffer".into())
 }
 
-fn read_leb_chunk<'a>(buf: &'a [u8], pos: usize) -> Result<(&'a [u8], usize), String> {
+fn read_leb_chunk(buf: &[u8], pos: usize) -> Result<(&[u8], usize), String> {
     let (len, off) = decode_leb128(buf, pos)?;
     let len = usize::try_from(len).map_err(|_| "Chunk length exceeds addressable memory")?;
     let end = off.checked_add(len).ok_or("Chunk offset overflow")?;
@@ -152,6 +152,8 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let (_model_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
         let (_inst_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
         let (payload_bytes, new_off) = read_leb_chunk(&unmasked, chunk_off)?; chunk_off = new_off;
+        let payload_len = payload_bytes.len();
+        let payload_start = new_off - payload_len;
 
         if chunk_off != unmasked.len() {
             return Err("Trailing garbage inside unmasked payload".into());
@@ -191,13 +193,15 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             Vec::new()
         };
 
+        unmasked.copy_within(payload_start..payload_start + payload_len, 0);
+        unmasked.truncate(payload_len);
         return Ok(UnpackedArchive {
             profile: "OPAQUE (v5)",
             original_size: orig_sz as usize,
             intermediate_size: intermediate_len,
             coder,
             transforms,
-            payload: std::borrow::Cow::Owned(payload_bytes.to_vec()),
+            payload: std::borrow::Cow::Owned(unmasked),
             expected_blake3,
         });
     }
@@ -282,7 +286,11 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let (_dict_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
         let (_model_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
         let (_inst_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
-        let (payload_bytes, _) = read_leb_chunk(data, off)?;
+        let (payload_bytes, new_off) = read_leb_chunk(data, off)?; off = new_off;
+
+        if off != data.len() {
+            return Err(format!("Trailing garbage in archive: {} bytes", data.len() - off));
+        }
 
         let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
         let coder = meta.c.or(meta.entropy_coder).unwrap_or_else(|| "lzma".into());
@@ -397,7 +405,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
                 return Err("Truncated chunk length".into());
             }
             let len = u32::from_be_bytes(data[pos..pos + 4].try_into().unwrap()) as usize;
-            let end = pos + 4 + len;
+            let end = pos.checked_add(4).and_then(|p| p.checked_add(len)).ok_or("Chunk offset overflow")?;
             if end > data.len() {
                 return Err("Chunk extends beyond buffer".into());
             }
@@ -409,7 +417,11 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let (_dict_bytes, new_off) = read_be_chunk(off)?; off = new_off;
         let (_model_bytes, new_off) = read_be_chunk(off)?; off = new_off;
         let (_inst_bytes, new_off) = read_be_chunk(off)?; off = new_off;
-        let (payload_bytes, _) = read_be_chunk(off)?;
+        let (payload_bytes, new_off) = read_be_chunk(off)?; off = new_off;
+
+        if off != data.len() {
+            return Err(format!("Trailing garbage in archive: {} bytes", data.len() - off));
+        }
 
         let meta: ArchiveMeta = serde_json::from_slice(meta_bytes).unwrap_or_default();
         let coder = meta.c.or(meta.entropy_coder).unwrap_or_else(|| "lzma".into());
@@ -490,58 +502,6 @@ fn entropy_stage_decode(coder: &str, payload: &[u8], target_len: usize) -> Resul
     result.map_err(|_| "Stream payload decode failed")?;
     if out.data.len() != target_len { return Err("Decoded size mismatch".into()); }
     Ok(out.data)
-}
-
-fn parse_acir_program(source: &str) -> Vec<vm_dec::Opcode> {
-    let mut opcodes = Vec::new();
-    for line in source.lines() {
-        let line = line.trim();
-        if line.is_empty() || line.starts_with('#') || line.starts_with("AC-IR") || line.starts_with("RBL") {
-            continue;
-        }
-        let parts: Vec<&str> = line.split_whitespace().collect();
-        if parts.is_empty() {
-            continue;
-        }
-        match parts[0].to_uppercase().as_str() {
-            "ADD" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Add(v)); }
-            }
-            "SUB" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Add((-(v as i32)).rem_euclid(256) as u8)); }
-            }
-            "XOR" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Xor(v)); }
-            }
-            "MUL" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Mul(v)); }
-            }
-            "ROL" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Rol(v)); }
-            }
-            "ROR" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<u8>() { opcodes.push(vm_dec::Opcode::Rol((8 - (v % 8)) % 8)); }
-            }
-            "SHUFFLE" if parts.len() > 1 => {
-                if let Ok(v) = parts[1].parse::<usize>() { opcodes.push(vm_dec::Opcode::Shuffle(v)); }
-            }
-            "DELTA" if parts.len() > 2 => {
-                if let (Ok(s), Ok(o)) = (parts[1].parse::<usize>(), parts[2].parse::<usize>()) {
-                    opcodes.push(vm_dec::Opcode::Delta { stride: s, order: o });
-                }
-            }
-            "BIT_PLANE" => {
-                opcodes.push(vm_dec::Opcode::BitPlane);
-            }
-            "PREDICT" if parts.len() > 3 => {
-                if let (Ok(s), Ok(a), Ok(b)) = (parts[1].parse::<usize>(), parts[2].parse::<i32>(), parts[3].parse::<i32>()) {
-                    opcodes.push(vm_dec::Opcode::Predict { stride: s, a, b });
-                }
-            }
-            _ => {}
-        }
-    }
-    opcodes
 }
 
 fn kernel_stage_transpose(data: &[u8], stride: usize, tail_len: usize) -> Vec<u8> {
@@ -652,16 +612,23 @@ fn kernel_stage_delim(data: &[u8], params: &serde_json::Value) -> Result<Vec<u8>
     if !params.get("active").and_then(|v| v.as_bool()).unwrap_or(false) {
         return Ok(data.to_vec());
     }
-    let delim_str = params.get("delim").and_then(|v| v.as_str()).unwrap_or(",");
+    let delim_str = params.get("delim").or_else(|| params.get("delimiter")).and_then(|v| v.as_str()).unwrap_or(",");
     let newline_str = params.get("newline").and_then(|v| v.as_str()).unwrap_or("\n");
     let k = params.get("cols").and_then(|v| v.as_u64()).unwrap_or(1) as usize;
     let m = params.get("rows").and_then(|v| v.as_u64()).unwrap_or(0) as usize;
     let trailing_nl = params.get("trailing_nl").and_then(|v| v.as_bool()).unwrap_or(true);
 
+    if k == 0 || m == 0 {
+        return Ok(data.to_vec());
+    }
+
     let delim = delim_str.as_bytes();
     let newline = newline_str.as_bytes();
 
-    let all_fields: Vec<&[u8]> = data.split(|&b| b == b'\n').collect();
+    let all_fields: Vec<&[u8]> = data
+        .split(|&b| b == b'\n')
+        .map(|f| f.strip_suffix(b"\r").unwrap_or(f))
+        .collect();
     if all_fields.len() < k * m {
         return Err("Stream dimension count mismatch".into());
     }
@@ -743,7 +710,21 @@ fn kernel_stage_fsplit(data: &[u8], params: &serde_json::Value) -> Result<Vec<u8
 }
 
 fn kernel_stage_rle(data: &[u8], escape_byte: u8, orig_len: Option<usize>) -> Result<Vec<u8>, String> {
-    let mut out = Vec::with_capacity(orig_len.unwrap_or(data.len() * 2));
+    const MAX_RLE_EXPANSION_LIMIT: usize = 16 * 1024 * 1024 * 1024;
+    let theoretical_max = data.len().saturating_mul(256);
+    if let Some(expected) = orig_len {
+        if expected > theoretical_max {
+            return Err("RLE declared length exceeds maximum possible expansion".into());
+        }
+        if expected > MAX_RLE_EXPANSION_LIMIT {
+            return Err("RLE declared length exceeds safety limit".into());
+        }
+    }
+    let max_len = orig_len.unwrap_or_else(|| {
+        theoretical_max.saturating_add(1024 * 1024).min(MAX_RLE_EXPANSION_LIMIT)
+    });
+
+    let mut out = Vec::with_capacity(orig_len.unwrap_or(data.len() * 2).min(1024 * 1024));
     let mut i = 0;
     let n = data.len();
     while i < n {
@@ -754,6 +735,9 @@ fn kernel_stage_rle(data: &[u8], escape_byte: u8, orig_len: Option<usize>) -> Re
             }
             let count = data[i + 1] as usize;
             if count == 0 {
+                if out.len() + 1 > max_len {
+                    return Err("RLE output exceeds size limit".into());
+                }
                 out.push(escape_byte);
                 i += 2;
             } else {
@@ -761,29 +745,26 @@ fn kernel_stage_rle(data: &[u8], escape_byte: u8, orig_len: Option<usize>) -> Re
                     return Err("Truncated sequence token".into());
                 }
                 let sym = data[i + 2];
+                if out.len().saturating_add(count) > max_len {
+                    return Err("RLE output exceeds size limit".into());
+                }
                 out.resize(out.len() + count, sym);
                 i += 3;
             }
         } else {
+            if out.len() + 1 > max_len {
+                return Err("RLE output exceeds size limit".into());
+            }
             out.push(b);
             i += 1;
         }
     }
-    Ok(out)
-}
-
-fn binarysearch_lower(a: &[usize], mut size: usize, value: usize) -> usize {
-    let mut i = 0;
-    let mut half = size >> 1;
-    while size > 0 {
-        if a[i + half] < value {
-            i += half + 1;
-            half -= (size & 1) ^ 1;
+    if let Some(expected) = orig_len {
+        if out.len() != expected {
+            return Err(format!("RLE output length mismatch: got {}, expected {}", out.len(), expected));
         }
-        size = half;
-        half >>= 1;
     }
-    i
+    Ok(out)
 }
 
 fn kernel_bwt_block_decode(t: &[u8], idx: usize) -> Result<Vec<u8>, String> {
@@ -802,33 +783,33 @@ fn kernel_bwt_block_decode(t: &[u8], idx: usize) -> Result<Vec<u8>, String> {
     }
     let mut d_len = 0;
     let mut sum = 0;
-    for ch in 0..256 {
-        let p = c[ch];
+    for (ch, slot) in c.iter_mut().enumerate() {
+        let p = *slot;
         if p > 0 {
-            c[ch] = sum;
+            *slot = sum;
             d[d_len] = ch as u8;
             d_len += 1;
             sum += p;
         }
     }
-    for i in 0..idx {
-        let byte = t[i] as usize;
-        b[c[byte]] = i;
-        c[byte] += 1;
+    for (i, &byte) in t[..idx].iter().enumerate() {
+        let b_idx = byte as usize;
+        b[c[b_idx]] = i;
+        c[b_idx] += 1;
     }
-    for i in idx..n {
-        let byte = t[i] as usize;
-        b[c[byte]] = i + 1;
-        c[byte] += 1;
+    for (offset, &byte) in t[idx..n].iter().enumerate() {
+        let b_idx = byte as usize;
+        b[c[b_idx]] = idx + offset + 1;
+        c[b_idx] += 1;
     }
     for ch in 0..d_len {
         c[ch] = c[d[ch] as usize];
     }
     let mut u = vec![0u8; n];
     let mut p = idx;
-    for i in 0..n {
-        let c_idx = binarysearch_lower(&c, d_len, p);
-        u[i] = d[c_idx];
+    for u_slot in &mut u {
+        let c_idx = c[..d_len].partition_point(|&x| x < p);
+        *u_slot = d[c_idx];
         p = b[p - 1];
     }
     Ok(u)
@@ -924,7 +905,7 @@ fn execute_pipeline(unpacked: &UnpackedArchive) -> Result<Vec<u8>, String> {
                     .or_else(|| t.params.get("program"))
                     .and_then(|v| v.as_str())
                     .unwrap_or("");
-                let prog = parse_acir_program(source);
+                let prog = vm_dec::ReversibleVm::parse_program(source).unwrap_or_default();
                 stream = vm_dec::ReversibleVm::execute_inverse(&stream, &prog);
             }
             _ => {
@@ -1230,8 +1211,8 @@ fn main() {
         Some(p) => p,
         None => {
             let s = arc_file.to_string_lossy();
-            if s.ends_with(".orpane") {
-                PathBuf::from(&s[..s.len() - 7])
+            if let Some(stripped) = s.strip_suffix(".orpane") {
+                PathBuf::from(stripped)
             } else {
                 PathBuf::from(format!("{}.out", s))
             }
@@ -1291,5 +1272,71 @@ fn main() {
             println!("  Profile:  {}", unpacked.profile);
             println!("  Pipeline: Certified Bit-Exact");
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_kernel_stage_delim_lf_and_crlf() {
+        let payload_lf = b"a\nc\ne\nb\nd\nf\n";
+        let params_lf = serde_json::json!({
+            "active": true,
+            "delim": ",",
+            "newline": "\n",
+            "cols": 2,
+            "rows": 3,
+            "trailing_nl": true,
+        });
+        let restored_lf = kernel_stage_delim(payload_lf, &params_lf).unwrap();
+        assert_eq!(restored_lf, b"a,b\nc,d\ne,f\n");
+
+        let payload_crlf = b"a\r\nc\r\ne\r\nb\r\nd\r\nf\r\n";
+        let params_crlf = serde_json::json!({
+            "active": true,
+            "delimiter": ",",
+            "newline": "\r\n",
+            "cols": 2,
+            "rows": 3,
+            "trailing_nl": true,
+        });
+        let restored_crlf = kernel_stage_delim(payload_crlf, &params_crlf).unwrap();
+        assert_eq!(restored_crlf, b"a,b\r\nc,d\r\ne,f\r\n");
+
+        let params_no_trail = serde_json::json!({
+            "active": true,
+            "delim": ",",
+            "newline": "\n",
+            "cols": 2,
+            "rows": 3,
+            "trailing_nl": false,
+        });
+        let restored_no_trail = kernel_stage_delim(payload_lf, &params_no_trail).unwrap();
+        assert_eq!(restored_no_trail, b"a,b\nc,d\ne,f");
+    }
+
+    #[test]
+    fn test_kernel_stage_rle_bounds() {
+        // Normal decoding
+        let rle_data = vec![0xFE, 5, b'A', b'B'];
+        let out = kernel_stage_rle(&rle_data, 0xFE, Some(6)).unwrap();
+        assert_eq!(out, b"AAAAAB");
+
+        // Declared orig_len too small
+        let res = kernel_stage_rle(&rle_data, 0xFE, Some(4));
+        assert!(res.is_err());
+        assert_eq!(res.unwrap_err(), "RLE output exceeds size limit");
+
+        // Length mismatch
+        let res2 = kernel_stage_rle(&rle_data, 0xFE, Some(10));
+        assert!(res2.is_err());
+        assert!(res2.unwrap_err().contains("RLE output length mismatch"));
+
+        // Declared length exceeding maximum possible expansion (4 bytes cannot expand to > 1024 bytes)
+        let res3 = kernel_stage_rle(&rle_data, 0xFE, Some(2000));
+        assert!(res3.is_err());
+        assert_eq!(res3.unwrap_err(), "RLE declared length exceeds maximum possible expansion");
     }
 }
