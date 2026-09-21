@@ -252,4 +252,4 @@ For the complete standalone scientific report with individual per-stream measure
 
 ## 🙏 Community Acknowledgments & Special Thanks
 
-A heartfelt thank you to the data compression experts and community members at **[encode.su](https://encode.su/threads/4549-ANN-Orpane-Experimental-asymmetric-lossless-compressor-in-Rust-(benchmarks-vs-7-Zi)** (thread #4549), with special appreciation to **Gotty**, **Gonzalo**, **Sebastian**, **tansy**, and **mitiko** for their rigorous testing, technical feedback, and invaluable insights.
+A heartfelt thank you to the data compression experts and community members at **[encode.su]**, with special appreciation to **Gotty**, **Gonzalo**, **Sebastian**, **tansy**, and **mitiko** for their rigorous testing, technical feedback, and invaluable insights.
