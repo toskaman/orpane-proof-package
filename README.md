@@ -13,6 +13,21 @@
 
 ---
 
+## 🚀 Version Progress & Milestone Diff (v2.3.1 ➔ v2.3.5)
+
+```diff
++ 16 MB Proxy Window:       1,320,885 B ➔ 1,299,856 B (-21,029 B, -1.59% gain, 0.6198 bpc, 112.5 MB/s)
++ Sub-1.30 MB Milestone:    First historical breach of the 1.30 MB threshold on 16 MB LTCB window
++ Systematic Benchmark:     Full re-evaluation on 47 reference files (Calgary, Canterbury, Silesia, Sealed V3)
++ 40 Champions Promoted:    40 new historical records beaten across Calgary, Canterbury, Silesia, Sealed V3
++ Net Space Saved vs 7z:    -2,986,648 bytes saved on 60 benchmark streams (-5.64% average size reduction)
++ Modern Fused Kernels:     Integrated float32 split-stream fused encoder/decoder and zero-copy transpose
++ Distributed Cluster PC2:  Active 16-thread continuous exploration node synchronized with Master (PC1)
++ Invariant Verification:   100% bit-exact reversible byte-for-byte across all suites (BLAKE3 & SHA-256)
+```
+
+---
+
 ## ⚡ Executive Summary Dashboard
 
 | 📦 Net Space Saved vs 7z | ⚡ Decompression Speedup | ⏱️ Compression Trade-off | 🔬 Cryptographic Integrity |
@@ -203,21 +218,6 @@ Orpane achieves its largest empirical compression gains on **structured, scienti
 | `sealed_sqlite_wal_pages.bin` (WAL Pages)| 494,432 B | 32,784 B | 22,112 B | 24,991 B | 22,826 B | 20,520 B | 🟢 **17,545 B** | 🟩 **-2,975 B (-14.50%)** | 🟢 100% Bit-Exact |
 
 </details>
-
----
-
-## 🚀 Version Progress & Milestone Diff (v2.3.1 ➔ v2.3.5)
-
-```diff
-+ 16 MB Proxy Window:       1,320,885 B ➔ 1,299,856 B (-21,029 B, -1.59% gain, 0.6198 bpc, 112.5 MB/s)
-+ Sub-1.30 MB Milestone:    First historical breach of the 1.30 MB threshold on 16 MB LTCB window
-+ Systematic Benchmark:     Full re-evaluation on 47 reference files (Calgary, Canterbury, Silesia, Sealed V3)
-+ 40 Champions Promoted:    40 new historical records beaten across Calgary, Canterbury, Silesia, Sealed V3
-+ Net Space Saved vs 7z:    -2,986,648 bytes saved on 60 benchmark streams (-5.64% average size reduction)
-+ Modern Fused Kernels:     Integrated float32 split-stream fused encoder/decoder and zero-copy transpose
-+ Distributed Cluster PC2:  Active 16-thread continuous exploration node synchronized with Master (PC1)
-+ Invariant Verification:   100% bit-exact reversible byte-for-byte across all suites (BLAKE3 & SHA-256)
-```
 
 ---
 
