@@ -435,9 +435,16 @@ pub const MODEL_SPECS: &[ModelType] = &[
 /// Context Mixing Bit Predictor Decode — Exact bit-for-bit inverse.
 pub fn cm_decode(data: &[u8]) -> Result<Vec<u8>, &'static str> {
     if data.len() < 8 { return Err("CM: truncated header"); }
-    let orig_len = u32::from_le_bytes(data[0..4].try_into().unwrap()) as usize;
-    let packed_len = u32::from_le_bytes(data[4..8].try_into().unwrap()) as usize;
-    if data.len() < 8 + packed_len { return Err("CM: truncated bitstream"); }
+    let orig_len = match data.get(0..4).and_then(|s| s.try_into().ok()) {
+        Some(b) => u32::from_le_bytes(b) as usize,
+        None => return Err("CM: truncated header"),
+    };
+    let packed_len = match data.get(4..8).and_then(|s| s.try_into().ok()) {
+        Some(b) => u32::from_le_bytes(b) as usize,
+        None => return Err("CM: truncated header"),
+    };
+    if orig_len > 1024 * 1024 * 1024 { return Err("CM: declared size exceeds 1 GiB limit"); }
+    if data.len().saturating_sub(8) < packed_len { return Err("CM: truncated bitstream"); }
     let packed = &data[8..8 + packed_len];
 
     let mut models: Vec<FlatModelTable> = MODEL_SPECS.iter().map(|&m| FlatModelTable::new(m)).collect();

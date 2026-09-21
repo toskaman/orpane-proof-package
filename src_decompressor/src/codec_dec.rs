@@ -265,7 +265,7 @@ impl Rans8Coder {
         }
         let mut stream_lens = [0usize; 8];
         for slen_slot in &mut stream_lens {
-            let slen = u32::from_le_bytes(payload[pos..pos + 4].try_into().unwrap()) as usize;
+            let slen = u32::from_le_bytes(payload[pos..pos + 4].try_into().map_err(|_| "Truncated rANS8 stream length")?) as usize;
             *slen_slot = slen;
             pos += 4;
         }
@@ -289,12 +289,13 @@ impl Rans8Coder {
                 if slices[k].len() < 4 {
                     return Err(format!("Stream {} too short for initial state", k));
                 }
-                states[k] = u32::from_le_bytes(slices[k][0..4].try_into().unwrap());
+                states[k] = u32::from_le_bytes(slices[k][0..4].try_into().map_err(|_| "Truncated rANS8 initial state")?);
                 stream_pos[k] = 4;
             }
         }
 
-        let mut out = Vec::with_capacity(orig_len);
+        let mut out = vec![0u8; orig_len];
+        let mut out_idx = 0;
         let chunks = orig_len / 8;
 
         let s0 = slices[0]; let s1 = slices[1]; let s2 = slices[2]; let s3 = slices[3];
@@ -330,14 +331,20 @@ impl Rans8Coder {
             let e6 = unsafe { *lut.get_unchecked(slot6) };
             let e7 = unsafe { *lut.get_unchecked(slot7) };
 
-            out.push(e0.sym);
-            out.push(e1.sym);
-            out.push(e2.sym);
-            out.push(e3.sym);
-            out.push(e4.sym);
-            out.push(e5.sym);
-            out.push(e6.sym);
-            out.push(e7.sym);
+            let word = (e0.sym as u64)
+                | ((e1.sym as u64) << 8)
+                | ((e2.sym as u64) << 16)
+                | ((e3.sym as u64) << 24)
+                | ((e4.sym as u64) << 32)
+                | ((e5.sym as u64) << 40)
+                | ((e6.sym as u64) << 48)
+                | ((e7.sym as u64) << 56);
+            debug_assert!(out_idx + 8 <= out.len());
+            // SAFETY: The loop executes chunks times where chunks = orig_len / 8, so out_idx + 8 <= out.len() is guaranteed.
+            unsafe {
+                std::ptr::write_unaligned(out.as_mut_ptr().add(out_idx) as *mut u64, word.to_le());
+            }
+            out_idx += 8;
 
             state0 = (e0.freq as u32) * (state0 >> RANS_SCALE_BITS) + (slot0 as u32) - (e0.bias as u32);
             state1 = (e1.freq as u32) * (state1 >> RANS_SCALE_BITS) + (slot1 as u32) - (e1.bias as u32);
@@ -400,7 +407,11 @@ impl Rans8Coder {
 
             let slot = (st & (RANS_SCALE - 1)) as usize;
             let entry = unsafe { *lut.get_unchecked(slot) };
-            out.push(entry.sym);
+            debug_assert!(out_idx + k < out.len());
+            // SAFETY: out_idx + rem == orig_len == out.len(), with k < rem.
+            unsafe {
+                *out.get_unchecked_mut(out_idx + k) = entry.sym;
+            }
 
             st = (entry.freq as u32) * (st >> RANS_SCALE_BITS) + (slot as u32) - (entry.bias as u32);
             if st < RANS_L {

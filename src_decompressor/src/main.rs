@@ -136,7 +136,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         let xxh_stored = &data[off..off + 8];
         off += 8;
 
-        let seed = u64::from_le_bytes(xxh_stored.try_into().unwrap());
+        let seed = u64::from_le_bytes(xxh_stored.try_into().map_err(|_| "Invalid XXH3-64 slice")?);
         let mut unmasked = data[off..].to_vec();
         whiten_stream(&mut unmasked, seed);
 
@@ -395,7 +395,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
         if data.len() < 50 {
             return Err("Truncated standard header".into());
         }
-        let orig_sz = u64::from_be_bytes(data[10..18].try_into().unwrap()) as usize;
+        let orig_sz = u64::from_be_bytes(data[10..18].try_into().map_err(|_| "Invalid orig_sz slice")?) as usize;
         let mut blake_hash = [0u8; 32];
         blake_hash.copy_from_slice(&data[18..50]);
         let mut off = 50;
@@ -404,7 +404,7 @@ fn unpack_archive(data: &[u8]) -> Result<UnpackedArchive<'_>, String> {
             if pos + 4 > data.len() {
                 return Err("Truncated chunk length".into());
             }
-            let len = u32::from_be_bytes(data[pos..pos + 4].try_into().unwrap()) as usize;
+            let len = u32::from_be_bytes(data[pos..pos + 4].try_into().map_err(|_| "Invalid chunk length slice")?) as usize;
             let end = pos.checked_add(4).and_then(|p| p.checked_add(len)).ok_or("Chunk offset overflow")?;
             if end > data.len() {
                 return Err("Chunk extends beyond buffer".into());
@@ -510,15 +510,26 @@ fn kernel_stage_transpose(data: &[u8], stride: usize, tail_len: usize) -> Vec<u8
     }
     let main_len = data.len().saturating_sub(tail_len);
     let rows = main_len / stride;
+    let grid_len = rows * stride;
     let mut out = vec![0u8; data.len()];
 
-    for r in 0..rows {
-        for s in 0..stride {
-            out[r * stride + s] = data[s * rows + r];
+    // Cache-friendly blocked/tiled 2D transpose (tile size: 64)
+    // Eliminates cache line thrashing across large stride/row layouts.
+    const TILE: usize = 64;
+    for r_block in (0..rows).step_by(TILE) {
+        let r_end = (r_block + TILE).min(rows);
+        for s_block in (0..stride).step_by(TILE) {
+            let s_end = (s_block + TILE).min(stride);
+            for r in r_block..r_end {
+                let out_row = r * stride;
+                for s in s_block..s_end {
+                    out[out_row + s] = data[s * rows + r];
+                }
+            }
         }
     }
-    if tail_len > 0 && main_len < data.len() {
-        out[main_len..].copy_from_slice(&data[main_len..]);
+    if grid_len < data.len() {
+        out[grid_len..].copy_from_slice(&data[grid_len..]);
     }
     out
 }
@@ -1075,6 +1086,8 @@ fn main() {
         }
     };
 
+    let arc_name = arc_file.file_name().map(|f| f.to_string_lossy()).unwrap_or_else(|| "archive.orpane".into());
+
     // 1. Info mode
     if info_mode {
         let orig_sz = unpacked.original_size;
@@ -1085,14 +1098,14 @@ fn main() {
         if json_mode {
             println!(
                 r#"{{"file":"{}","archive_size":{},"original_size":{},"compression_ratio":{:.4},"savings_percent":{:.2},"profile":"{}","status":"OK"}}"#,
-                arc_file.file_name().unwrap().to_string_lossy(),
+                arc_name,
                 arc_sz, orig_sz, ratio, pct, unpacked.profile
             );
             return;
         }
 
         println!("\n===========================================================");
-        println!("  ORPANE ARCHIVE INSPECTOR: {}", arc_file.file_name().unwrap().to_string_lossy());
+        println!("  ORPANE ARCHIVE INSPECTOR: {}", arc_name);
         println!("===========================================================");
         println!("  Archive Size:      {:>12} bytes", arc_sz);
         println!("  Original Size:     {:>12} bytes", orig_sz);
@@ -1120,14 +1133,14 @@ fn main() {
             let _ = execute_pipeline(&unpacked);
             latencies_ms.push(t0.elapsed().as_secs_f64() * 1000.0);
         }
-        latencies_ms.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        latencies_ms.sort_by(|a, b| a.total_cmp(b));
         let median_ms = latencies_ms[latencies_ms.len() / 2];
         let throughput_mbs = ((unpacked.original_size as f64) / (1024.0 * 1024.0)) / (median_ms / 1000.0);
 
         if json_mode {
             println!(
                 r#"{{"file":"{}","benchmark_runs":{},"median_ms":{:.2},"throughput_mbs":{:.1}}}"#,
-                arc_file.file_name().unwrap().to_string_lossy(),
+                arc_name,
                 runs, median_ms, throughput_mbs
             );
             return;
@@ -1141,32 +1154,33 @@ fn main() {
     }
 
     // 3. Decompress / Test
-    let t0 = Instant::now();
+    let t_start = Instant::now();
     let decompressed = match execute_pipeline(&unpacked) {
         Ok(d) => d,
         Err(e) => {
             if !quiet {
-                eprintln!("FATAL: Decompression failed on {}: {}", arc_file.display(), e);
+                eprintln!("Decompression failed: {}", e);
             }
             std::process::exit(1);
         }
     };
-    let elapsed_ms = t0.elapsed().as_secs_f64() * 1000.0;
-    let throughput_mbs = ((decompressed.len() as f64) / (1024.0 * 1024.0)) / (elapsed_ms / 1000.0);
+    let elapsed_ms = t_start.elapsed().as_secs_f64() * 1000.0;
+    let throughput_mbs = ((decompressed.len() as f64) / (1024.0 * 1024.0)) / (elapsed_ms / 1000.0).max(0.000001);
 
-    // Compute SHA-256
+    // Cryptographic verification
     let mut hasher = Sha256::new();
     hasher.update(&decompressed);
     let sha_hex = hex::encode(hasher.finalize());
 
-    // Compute BLAKE3
-    let blake_hash = blake3::hash(&decompressed);
-    let blake_hex = blake_hash.to_hex().to_string();
+    let blake_bytes = blake3::hash(&decompressed);
+    let blake_hex = blake_bytes.to_hex().to_string();
 
-    if let Some(exp) = unpacked.expected_blake3 {
-        if exp != *blake_hash.as_bytes() {
+    if let Some(expected) = unpacked.expected_blake3 {
+        if blake_bytes.as_bytes() != &expected {
             if !quiet {
-                eprintln!("INTEGRITY ERROR: Decoded data failed BLAKE3 verification!");
+                eprintln!("CRITICAL ERROR: Archive checksum verification failed!");
+                eprintln!("  Expected: {}", hex::encode(expected));
+                eprintln!("  Actual:   {}", blake_hex);
             }
             std::process::exit(2);
         }
@@ -1177,7 +1191,7 @@ fn main() {
         if json_mode {
             println!(
                 r#"{{"file":"{}","status":"PASS","original_size":{},"elapsed_ms":{:.2},"throughput_mbs":{:.1},"sha256":"{}","blake3":"{}"}}"#,
-                arc_file.file_name().unwrap().to_string_lossy(),
+                arc_name,
                 decompressed.len(),
                 elapsed_ms,
                 throughput_mbs,
@@ -1189,7 +1203,7 @@ fn main() {
         if !quiet {
             println!(
                 "PASS (Bit-Exact): {} -> {} bytes in {:.2} ms ({:.1} MB/s)",
-                arc_file.file_name().unwrap().to_string_lossy(),
+                arc_name,
                 decompressed.len(),
                 elapsed_ms,
                 throughput_mbs
@@ -1229,9 +1243,10 @@ fn main() {
         std::process::exit(1);
     }
 
+    let dest_name = dest_path.file_name().map(|f| f.to_string_lossy()).unwrap_or_else(|| "output".into());
     let tmp_dest = match dest_path.parent() {
-        Some(dir) => dir.join(format!(".tmp_{}_{}", std::process::id(), dest_path.file_name().unwrap().to_string_lossy())),
-        None => PathBuf::from(format!(".tmp_{}_{}", std::process::id(), dest_path.file_name().unwrap().to_string_lossy())),
+        Some(dir) => dir.join(format!(".tmp_{}_{}", std::process::id(), dest_name)),
+        None => PathBuf::from(format!(".tmp_{}_{}", std::process::id(), dest_name)),
     };
 
     if let Err(e) = fs::write(&tmp_dest, &decompressed) {
@@ -1260,8 +1275,8 @@ fn main() {
     if !quiet {
         println!(
             "Restored: {} -> {} ({} bytes in {:.2} ms, {:.1} MB/s)",
-            arc_file.file_name().unwrap().to_string_lossy(),
-            dest_path.file_name().unwrap().to_string_lossy(),
+            arc_name,
+            dest_name,
             decompressed.len(),
             elapsed_ms,
             throughput_mbs
@@ -1338,5 +1353,13 @@ mod tests {
         let res3 = kernel_stage_rle(&rle_data, 0xFE, Some(2000));
         assert!(res3.is_err());
         assert_eq!(res3.unwrap_err(), "RLE declared length exceeds maximum possible expansion");
+    }
+
+    #[test]
+    fn test_kernel_stage_transpose_unaligned() {
+        let data: Vec<u8> = (1..=15).collect();
+        let transposed = kernel_stage_transpose(&data, 4, 0);
+        assert_eq!(transposed.len(), 15);
+        assert_eq!(&transposed[12..15], &[13, 14, 15]);
     }
 }
