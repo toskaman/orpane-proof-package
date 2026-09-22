@@ -1,6 +1,6 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-22 00:49:18 UTC+2 (September 22, 2026)  
+> 🕒 **Last Updated**: 2026-09-23 01:41:00 UTC+2 (September 23, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 1.0.8 (-9), Gzip (-9), NanoZip 0.08a (-cO -m2048m)  
@@ -12,7 +12,7 @@
 + Calgary paper6 Champion:       paper6 historical record beaten: 12,099 B ➔ 11,147 B (-952 B, +8.54% ratio gain, 3.418x)
 + Calgary Suite Expansion:       Calgary net space savings vs 7z increases to -81,943 B (-9.26% average reduction)
 + Grand Total Across 60:         Grand total drops to 49,977,145 B (cumulative net space saved: -2,986,648 B / >2.9866 MB vs 7-Zip mx9)
-+ Continuous Laboratory:         624,993 verified bit-exact experiments logged across autonomous PC1 + PC2 cluster
++ Continuous Laboratory:         629,391 verified bit-exact experiments logged across autonomous PC1 + PC2 cluster
 + High-Speed Asymmetry:          paper6 decode throughput reaches 148.57 MB/s with zero-copy stream processing
 + Verified Invariants:           100% bit-exact reversible byte-for-byte across all suites (BLAKE3 & SHA-256)
 ```

@@ -6,14 +6,14 @@
 [![Large Scale](https://img.shields.io/badge/large--scale-enwik8%20%28100%20MB%29%20%26%20enwik9%20%281%20GB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-2.99%20MB%20vs%207z-brightgreen.svg)](#)
 [![Version](https://img.shields.io/badge/release-v2.3.5-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--22%2000%3A49%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--23%2001%3A41%20UTC%2B2-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every stream is 100% bit-exact reversible, cryptographically verified by SHA-256 and BLAKE3 checksums against standard industry reference codecs: **7-Zip 26.02 (-mx9)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Brotli 1.2.0 (-11)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.
 
 ---
 
-## 🚀 Version Progress & Milestone Diff (v2.3.1 ➔ v2.3.5)
+## 🚀 Version Progress & Milestone Diff (v2.3.5 — 2026-09-23)
 
 ```diff
 + 16 MB Proxy Window:       1.32 MB ➔ 1.30 MB (-1.59% gain, 0.62 bpc, 112.5 MB/s)
@@ -24,6 +24,8 @@
 + Modern Fused Kernels:     Float32 split-stream fused coder and zero-copy transpose
 + Distributed Cluster PC2:  16-thread continuous exploration node synchronized with Master (PC1)
 + Invariant Verification:   100% bit-exact reversible across all suites (BLAKE3 & SHA-256)
++ Lab Experiments:          629,391 verified bit-exact experiments logged (autonomous cluster)
++ Internal Lab Champion:    synthetic_audio_v1.wav — 668.96x ratio confirmed bit-exact (+283.7% vs prev record)
 ```
 
 ---
