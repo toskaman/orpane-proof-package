@@ -166,6 +166,10 @@ impl RansCoder {
 
         for _ in 0..orig_len {
             let slot = (state & (RANS_SCALE - 1)) as usize;
+            debug_assert!(slot < lut.len());
+            // SAFETY: slot is computed via state & (RANS_SCALE - 1)
+            debug_assert!(slot < lut.len());
+            // SAFETY: slot is computed via state & (RANS_SCALE - 1)
             let ds = unsafe { *lut.get_unchecked(slot) };
             out.push(ds.sym);
 
@@ -173,11 +177,11 @@ impl RansCoder {
 
             if state < RANS_L {
                 if pos < end {
-                    state = (state << 8) | unsafe { *payload.get_unchecked(pos) as u32 };
+                    state = (state << 8) | unsafe { /* SAFETY: pos < end is checked */ debug_assert!(pos < payload.len()); *payload.get_unchecked(pos) as u32 };
                     pos += 1;
                 }
                 if state < RANS_L && pos < end {
-                    state = (state << 8) | unsafe { *payload.get_unchecked(pos) as u32 };
+                    state = (state << 8) | unsafe { /* SAFETY: pos < end is checked */ debug_assert!(pos < payload.len()); *payload.get_unchecked(pos) as u32 };
                     pos += 1;
                 }
             }
@@ -259,7 +263,7 @@ impl Rans8Coder {
                 };
             }
         }
-
+        // Read 8 stream lengths (32 bytes)
         if pos + 32 > payload.len() {
             return Err("Truncated stream lengths in rANS8".into());
         }
@@ -270,6 +274,7 @@ impl Rans8Coder {
             pos += 4;
         }
 
+        // Slices for each stream
         let mut slices: [&[u8]; 8] = [&[]; 8];
         for k in 0..8 {
             let slen = stream_lens[k];
@@ -280,6 +285,7 @@ impl Rans8Coder {
             pos += slen;
         }
 
+        // Initialize 8 states and positions
         let mut states = [RANS_L; 8];
         let mut stream_pos = [0usize; 8];
 
@@ -322,6 +328,9 @@ impl Rans8Coder {
             let slot6 = (state6 & (RANS_SCALE - 1)) as usize;
             let slot7 = (state7 & (RANS_SCALE - 1)) as usize;
 
+            // SAFETY: slots are computed via state & (RANS_SCALE - 1), where RANS_SCALE == lut.len().
+            debug_assert!(slot0 < lut.len() && slot1 < lut.len() && slot2 < lut.len() && slot3 < lut.len());
+            debug_assert!(slot4 < lut.len() && slot5 < lut.len() && slot6 < lut.len() && slot7 < lut.len());
             let e0 = unsafe { *lut.get_unchecked(slot0) };
             let e1 = unsafe { *lut.get_unchecked(slot1) };
             let e2 = unsafe { *lut.get_unchecked(slot2) };
@@ -356,36 +365,36 @@ impl Rans8Coder {
             state7 = (e7.freq as u32) * (state7 >> RANS_SCALE_BITS) + (slot7 as u32) - (e7.bias as u32);
 
             if state0 < RANS_L {
-                if p0 < end0 { state0 = (state0 << 8) | unsafe { *s0.get_unchecked(p0) as u32 }; p0 += 1; }
-                if state0 < RANS_L && p0 < end0 { state0 = (state0 << 8) | unsafe { *s0.get_unchecked(p0) as u32 }; p0 += 1; }
+                if p0 < end0 { state0 = (state0 << 8) | unsafe { /* SAFETY: p0 < end0 is checked */ debug_assert!(p0 < s0.len()); *s0.get_unchecked(p0) as u32 }; p0 += 1; }
+                if state0 < RANS_L && p0 < end0 { state0 = (state0 << 8) | unsafe { /* SAFETY: p0 < end0 is checked */ debug_assert!(p0 < s0.len()); *s0.get_unchecked(p0) as u32 }; p0 += 1; }
             }
             if state1 < RANS_L {
-                if p1 < end1 { state1 = (state1 << 8) | unsafe { *s1.get_unchecked(p1) as u32 }; p1 += 1; }
-                if state1 < RANS_L && p1 < end1 { state1 = (state1 << 8) | unsafe { *s1.get_unchecked(p1) as u32 }; p1 += 1; }
+                if p1 < end1 { state1 = (state1 << 8) | unsafe { /* SAFETY: p1 < end1 is checked */ debug_assert!(p1 < s1.len()); *s1.get_unchecked(p1) as u32 }; p1 += 1; }
+                if state1 < RANS_L && p1 < end1 { state1 = (state1 << 8) | unsafe { /* SAFETY: p1 < end1 is checked */ debug_assert!(p1 < s1.len()); *s1.get_unchecked(p1) as u32 }; p1 += 1; }
             }
             if state2 < RANS_L {
-                if p2 < end2 { state2 = (state2 << 8) | unsafe { *s2.get_unchecked(p2) as u32 }; p2 += 1; }
-                if state2 < RANS_L && p2 < end2 { state2 = (state2 << 8) | unsafe { *s2.get_unchecked(p2) as u32 }; p2 += 1; }
+                if p2 < end2 { state2 = (state2 << 8) | unsafe { /* SAFETY: p2 < end2 is checked */ debug_assert!(p2 < s2.len()); *s2.get_unchecked(p2) as u32 }; p2 += 1; }
+                if state2 < RANS_L && p2 < end2 { state2 = (state2 << 8) | unsafe { /* SAFETY: p2 < end2 is checked */ debug_assert!(p2 < s2.len()); *s2.get_unchecked(p2) as u32 }; p2 += 1; }
             }
             if state3 < RANS_L {
-                if p3 < end3 { state3 = (state3 << 8) | unsafe { *s3.get_unchecked(p3) as u32 }; p3 += 1; }
-                if state3 < RANS_L && p3 < end3 { state3 = (state3 << 8) | unsafe { *s3.get_unchecked(p3) as u32 }; p3 += 1; }
+                if p3 < end3 { state3 = (state3 << 8) | unsafe { /* SAFETY: p3 < end3 is checked */ debug_assert!(p3 < s3.len()); *s3.get_unchecked(p3) as u32 }; p3 += 1; }
+                if state3 < RANS_L && p3 < end3 { state3 = (state3 << 8) | unsafe { /* SAFETY: p3 < end3 is checked */ debug_assert!(p3 < s3.len()); *s3.get_unchecked(p3) as u32 }; p3 += 1; }
             }
             if state4 < RANS_L {
-                if p4 < end4 { state4 = (state4 << 8) | unsafe { *s4.get_unchecked(p4) as u32 }; p4 += 1; }
-                if state4 < RANS_L && p4 < end4 { state4 = (state4 << 8) | unsafe { *s4.get_unchecked(p4) as u32 }; p4 += 1; }
+                if p4 < end4 { state4 = (state4 << 8) | unsafe { /* SAFETY: p4 < end4 is checked */ debug_assert!(p4 < s4.len()); *s4.get_unchecked(p4) as u32 }; p4 += 1; }
+                if state4 < RANS_L && p4 < end4 { state4 = (state4 << 8) | unsafe { /* SAFETY: p4 < end4 is checked */ debug_assert!(p4 < s4.len()); *s4.get_unchecked(p4) as u32 }; p4 += 1; }
             }
             if state5 < RANS_L {
-                if p5 < end5 { state5 = (state5 << 8) | unsafe { *s5.get_unchecked(p5) as u32 }; p5 += 1; }
-                if state5 < RANS_L && p5 < end5 { state5 = (state5 << 8) | unsafe { *s5.get_unchecked(p5) as u32 }; p5 += 1; }
+                if p5 < end5 { state5 = (state5 << 8) | unsafe { /* SAFETY: p5 < end5 is checked */ debug_assert!(p5 < s5.len()); *s5.get_unchecked(p5) as u32 }; p5 += 1; }
+                if state5 < RANS_L && p5 < end5 { state5 = (state5 << 8) | unsafe { /* SAFETY: p5 < end5 is checked */ debug_assert!(p5 < s5.len()); *s5.get_unchecked(p5) as u32 }; p5 += 1; }
             }
             if state6 < RANS_L {
-                if p6 < end6 { state6 = (state6 << 8) | unsafe { *s6.get_unchecked(p6) as u32 }; p6 += 1; }
-                if state6 < RANS_L && p6 < end6 { state6 = (state6 << 8) | unsafe { *s6.get_unchecked(p6) as u32 }; p6 += 1; }
+                if p6 < end6 { state6 = (state6 << 8) | unsafe { /* SAFETY: p6 < end6 is checked */ debug_assert!(p6 < s6.len()); *s6.get_unchecked(p6) as u32 }; p6 += 1; }
+                if state6 < RANS_L && p6 < end6 { state6 = (state6 << 8) | unsafe { /* SAFETY: p6 < end6 is checked */ debug_assert!(p6 < s6.len()); *s6.get_unchecked(p6) as u32 }; p6 += 1; }
             }
             if state7 < RANS_L {
-                if p7 < end7 { state7 = (state7 << 8) | unsafe { *s7.get_unchecked(p7) as u32 }; p7 += 1; }
-                if state7 < RANS_L && p7 < end7 { state7 = (state7 << 8) | unsafe { *s7.get_unchecked(p7) as u32 }; p7 += 1; }
+                if p7 < end7 { state7 = (state7 << 8) | unsafe { /* SAFETY: p7 < end7 is checked */ debug_assert!(p7 < s7.len()); *s7.get_unchecked(p7) as u32 }; p7 += 1; }
+                if state7 < RANS_L && p7 < end7 { state7 = (state7 << 8) | unsafe { /* SAFETY: p7 < end7 is checked */ debug_assert!(p7 < s7.len()); *s7.get_unchecked(p7) as u32 }; p7 += 1; }
             }
         }
 
@@ -406,6 +415,8 @@ impl Rans8Coder {
             let end_k = sk.len();
 
             let slot = (st & (RANS_SCALE - 1)) as usize;
+            debug_assert!(slot < lut.len());
+            // SAFETY: slot is computed via state & (RANS_SCALE - 1), strictly bounded by lut.len().
             let entry = unsafe { *lut.get_unchecked(slot) };
             debug_assert!(out_idx + k < out.len());
             // SAFETY: out_idx + rem == orig_len == out.len(), with k < rem.
@@ -415,8 +426,8 @@ impl Rans8Coder {
 
             st = (entry.freq as u32) * (st >> RANS_SCALE_BITS) + (slot as u32) - (entry.bias as u32);
             if st < RANS_L {
-                if sp < end_k { st = (st << 8) | unsafe { *sk.get_unchecked(sp) as u32 }; sp += 1; }
-                if st < RANS_L && sp < end_k { st = (st << 8) | unsafe { *sk.get_unchecked(sp) as u32 }; sp += 1; }
+                if sp < end_k { st = (st << 8) | unsafe { /* SAFETY: sp < end_k is checked */ debug_assert!(sp < sk.len()); *sk.get_unchecked(sp) as u32 }; sp += 1; }
+                if st < RANS_L && sp < end_k { st = (st << 8) | unsafe { /* SAFETY: sp < end_k is checked */ debug_assert!(sp < sk.len()); *sk.get_unchecked(sp) as u32 }; sp += 1; }
             }
             states[k] = st;
             stream_pos[k] = sp;

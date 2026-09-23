@@ -12,8 +12,8 @@ pub(super) fn parse(data: &[u8]) -> Result<Vec<TransformDesc>, String> {
         let id = *data.get(offset).ok_or("Truncated compact transform list")?;
         offset += 1;
         let name = match id {
-            1 => "byte_transpose",
-            2 => "delta",
+            1 => "stage_1",
+            2 => "stage_3",
             _ => return Err(format!("Unknown compact transform identifier: {id}")),
         };
         let (stride, next) = decode_leb128(data, offset)?;
