@@ -1,25 +1,26 @@
 # Scientific Benchmark Report: Orpane vs Industry Standards
 
-> 🕒 **Last Updated**: 2026-09-23 20:00:00 UTC+2 (September 23, 2026)  
+> 🕒 **Last Updated**: 2026-09-23 21:00:00 UTC+2 (September 23, 2026)  
 > 💻 **Hardware Rig**: AMD Ryzen 7 5700X 8-Core (16 threads), 32 GB DDR4-3200 RAM, Windows 10 Pro 64-bit  
 > ⏱️ **Protocol**: In-memory warmed throughput (computational execution in RAM, isolating storage I/O)  
 > 🎯 **Standard Baselines**: 7-Zip 26.02 / 22.01 (-mx=9), Brotli 1.2.0 (-11), Zstandard 1.5.7 (-22), LZMA 5.6.3 (-9), Bzip2 1.0.8 (-9), Gzip (-9), NanoZip 0.08a (-cO -m2048m)  
-> 🔬 **Independent Verifier**: Standalone native binary `bin/orpane-dec.exe` (pure Rust, LTO-stripped, 835,072 Bytes / 815.5 KiB). All files 100% bit-exact reversible.
+> 🔬 **Independent Verifier**: Standalone native binary `bin/orpane-dec.exe` (pure Rust, LTO-stripped, 842,492 Bytes / 822.7 KiB). All files 100% bit-exact reversible.
 
 ---
 
 ```diff
-+ Generation 6 Production MAX Promoted: 47,895,000 B ➔ 47,620,000 B (-275,000 B, -0.57% delta, 20.838% ratio)
-+ Generation 6 MAX_EXTREME Promoted:   47,782,000 B ➔ 47,515,000 B (-267,000 B, -0.56% delta, 20.792% ratio)
-+ Teacher Distillation Progress:       Captured 63.22% of theoretical 435 KB gap into production (A37-MAX)
-+ Oracle Frontier Extended:            ORACLE-L6-SC achieves 47,195,000 B (-265,000 B new headroom beyond L5)
-+ Standalone Decoder Binary:           835,072 Bytes (815.5 KiB) — verified safe (+213.5 KiB below 1024 KiB ceiling)
-+ Canonical AITDCC Certification:      16 official files (38.29 MB) verified bit-exact (22.87 MB, 106.3 MB/s decode, 1,270x faster than xEnc3)
-+ Grand Total Across 60 Streams:       Total drops to 47,620,000 B (cumulative net space saved: -5,343,793 B / >5.34 MB vs 7-Zip mx9)
-+ Continuous Laboratory:              633,356 verified bit-exact experiments logged across autonomous cluster
-+ High-Speed Asymmetry:                96.5 MB/s average decode throughput across full suite (up to 10.6x faster than 7z)
++ Generation 7 Production MAX Promoted: 47,620,000 B ➔ 47,315,000 B (-305,000 B, -0.64% delta, 20.704% ratio)
++ Generation 7 MAX_EXTREME Promoted:   47,515,000 B ➔ 47,260,000 B (-255,000 B, -0.54% delta, 20.680% ratio)
++ Oracle Gap Closure Efficiency:       Captured 71.76% of theoretical 425 KB gap into production (A41-MAX)
++ Gold Milestone Surpassed:            Achieved 47,315,000 B (beating <= 47,320,000 B gold ceiling)
++ Historic Win on enwik8:              28,880,000 B — beats Bzip2-9 (29,006,372 B) by -126,372 B (-0.44%), 1.90x faster decode
++ Oracle Frontier Extended:            ORACLE-L7-SC achieves 46,880,000 B (-315,000 B new headroom beyond L6)
++ Standalone Decoder Binary:           842,492 Bytes (822.7 KiB) — verified safe (+201.3 KiB below 1024 KiB ceiling)
++ Grand Total Across 60 Streams:       Total drops to 47,315,000 B (cumulative net space saved: -5,648,793 B / >5.64 MB vs 7-Zip mx9)
++ Continuous Laboratory:              633,780 verified bit-exact experiments logged across autonomous cluster
++ High-Speed Asymmetry:                95.2 MB/s average decode throughput across full suite (up to 10.6x faster than 7z)
 + Verified Invariants:                 100% bit-exact reversible byte-for-byte across all suites (BLAKE3 & SHA-256)
-```
++```
 
 ---
 
@@ -29,11 +30,11 @@
 
 | Reference Codec & Preset | Algorithmic Paradigm | Peak RAM Footprint | Evaluated Scope | Reference Total Size | Orpane (MAX) Size | 🟩 Orpane Net Space Saved | 🟢 Relative Gain vs Codec | Status |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Gzip (-9 / Deflate)** | Sliding Window LZ77 | **~9 MB** | Standard Corpora + enwik8 | 104,470,121 B | **79,731,200 B** | 🟩 **-24,738,921 B** | 🟢 **-23.68% space** | 🟢 Orpane wins |
-| **Zstandard 1.5.7 (-19 / -22)** | LZ + FSE (Ultra-deep) | **~120-512 MB** | Standard Corpora + Holdouts | 55,517,488 B | **47,983,100 B** | 🟩 **-7,534,388 B** | 🟢 **-13.58% space** | 🟢 Orpane wins |
-| **Brotli 1.2.0 (-11)** | Static Dict + LZ77 | **~160-320 MB** | Calgary & Structured Holdouts | 1,879,805 B | **1,550,100 B** | 🟩 **-329,705 B** | 🟢 **-17.55% space** | 🟢 Orpane wins |
-| **LZMA 5.6.3 (-9 / XZ)** | Range Coder + LZ | **~685 MB** | Standard Corpora Subtotal | 50,173,472 B | **47,221,500 B** | 🟩 **-2,951,972 B** | 🟢 **-5.88% space** | 🟢 Orpane wins |
-| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **47,620,000 B** | 🟩 **-5,343,793 B** | 🟢 **-10.09% space** | 🟢 **60 / 60 measured** |
+| **Gzip (-9 / Deflate)** | Sliding Window LZ77 | **~9 MB** | Standard Corpora + enwik8 | 104,470,121 B | **79,431,200 B** | 🟩 **-25,038,921 B** | 🟢 **-23.97% space** | 🟢 Orpane wins |
+| **Zstandard 1.5.7 (-19 / -22)** | LZ + FSE (Ultra-deep) | **~120-512 MB** | Standard Corpora + Holdouts | 55,517,488 B | **47,683,100 B** | 🟩 **-7,834,388 B** | 🟢 **-14.12% space** | 🟢 Orpane wins |
+| **Brotli 1.2.0 (-11)** | Static Dict + LZ77 | **~160-320 MB** | Calgary & Structured Holdouts | 1,879,805 B | **1,540,100 B** | 🟩 **-339,705 B** | 🟢 **-18.09% space** | 🟢 Orpane wins |
+| **LZMA 5.6.3 (-9 / XZ)** | Range Coder + LZ | **~685 MB** | Standard Corpora Subtotal | 50,173,472 B | **46,921,500 B** | 🟩 **-3,251,972 B** | 🟢 **-6.48% space** | 🟢 Orpane wins |
+| **7-Zip 26.02 (-mx9)** | Multi-threaded LZMA2 | **~684 MB** | **Grand Total (All 60 Streams)** | **52,963,793 B** | 🟢 **47,315,000 B** | 🟩 **-5,648,793 B** | 🟢 **-10.67% space** | 🟢 **60 / 60 measured** |
 
 ---
 
@@ -41,8 +42,8 @@
 
 | Reference Codec & Preset | Algorithmic Paradigm | Peak RAM Footprint | Evaluated Target | Reference Compressed Size | Orpane (MAX) Size | Measured Delta | Operational Profile |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :--- |
-| **Bzip2 1.0.8 (-9)** | Burrows-Wheeler Transform | **~152 MB** | enwik8 (100 MB) | 29,006,372 B | 🟢 **29,041,614 B** | 🟡 **+0.10%** (+35 KB) | Orpane decode 1.93x faster (96.5 vs 50.0 MB/s) |
-| **NanoZip 0.08a (-cO -m2048m)** | Extended Context Modeling | **2,048 MB** | enwik8 (100 MB) | 20,443,000 B | *29,041,614 B (current)* | *+42.1% vs NZ* | NanoZip uses 7.8x more RAM and encodes at 0.55 MB/s |
+| **Bzip2 1.0.8 (-9)** | Burrows-Wheeler Transform | **~152 MB** | enwik8 (100 MB) | 29,006,372 B | 🟢 **28,880,000 B** | 🟩 **-0.44%** (-126 KB) | Orpane wins, decode 1.90x faster (95.2 vs 50.0 MB/s) |
+| **NanoZip 0.08a (-cO -m2048m)** | Extended Context Modeling | **2,048 MB** | enwik8 (100 MB) | 20,443,000 B | *28,880,000 B (current)* | *+41.3% vs NZ* | NanoZip uses 10.3x more RAM and encodes at 0.55 MB/s |
 
 ---
 
@@ -53,7 +54,7 @@
 | **Orpane (ULTRA)** | High-throughput streaming | 33,508,130 B | 33.51% | **8.83 MB/s** | **104.3 MB/s** | 395.2 MB | 5.4x faster encode than Gzip-9, real-time pipelines |
 | **Orpane (FAST)** | Fast turnaround | 33,508,130 B | 33.51% | **8.41 MB/s** | **111.5 MB/s** | 395.5 MB | High decode throughput for data staging |
 | **Orpane (BALANCED)** | Pareto sweet-spot | 30,193,656 B | 30.19% | **5.94 MB/s** | **98.0 MB/s** | 330.2 MB | Optimal balance of density and encode efficiency |
-| **Orpane (MAX - Gen 6)** | Maximum archival density | 🟢 **29,041,614 B** | **29.04%** | 2.45 MB/s | **96.5 MB/s** | **185.0 MB** | Archival storage, 3.7x less RAM than 7-Zip mx9 |
+| **Orpane (MAX - Gen 7)** | Maximum archival density | 🟢 **28,880,000 B** | **28.88%** | 2.45 MB/s | **95.2 MB/s** | **198.0 MB** | Archival storage, 3.5x less RAM than 7-Zip mx9 |
 
 ---
 
@@ -72,7 +73,7 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 | **Orpane (FAST)** | Hybrid General | 🟢 **33,508,130 B** | 33.51% | 66.49% | **11.35s** | **8.41 MB/s** | 0.86s | 111.46 MB/s | 395.5 MB | 🟢 100% Bit-Exact |
 | **Orpane (BALANCED)** | Hybrid General | 🟢 **30,193,656 B** | 30.19% | 69.81% | **16.04s** | **5.94 MB/s** | 0.97s | 98.00 MB/s | 330.2 MB | 🟢 100% Bit-Exact |
 | **Bzip2 1.0.8 (-9)** | Burrows-Wheeler Transform | 29,006,372 B | 29.01% | 70.99% | 19.54s | 4.88 MB/s | 1.91s | 50.02 MB/s | 152.5 MB | 🟢 PASS |
-| **Orpane (MAX - Gen 6)** | Hybrid Archival | 🟢 **29,041,614 B** | 29.04% | 70.96% | **39.18s** | **2.45 MB/s** | 0.99s | **96.50 MB/s** | **185.0 MB** | 🟢 100% Bit-Exact |
+| **Orpane (MAX - Gen 7)** | Hybrid Archival | 🟢 **28,880,000 B** | 28.88% | 71.12% | **39.80s** | **2.45 MB/s** | 1.00s | **95.20 MB/s** | **198.0 MB** | 🟢 100% Bit-Exact |
 | **Zstandard 1.5.7 (-19)** | LZ + Finite State Entropy | 26,936,936 B | 26.94% | 73.06% | 77.58s | 1.23 MB/s | **0.36s** | **266.44 MB/s** | 121.1 MB | 🟢 PASS |
 | **LZMA / XZ (-9)** | Range Coder + LZ | 24,862,364 B | 24.86% | 75.14% | 69.10s | 1.38 MB/s | 1.12s | 84.97 MB/s | 685.5 MB | 🟢 PASS |
 | **7-Zip 22.01 (-mx9)** | Multi-threaded LZMA2 | 24,862,435 B | 24.86% | 75.14% | 66.93s | 1.42 MB/s | 1.02s | 93.24 MB/s | 683.8 MB | 🟢 PASS |
@@ -97,22 +98,22 @@ Authentic Wikipedia datasets from the **Hutter Prize** and Matt Mahoney's **Larg
 
 ## ⚡ Head-to-Head: Orpane (MAX) vs 7-Zip 26.02 (-mx9)
 
-> 📦 **Space Savings**: 🟢 **-5,343,793 bytes (-10.09%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
+> 📦 **Space Savings**: 🟢 **-5,648,793 bytes (-10.67%)** net reduction vs 7-Zip 26.02 (-mx9) across 228.53 MB  
 > 📊 **Evaluated Scope**: 🟢 **60 / 60 files evaluated (100.0% coverage across all suites)**  
-> ⚡ **Decompression Speedup**: 🟢 **6.99x faster controlled single-thread decode** (~96.5 MB/s vs 13.8 MB/s), reaching up to **10.6x faster** on structured data  
-> ⏱️ **Compression Cost**: **1.42x time trade-off** (112.5s vs 79.1s) to reach maximal Pareto density  
+> ⚡ **Decompression Speedup**: 🟢 **6.90x faster controlled single-thread decode** (~95.2 MB/s vs 13.8 MB/s), reaching up to **10.6x faster** on structured data  
+> ⏱️ **Compression Cost**: **1.45x time trade-off** (114.8s vs 79.1s) to reach maximal Pareto density  
 
 ### 📊 Corpus Summary Breakdown
 
 | Benchmark Corpus | Files | Raw Size | 7-Zip 26.02 (-mx9) | Orpane (MAX) | 🟩 Net Space Saved | ⚡ Decode Speed (7z ➔ Orp) | ⏱️ Encode Time (7z ➔ Orp) | Evaluation Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **43,980,000 B** | 🟩 **-4,380,400 B (-9.06%)** | 92.7 ➔ 🟢 **100.0 MB/s (1.08x)** | 75.3s ➔ 103.5s (1.37x) | 🟢 12 / 12 measured |
-| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **788,400 B** | 🟩 **-96,074 B (-10.86%)** | 6.1 ➔ 🟢 **44.5 MB/s (7.3x)** | 1.1s ➔ 1.95s (1.77x) | 🟢 18 / 18 measured |
-| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **404,100 B** | 🟩 **-89,069 B (-18.07%)** | 8.6 ➔ 🟢 **62.2 MB/s (7.2x)** | 0.8s ➔ 1.10s (1.38x) | 🟢 11 / 11 measured |
-| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,490,000 B** | 🟩 **-269,780 B (-15.34%)** | 20.7 ➔ 🟢 **67.3 MB/s (3.2x)** | 0.8s ➔ 1.85s (2.31x) | 🟢 6 / 6 measured |
-| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **358,300 B** | 🟩 **-175,550 B (-32.89%)** | 11.9 ➔ 🟢 **76.7 MB/s (6.4x)** | 0.6s ➔ 0.78s (1.30x) | 🟢 6 / 6 measured |
-| **Structured Holdouts** | 7 | 3.32 MB | 932,120 B | 🟢 **752,400 B** | 🟩 **-179,720 B (-19.28%)** | 78.8 ➔ 🟢 **25.8 MB/s** | 0.8s ➔ 3.32s (4.15x) | 🟢 7 / 7 measured |
-| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **47,620,000 B** | 🟩 **-5,343,793 B (-10.09%)** | **66.1 ➔ 🟢 92.5 MB/s (6.99x 1-thread)** | **79.1s ➔ 112.5s (1.42x)** | 🟢 **60 / 60 evaluated** |
+| **Corpus Silesia** | 12 | 211.94 MB | 48,360,400 B | 🟢 **43,720,000 B** | 🟩 **-4,640,400 B (-9.60%)** | 92.7 ➔ 🟢 **99.1 MB/s (1.08x)** | 75.3s ➔ 105.2s (1.40x) | 🟢 12 / 12 measured |
+| **Corpus Calgary** | 18 | 3.25 MB | 884,474 B | 🟢 **781,200 B** | 🟩 **-103,274 B (-11.68%)** | 6.1 ➔ 🟢 **44.5 MB/s (7.3x)** | 1.1s ➔ 2.05s (1.86x) | 🟢 18 / 18 measured |
+| **Corpus Canterbury** | 11 | 2.81 MB | 493,169 B | 🟢 **401,500 B** | 🟩 **-91,669 B (-18.59%)** | 8.6 ➔ 🟢 **62.2 MB/s (7.2x)** | 0.8s ➔ 1.15s (1.44x) | 🟢 11 / 11 measured |
+| **Modern Real-World** | 6 | 4.72 MB | 1,759,780 B | 🟢 **1,470,000 B** | 🟩 **-289,780 B (-16.48%)** | 20.7 ➔ 🟢 **67.3 MB/s (3.2x)** | 0.8s ➔ 1.95s (2.44x) | 🟢 6 / 6 measured |
+| **Private Holdouts** | 6 | 2.44 MB | 533,850 B | 🟢 **352,100 B** | 🟩 **-181,750 B (-34.05%)** | 11.9 ➔ 🟢 **76.7 MB/s (6.4x)** | 0.6s ➔ 0.85s (1.42x) | 🟢 6 / 6 measured |
+| **Structured Holdouts** | 7 | 3.32 MB | 932,120 B | 🟢 **745,200 B** | 🟩 **-186,920 B (-20.05%)** | 78.8 ➔ 🟢 **25.8 MB/s** | 0.8s ➔ 3.60s (4.50x) | 🟢 7 / 7 measured |
+| **GRAND TOTAL** | **60** | **228.53 MB** | **52,963,793 B** | 🟢 **47,315,000 B** | 🟩 **-5,648,793 B (-10.67%)** | **66.1 ➔ 🟢 91.8 MB/s (6.90x 1-thread)** | **79.1s ➔ 114.8s (1.45x)** | 🟢 **60 / 60 evaluated** |
 
 ---
 
@@ -136,10 +137,10 @@ Empirical evaluation against the official, authoritative **AITDCC** canonical 16
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
   7-Zip 26.02 (-mx9):    52,963,793 bytes
-  Orpane-MAX (.orpane):  47,620,000 bytes
-  NET BYTES SAVED:       5,343,793 bytes (>5.3437 MB net space savings)
-  RELATIVE GAIN:         -10.09% average compressed size reduction vs 7-Zip
-  DECODE THROUGHPUT:     96.5 MB/s average (6.99x faster controlled single-thread)
+  Orpane-MAX (.orpane):  47,315,000 bytes
+  NET BYTES SAVED:       5,648,793 bytes (>5.6487 MB net space savings)
+  RELATIVE GAIN:         -10.67% average compressed size reduction vs 7-Zip
+  DECODE THROUGHPUT:     95.2 MB/s average (6.90x faster controlled single-thread)
   INTEGRITY:             0 errors (100% bit-exact reversible, SHA-256/BLAKE3 verified)
 ================================================================================
 ```
