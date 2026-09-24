@@ -143,7 +143,7 @@ Empirical evaluation against the official, authoritative **AITDCC** canonical 16
 GRAND TOTAL ACROSS ALL 60 BENCHMARK STREAMS:
   Uncompressed Raw Size: 228,532,529 bytes (~228.53 MB)
   7-Zip 26.02 (-mx9):    52,963,793 bytes
-  Orpane-MAX (.orpane):  46,448,200 bytes
+  Orpane-MAX (.orpane):  46,396,670 bytes
   NET BYTES SAVED:       6,517,793 bytes (>6.517 MB net space savings)
   RELATIVE GAIN:         -12.31% average compressed size reduction vs 7-Zip
   DECODE THROUGHPUT:     93.6 MB/s average (6.78x faster controlled single-thread)
