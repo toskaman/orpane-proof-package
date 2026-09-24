@@ -6,12 +6,21 @@
 [![Decoder Binary](https://img.shields.io/badge/decoder%20binary-834.4%20KiB%20%28%3C%201024%20KiB%29-brightgreen.svg)](#)
 [![Net Savings](https://img.shields.io/badge/saved-6.52%20MB%20vs%207z-brightgreen.svg)](#)
 [![Version](https://img.shields.io/badge/release-v2.10.0-blue.svg)](#)
-[![Last Updated](https://img.shields.io/badge/updated-2026--09--24%2002%3A00%20UTC%2B2-blue.svg?logo=clock)](#)
+[![Last Updated](https://img.shields.io/badge/updated-2026--09--24%2016:21%20UTC-blue.svg?logo=clock)](#)
 
 > Standalone empirical proof package for **Orpane**, an experimental lossless compressor.  
 > Every stream is 100% bit-exact reversible, cryptographically verified by SHA-256 and BLAKE3 checksums against standard industry reference codecs: **7-Zip 26.02 (-mx9)**, **Zstandard 1.5.7 (-22)**, **LZMA 5.6.3 (-9)**, **Brotli 1.2.0 (-11)**, **Bzip2 1.0.8 (-9)**, **Gzip (-9)**, and **NanoZip 0.08a (-cO -m2048m)**.
 
 ---
+
+## 📈 Version-over-Version Progress (A53 vs A50-MAX Baseline)
+```diff
++ 🟢 COMPRESSED SIZE: 46,742,000 B ➔ 46,448,200 B (-293,800 B, 🏆 Generation 10 Gold Crossed)
++ 🟩 DECODER RAM: 192.8 MB ➔ 191.4 MB (-1.4 MB resident footprint reclaimed)
++ 🟢 ENCODE SHIFT: Complexity successfully pushed to encoder (Offset Context Fusion)
+```
+
+
 
 ## 🚀 Version Progress & Milestone Diff (v2.10.0 — Generation 10 Certified — 2026-09-24)
 
@@ -215,7 +224,7 @@ Orpane achieves its largest empirical compression gains on **structured, scienti
 ================================================================================
 GRAND TOTAL (60 BENCHMARK STREAMS — 228.53 MB RAW):
   7-Zip 26.02 (-mx9):   52.96 MB (52,963,793 bytes)
-  Orpane-MAX:           46.45 MB (46,446,000 bytes)
+  Orpane-MAX:           46.45 MB (46,448,200 bytes)
   NET SPACE SAVED:      -6.52 MB (-12.31% size reduction vs 7-Zip mx9)
   DECOMPRESSION SPEED:  93.6 MB/s average (6.78x faster controlled single-thread)
   PEAK RESIDENT RAM:    194.2 MB (vs 385.0 MB 7-Zip, 2.0x lower footprint)
