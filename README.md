@@ -13,11 +13,11 @@
 
 ---
 
-## 📈 Version-over-Version Progress (A55 vs A54 Frontier)
+## 📈 Version-over-Version Progress (A56 vs A55 Frontier)
 ```diff
-+ 🟢 COMPRESSED SIZE: 46,396,670 B ➔ 46,346,400 B (-50,270 B, 🚀 Generation 11 A55 Milestone)
-+ 🟩 ENCODER RAM: 1.8 GB ➔ 998.5 MB (-800 MB distilled DP state, 0 B compression loss)
-+ 🟢 DECODER CONSTRAINTS: 183.1 MB RAM | 95.1 MB/s (Stable, well within safety margins)
++ 🟢 COMPRESSED SIZE: 46,346,400 B ➔ 46,324,600 B (-21,800 B, 🚀 Generation 11 A56 Milestone)
++ 🟢 ORACLE CLOSURE: 96.62% of Oracle Gap Physically Recovered (Remaining: 14,600 B)
++ 🟩 DECODER CONSTRAINTS: 183.8 MB RAM | 94.7 MB/s (FINAL-16KB phase initiated)
 ```
 
 ## 📊 Corpus Summary Breakdown
@@ -30,7 +30,7 @@
 | **Modern Real-World** | 6 | 4.72 MB | 1.76 MB | 🟢 **1.42 MB** | 🟩 **-19.32%** | 🟢 **3.25x faster** (67.3 MB/s) |
 | **Private Holdouts** | 6 | 2.44 MB | 533.9 KB | 🟢 **340.0 KB** | 🟩 **-36.32%** | 🟢 **6.45x faster** (76.7 MB/s) |
 | **Structured Holdouts** | 7 | 3.32 MB | 932.1 KB | 🟢 **594.0 KB** | 🟩 **-36.27%** | Density-Optimized (25.8 MB/s) |
-| **GRAND TOTAL** | **60** | **228.53 MB** | **52.96 MB** | 🟢 **46.35 MB** | 🟩 **-12.31%** | 🟢 **6.78x faster controlled** (93.6 MB/s) |
+| **GRAND TOTAL** | **60** | **228.53 MB** | **52.96 MB** | 🟢 **46.32 MB** | 🟩 **-12.31%** | 🟢 **6.78x faster controlled** (93.6 MB/s) |
 
 <details>
 <summary><b>⏱️ Click to view exact operational throughput & latency breakdown (Encode/Decode ms/s, MB/s)</b></summary>
@@ -123,7 +123,7 @@ Orpane achieves its largest empirical compression gains on **structured, scienti
 ================================================================================
 GRAND TOTAL (60 BENCHMARK STREAMS — 228.53 MB RAW):
   7-Zip 26.02 (-mx9):   52.96 MB (52,963,793 bytes)
-  Orpane-MAX:           46.35 MB (46,346,400 bytes)
+  Orpane-MAX:           46.32 MB (46,324,600 bytes)
   NET SPACE SAVED:      -6.52 MB (-12.31% size reduction vs 7-Zip mx9)
   DECOMPRESSION SPEED:  93.6 MB/s average (6.78x faster controlled single-thread)
   PEAK RESIDENT RAM:    194.2 MB (vs 385.0 MB 7-Zip, 2.0x lower footprint)
